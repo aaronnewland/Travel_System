@@ -34,7 +34,7 @@ public class ApplicationDB extends HttpServlet {
         }
         try {
             //Create a connection to your DB
-            connection = DriverManager.getConnection(connectionUrl,"root", "root");
+            connection = DriverManager.getConnection(connectionUrl,"root", "rootroot");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class ApplicationDB extends HttpServlet {
         }
         try {
             //Create a connection to your DB
-            connection = DriverManager.getConnection(connectionUrl,"root", "root");
+            connection = DriverManager.getConnection(connectionUrl,"root", "rootroot");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
