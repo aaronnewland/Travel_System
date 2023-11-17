@@ -16,7 +16,7 @@ public class ApplicationDB extends HttpServlet {
     public Connection getConnection(){
 
         //Create a connection string
-        String connectionUrl = "jdbc:mysql://localhost:3306/Travel";
+        String connectionUrl = "jdbc:mysql://localhost:3306/travel";
         Connection connection = null;
 
         try {
@@ -34,7 +34,7 @@ public class ApplicationDB extends HttpServlet {
         }
         try {
             //Create a connection to your DB
-            connection = DriverManager.getConnection(connectionUrl,"root", "root");
+            connection = DriverManager.getConnection(connectionUrl,"root", "rootroot");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class ApplicationDB extends HttpServlet {
         }
         try {
             //Create a connection to your DB
-            connection = DriverManager.getConnection(connectionUrl,"root", "root");
+            connection = DriverManager.getConnection(connectionUrl,"root", "rootroot");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
