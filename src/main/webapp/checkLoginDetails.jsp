@@ -2,6 +2,7 @@
          pageEncoding="ISO-8859-1" import="com.example.travel_system.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
+<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,7 +18,7 @@
 //            "root");
     Statement st = con.createStatement();
     ResultSet rs;
-    rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd
+    rs = st.executeQuery("select * from users where username='" + userid + "' and BINARY password='" + pwd
             + "'");
     if (rs.next()) {
         session.setAttribute("user", userid); // the username will be stored in the session
