@@ -113,7 +113,7 @@
         FAQ
       </h3>
       <div>
-        <form>
+        <form action="searchFAQ.jsp" method="POST">
           Search Questions: <input type="search" name="search_q"/> <br/>
           <div class="center">
             <input type="submit" value="Search"/>
