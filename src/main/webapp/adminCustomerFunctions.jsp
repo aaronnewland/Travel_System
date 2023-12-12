@@ -35,11 +35,11 @@
     ResultSet rs = null;
     
     //testCODE
-    first_name = "a";
+   /*  first_name = "a";
     mid_init="b";
     last_name="c";
 	passed_cust_id=99;
-	cust_id_to_delete=104;
+	cust_id_to_delete=104; */
     try {
         Class.forName("com.mysql.jdbc.Driver");
         ApplicationDB db = new ApplicationDB();
