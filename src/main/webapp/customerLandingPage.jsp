@@ -124,7 +124,7 @@
         FAQ Table
       </div>
       <div class="center">
-        <form>
+        <form action="postFAQ.jsp" method="POST">
           <div class="center">
             Post a question.
           </div>

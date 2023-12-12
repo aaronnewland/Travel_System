@@ -22,9 +22,6 @@
 </head>
 <body>
 <%
-
-//    String search_term = "apple"; //grab parameter instead of "apple"
-
     String search_term = request.getParameter("search_q");
 
     Class.forName("com.mysql.jdbc.Driver");

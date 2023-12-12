@@ -20,7 +20,7 @@
 </head>
 <body>
 <%
-    String post_term = "testpost"; //get parameter
+    String post_term = request.getParameter("question");
 
     Connection con = null;
     PreparedStatement pstmt = null;
@@ -38,24 +38,26 @@
         pstmt.setString(1, post_term);
         pstmt.executeUpdate();
 
+        response.sendRedirect("customerLandingPage.jsp");
+
         // Fetching data
-        st = con.createStatement();
-        rs = st.executeQuery("SELECT * FROM FAQ;");
-        out.println("<table>");
-        out.println("<tr><th>Question_No</th><th>Question</th><th>Answer</th>");
-
-        while (rs.next()) {
-            String qid = rs.getString(1);
-            String question = rs.getString(2);
-            String answer = rs.getString(3);
-
-            out.println("<tr>");
-            out.println("<td>" + qid + "</td>");
-            out.println("<td>" + question + "</td>");
-            out.println("<td>" + answer + "</td>");
-            out.println("</tr>");
-        }
-        out.println("</table>");
+//        st = con.createStatement();
+//        rs = st.executeQuery("SELECT * FROM FAQ;");
+//        out.println("<table>");
+//        out.println("<tr><th>Question_No</th><th>Question</th><th>Answer</th>");
+//
+//        while (rs.next()) {
+//            String qid = rs.getString(1);
+//            String question = rs.getString(2);
+//            String answer = rs.getString(3);
+//
+//            out.println("<tr>");
+//            out.println("<td>" + qid + "</td>");
+//            out.println("<td>" + question + "</td>");
+//            out.println("<td>" + answer + "</td>");
+//            out.println("</tr>");
+//        }
+//        out.println("</table>");
     } catch (Exception e) {
         e.printStackTrace(); // For simplicity, printing stack trace. Consider logging this properly.
     } finally {
