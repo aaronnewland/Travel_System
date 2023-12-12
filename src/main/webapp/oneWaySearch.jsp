@@ -43,7 +43,7 @@
    
     
     out.println("<table>");
-    out.println("<tr><th>Arrival City</th><th>Booking Fees</th><th>Sum of Fares</th><th>Flight IDs</th><th>Total Cost</th><th>Airline IDs</th><th>Aircraft IDs</th><th>Duration in min</th></tr>");
+    out.println("<tr><th>Arrival City</th><th>Booking Fees</th><th>Sum of Fares</th><th>Flight IDs</th><th>Total Cost</th><th>Airline IDs</th><th>Aircraft IDs</th><th>Duration in min</th><th>departure time</th><th>Arrival time</th></tr>");
 
     // Process the ResultSet and add rows to the table
     while (rs.next()) {
@@ -55,6 +55,8 @@
         String airline_ids = rs.getString("airline_ids");
         String aircraft_ids = rs.getString("aircraft_ids");
         Integer total_duration = rs.getInt("total_duration");
+        String depart_time = rs.getString("depart_time");
+       	String arrival_time = rs.getString("arrival_time");
 
         out.println("<tr>");
         out.println("<td>" + arrival_city + "</td>");
@@ -65,6 +67,8 @@
         out.println("<td>" + airline_ids + "</td>");
         out.println("<td>" + aircraft_ids + "</td>");
         out.println("<td>" + total_duration + "</td>");
+        out.println("<td>" + depart_time + "</td>");
+        out.println("<td>" + arrival_time + "</td>");
         out.println("</tr>");
         
         // execute a query that inserts ite_id, and string.split of f_id,airline_id,aircraft_id
