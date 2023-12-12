@@ -47,32 +47,38 @@
       </h3>
     </div>
     <div class="center">
-      <form action="customerFlightSearch.jsp" method="POST">
+      <form action="oneWaySearch.jsp" method="POST">
         <div class="center">
           Search a flight (specific date):
           <div class="center">
-            <input type="radio" id="one_way_specific" name="trip_type_specific" value="ONE_WAY_SPECIFIC">
+            <input type="radio" id="one_way_specific" name="trip_type" value="ONE_WAY_SPECIFIC">
             <label for="one_way_specific">One Way</label>
-            <input type="radio" id="round_trip_specific" name="trip_type_specific" value="ROUND_TRIP_SPECIFIC">
+            <input type="radio" id="round_trip_specific" name="trip_type" value="ROUND_TRIP_SPECIFIC">
             <label for="round_trip_specific">Round Trip</label>
           </div>
         </div>
-        <div class="center padTop">
-          Departure Airport: <input type="text" name="departure"/>
-          <div class="padLeft">
-            Destination Airport: <input type="text" name="destination"/>
+        <div class="center">
+          <div class="center">
+            Search a flight (flexible dates within 3 days):
+            <div class="center">
+              <input type="radio" id="one_way_flex" name="trip_type" value="ONE_WAY_FLEX">
+              <label for="one_way_flex">One Way</label>
+              <input type="radio" id="round_trip_flex" name="trip_type" value="ROUND_TRIP_FLEX">
+              <label for="round_trip_flex">Round Trip</label>
+            </div>
           </div>
-        </div>
-        <div class="center padTop header">
-          <input type="submit" value="Search Flights"/>
         </div>
         <div class="center">
-          Search a flight (flexible dates within 3 days):
           <div class="center">
-            <input type="radio" id="one_way_flex" name="trip_type_flex" value="ONE_WAY_FLEX">
-            <label for="one_way_flex">One Way</label>
-            <input type="radio" id="round_trip_flex" name="trip_type_flex" value="ROUND_TRIP_FLEX">
-            <label for="round_trip_flex">Round Trip</label>
+            Seat Type:
+            <div class="center">
+              <input type="radio" id="economy" name="seat_type" value="ECONOMY">
+              <label for="economy">Economy</label>
+              <input type="radio" id="business" name="seat_type" value="BUSINESS">
+              <label for="business">Business</label>
+              <input type="radio" id="first" name="seat_type" value="FIRST">
+              <label for="first">First Class</label>
+            </div>
           </div>
         </div>
         <div class="center padTop">
@@ -80,6 +86,9 @@
           <div class="padLeft">
             Destination Airport: <input type="text" name="destination"/>
           </div>
+        </div>
+        <div class="center">
+          <input type="date" value="Flight Date" name="flight_date"/>
         </div>
         <div class="center padTop header">
           <input type="submit" value="Search Flights"/>
