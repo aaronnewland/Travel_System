@@ -10,24 +10,44 @@
 <%
     String userid = request.getParameter("username");
     String pwd = request.getParameter("password");
-    Class.forName("com.mysql.jdbc.Driver");
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+    } catch (ClassNotFoundException e) {
+        throw new RuntimeException(e);
+    }
     ApplicationDB db = new ApplicationDB();
     Connection con = db.getConnection();
-//    Connection con = db.getConnection("jdbc:mysql://localhost:3306/Travel");
-//    Connection con = db.getConnection("jdbc:mysql://localhost:3306/Travel","root",
-//            "root");
-    Statement st = con.createStatement();
+    Statement st = null;
+    try {
+        st = con.createStatement();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
     ResultSet rs;
-    rs = st.executeQuery("select * from users where username='" + userid + "' and BINARY password='" + pwd
-            + "'");
-    if (rs.next()) {
-        session.setAttribute("user", userid); // the username will be stored in the session
-        out.println("welcome " + userid);
-        out.println("<a href='logout.jsp'>Log out</a>");
-        response.sendRedirect("customerLandingPage.jsp");
-//          response.sendRedirect("displayLoginDetails.jsp");
-    } else {
-        out.println("Invalid password <a href='login.jsp'>try again</a>");
+    try {
+        rs = st.executeQuery("select * from users where username='" + userid + "' and BINARY password='" + pwd
+                + "'");
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+    try {
+        if (rs.next()) {
+            session.setAttribute("user", userid); // the username will be stored in the session
+            String access = rs.getString("access");
+            out.println("welcome " + userid);
+            out.println("<a href='logout.jsp'>Log out</a>");
+            if ("user".equals(access)) {
+                response.sendRedirect("customerLandingPage.jsp");
+            } else if ("admin".equals(access)) {
+                response.sendRedirect("adminLandingPage.jsp");
+            } else if ("rep".equals(access)) {
+                response.sendRedirect("repLandingPage.jsp");
+            }
+        } else {
+            out.println("Invalid password <a href='login.jsp'>try again</a>");
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
     }
 %>
 </body>
