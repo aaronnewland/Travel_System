@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" import="com.example.travel_system.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
-<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
+<%@ page import="java.sql.*"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,7 +15,7 @@
     }
     ApplicationDB db = new ApplicationDB();
     Connection con = db.getConnection();
-    Statement st = null;
+    Statement st;
     try {
         st = con.createStatement();
     } catch (SQLException e) {
@@ -25,7 +23,7 @@
     }
     ResultSet rs;
     try {
-        rs = st.executeQuery("select * from users where username='" + userid + "' and BINARY password='" + pwd
+        rs = st.executeQuery("SELECT * FROM users WHERE username='" + userid + "' AND BINARY password='" + pwd
                 + "'");
     } catch (SQLException e) {
         throw new RuntimeException(e);

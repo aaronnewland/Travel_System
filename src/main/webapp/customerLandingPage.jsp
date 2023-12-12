@@ -1,3 +1,4 @@
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html>
 <style>
@@ -82,13 +83,16 @@
           </div>
         </div>
         <div class="center padTop">
-          Departure Airport: <input type="text" name="departure"/>
+          <label for="departure">Departure Airport: </label>
+          <input type="text" id="departure" name="DEPARTURE"/>
           <div class="padLeft">
-            Destination Airport: <input type="text" name="destination"/>
+            <label for="destination">Destination Airport: </label>
+            <input type="text" id="destination" name="DESTINATION"/>
           </div>
         </div>
         <div class="center">
-          <input type="date" value="Flight Date" name="flight_date"/>
+          <label for="flightDate">Desired date: </label>
+          <input type="date" value="Flight Date" id="flightDate" name="FLIGHT_DATE" min="<%= LocalDate.now().toString() %>"/>
         </div>
         <div class="center padTop header">
           <input type="submit" value="Search Flights"/>
@@ -110,7 +114,8 @@
       <div>
         Cancel a flight? (Business/First Class only)
         <form>
-          Flight Code: <input type="text" name="code"/> <br/>
+          <label for="fCode">Flight Code: </label>
+          <input type="text" id="fCode" name="F_CODE"/> <br/>
           <div class="center">
             <input type="submit" value="Submit"/>
           </div>
@@ -123,7 +128,8 @@
       </h3>
       <div>
         <form action="searchFAQ.jsp" method="POST">
-          Search Questions: <input type="search" name="search_q"/> <br/>
+          <label for="searchQ">Search Questions: </label>
+          <input type="search" id="searchQ" name="SEARCH_Q"/> <br/>
           <div class="center">
             <input type="submit" value="Search"/>
           </div>
@@ -135,9 +141,9 @@
       <div class="center">
         <form action="postFAQ.jsp" method="POST">
           <div class="center">
-            Post a question.
+            <label for="question_to_post">Post a question: </label>
           </div>
-          <textarea id="question_to_post" name="question" rows="4" cols="50"></textarea>
+          <textarea id="question_to_post" name="QUESTION" rows="4" cols="50"></textarea>
           <div class="center">
             <input type="submit" value="Post"/>
           </div>
