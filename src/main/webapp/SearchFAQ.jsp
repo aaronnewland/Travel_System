@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flight Path Results</title>
+    <title>Search FAQ</title>
     <style>
         table, th, td {
             border: 1px solid black;

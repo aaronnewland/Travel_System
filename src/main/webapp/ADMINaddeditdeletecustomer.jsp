@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Post a Question</title>
+    <title>Flight Path Results</title>
     <style>
         table, th, td {
             border: 1px solid black;
