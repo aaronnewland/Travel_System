@@ -33,6 +33,11 @@
 	int numconnect = 4;
     String departure_date = request.getParameter("flightDate");
     String flexOption = request.getParameter("tripType");
+
+    String customerID = (String) session.getAttribute("customerIDGlobal");
+    if (customerID.equals("0")) {
+        customerID = request.getParameter("customerIDReservation");
+    }
 %>
 <form action="oneWaySearch.jsp" method="POST">
     <div class="center">

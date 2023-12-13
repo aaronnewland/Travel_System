@@ -45,8 +45,10 @@
                 response.sendRedirect(request.getContextPath() + "/customerPages/customerLandingPage.jsp");
             } else if ("admin".equals(access)) {
                 response.sendRedirect(request.getContextPath() + "/adminPages/adminLandingPage.jsp");
+                session.setAttribute("customerIDGlobal", "0");
             } else if ("rep".equals(access)) {
                 response.sendRedirect(request.getContextPath() + "/repPages/repLandingPage.jsp");
+                session.setAttribute("customerIDGlobal", "0");
             }
         } else {
             out.println("Invalid password <a href='login.jsp'>try again</a>");
