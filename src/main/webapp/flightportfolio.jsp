@@ -31,8 +31,9 @@
     
     out.println("<h2>Flights Departing Before Current Datetime</h2>");
     out.println("<table>");
-    out.println("<tr><th>Airline ID</th><th>Aircraft ID</th><th>Flight IDs</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
+    out.println("<tr><th>Ticket_number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight IDs</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
     while (rsBefore.next()) {
+    	String ticket_number = rsBefore.getString("ticket_number");
         String airline_id = rsBefore.getString("airline_id");
         String aircraft_id = rsBefore.getString("aircraft_id");
         String f_id = rsBefore.getString("f_id");
@@ -40,9 +41,10 @@
         String arrival_time = rsBefore.getString("arrival_time");
         String departure_apt = rsBefore.getString("departure_apt");
         String arrival_apt = rsBefore.getString("arrival_apt");
-        Double fare = rsBefore.getDouble("fare"); // Assuming the fare is in a column named "fare"
+        Double fare = rsBefore.getDouble(10)+rsBefore.getDouble(11);
 
         out.println("<tr>");
+        out.println("<td>" + ticket_number + "</td>");
         out.println("<td>" + airline_id + "</td>");
         out.println("<td>" + aircraft_id + "</td>");
         out.println("<td>" + f_id + "</td>");
@@ -56,13 +58,14 @@
     out.println("</table>");
 
     // Flights departing after the current datetime
-    ResultSet rsAfter = st.executeQuery("SELECT * FROM flight f, ticketed_flights tf WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND cust_id = " + Custid + " AND departure_time < NOW() ORDER BY departure_time ASC;");
+    ResultSet rsAfter = st.executeQuery("SELECT * FROM flight f, ticketed_flights tf WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND cust_id = " + Custid + " AND departure_time > NOW() ORDER BY departure_time ASC;");
 
     out.println("<h2>Flights Departing After Current Datetime</h2>");
     out.println("<table>");
-    out.println("<tr><th>Airline ID</th><th>Aircraft ID</th><th>Flight IDs</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
+    out.println("<tr><th>Ticket_number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight IDs</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
     while (rsAfter.next()) {
         // Assuming same column names as in rsBefore
+        String ticket_number = rsAfter.getString("ticket_number");
         String airline_id = rsAfter.getString("airline_id");
         String aircraft_id = rsAfter.getString("aircraft_id");
         String f_id = rsAfter.getString("f_id");
@@ -70,9 +73,10 @@
         String arrival_time = rsAfter.getString("arrival_time");
         String departure_apt = rsAfter.getString("departure_apt");
         String arrival_apt = rsAfter.getString("arrival_apt");
-        Double fare = rsAfter.getDouble("fare");
+        Double fare = rsAfter.getDouble(10)+rsAfter.getDouble(11);
 
         out.println("<tr>");
+        out.println("<td>" + ticket_number + "</td>");
         out.println("<td>" + airline_id + "</td>");
         out.println("<td>" + aircraft_id + "</td>");
         out.println("<td>" + f_id + "</td>");
