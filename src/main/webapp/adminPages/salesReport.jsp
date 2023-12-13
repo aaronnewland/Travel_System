@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<h1>STUB PAGE SALES REPORT</h1>
+	<h1>SALES REPORT</h1>
     <title>Sales Report</title>
     <style>
         table, th, td {

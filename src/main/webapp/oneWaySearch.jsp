@@ -69,6 +69,12 @@
         out.println("<td>" + total_duration + "</td>");
         out.println("<td>" + depart_time + "</td>");
         out.println("<td>" + arrival_time + "</td>");
+        out.println("<td>");
+        out.println("<form action='purchaseTicket.jsp' method='POST'>");
+        out.println("<input type='hidden' name='flightId' value='" + flight_ids + "'>");
+        out.println("<input type='submit' value='Purchase'>");
+        out.println("</form>");
+        out.println("</td>");
         out.println("</tr>");
         
         // execute a query that inserts ite_id, and string.split of f_id,airline_id,aircraft_id
