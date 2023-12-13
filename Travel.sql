@@ -40,7 +40,7 @@ CREATE TABLE `Aircrafts` (
 
 LOCK TABLES `Aircrafts` WRITE;
 /*!40000 ALTER TABLE `Aircrafts` DISABLE KEYS */;
-INSERT INTO `Aircrafts` VALUES (1,100,'AL'),(1,100,'SW'),(2,100,'AL'),(2,19,'UA'),(35,120,'AA'),(35,100,'SW'),(45,100,'JB'),(45,95,'SW'),(45,100,'UA'),(59,100,'JB'),(59,11,'SA'),(59,100,'SW'),(134,100,'AL'),(285,100,'AA'),(300,3000,'bc'),(300,100,'SA'),(300,100,'UA'),(321,100,'JB'),(357,100,'UA'),(452,100,'SW'),(478,100,'AA'),(567,100,'SA'),(690,100,'JB'),(719,100,'AL'),(786,100,'UA'),(812,100,'SW'),(872,100,'SA'),(873,100,'AL'),(954,100,'AA'),(954,100,'AL'),(954,250,'JB'),(9999,4000,'ab'),(9999,100,'SA');
+INSERT INTO `Aircrafts` VALUES (1,3,'AL'),(1,100,'SW'),(2,100,'AL'),(2,19,'UA'),(35,120,'AA'),(35,100,'SW'),(45,100,'JB'),(45,95,'SW'),(45,100,'UA'),(59,100,'JB'),(59,11,'SA'),(59,100,'SW'),(134,100,'AL'),(285,100,'AA'),(300,3000,'bc'),(300,100,'SA'),(300,100,'UA'),(321,100,'JB'),(357,100,'UA'),(452,100,'SW'),(478,100,'AA'),(567,100,'SA'),(690,100,'JB'),(719,100,'AL'),(786,100,'UA'),(812,100,'SW'),(872,100,'SA'),(873,100,'AL'),(954,100,'AA'),(954,100,'AL'),(954,250,'JB'),(9999,4000,'ab'),(9999,100,'SA');
 /*!40000 ALTER TABLE `Aircrafts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +270,7 @@ CREATE TABLE `flight` (
 
 LOCK TABLES `flight` WRITE;
 /*!40000 ALTER TABLE `flight` DISABLE KEYS */;
-INSERT INTO `flight` (`airline_id`, `aircraft_id`, `f_id`, `departure_time`, `arrival_time`, `departure_apt`, `arrival_apt`, `day_of_week`, `is_international`, `fare`, `booking_fee`) VALUES ('AA',35,3,'2023-12-15 23:59:59','2023-12-15 23:59:59','jfk','lhr','Monday',1,100,50),('AA',35,8,'2023-12-31 23:59:59','2023-12-31 23:59:59','ewr','sfo','Monday',0,100,50),('AA',35,10,NULL,NULL,'lax','jfk',NULL,NULL,100,50),('AA',35,44,'2023-01-01 08:00:00','2023-01-01 11:00:00','JFK','LAX','Monday',0,150,20),('AA',35,45,'2023-01-02 09:00:00','2023-01-02 12:00:00','LAX','JFK','Tuesday',0,160,20),('AA',35,52,'2023-01-06 09:00:00','2023-01-06 12:00:00','LAX','EWR','Friday',1,200,30),('AL',1,1,'2023-12-10 06:59:59','2023-12-10 15:59:59','ewr','lax','Monday',0,200,50),('AL',1,7,'2023-12-30 23:59:59','2023-12-30 23:59:59','mia','XHO','Monday',1,100,50),('AL',1,11,NULL,NULL,'mia','lax',NULL,NULL,100,50),('AL',1,12,'2023-12-12 04:59:48','2023-12-12 07:00:00','ewr','lax',NULL,NULL,NULL,NULL),('AL',1,47,'2023-01-01 07:00:00','2023-01-01 09:30:00','JFK','MIA','Monday',0,120,15),('AL',1,53,'2023-01-07 08:00:00','2023-01-07 11:00:00','EWR','LAX','Saturday',1,210,30),('JB',954,6,'2023-12-24 23:59:59','2023-12-24 23:59:59','sfo','phl','Monday',0,100,50),('JB',954,48,'2023-01-04 12:00:00','2023-01-04 15:00:00','SFO','PHL','Thursday',0,180,25),('SA',59,5,'2023-12-22 23:59:59','2023-12-22 23:59:59','sfo','lax','Monday',0,100,50),('SA',59,49,'2023-01-02 06:00:00','2023-01-02 08:00:00','PHL','SFO','Tuesday',0,140,20),('SW',45,4,'2023-12-19 23:59:59','2023-12-19 23:59:59','ewr','mia','Friday',0,100,50),('SW',45,50,'2023-01-05 14:00:00','2023-01-05 17:00:00','EWR','MIA','Friday',0,170,25),('UA',2,2,'2023-12-12 14:59:59','2023-12-12 17:59:59','lax','ewr','Wednesday',0,100,50),('UA',2,9,NULL,NULL,'sfo','jfk',NULL,NULL,100,50),('UA',2,46,'2023-01-03 10:00:00','2023-01-03 13:30:00','MIA','JFK','Wednesday',0,130,15),('UA',2,51,'2023-01-03 15:00:00','2023-01-03 18:00:00','MIA','EWR','Wednesday',0,160,20);
+INSERT INTO `flight` (`airline_id`, `aircraft_id`, `f_id`, `departure_time`, `arrival_time`, `departure_apt`, `arrival_apt`, `day_of_week`, `is_international`, `fare`, `booking_fee`) VALUES ('AA',35,3,'2023-12-15 23:59:59','2023-12-15 23:59:59','jfk','lhr','Monday',1,100,50),('AA',35,8,'2023-12-31 23:59:59','2023-12-31 23:59:59','ewr','sfo','Monday',0,100,50),('AA',35,10,NULL,NULL,'lax','jfk',NULL,NULL,100,50),('AA',35,44,'2023-01-01 08:00:00','2023-01-01 11:00:00','JFK','LAX','Monday',0,150,20),('AA',35,45,'2023-01-02 09:00:00','2023-01-02 12:00:00','LAX','JFK','Tuesday',0,160,20),('AA',35,52,'2023-01-06 09:00:00','2023-01-06 12:00:00','LAX','EWR','Friday',1,200,30),('AL',1,1,'2023-12-10 06:59:59','2023-12-10 15:59:59','ewr','lax','Monday',0,200,50),('AL',1,7,'2023-12-30 23:59:59','2023-12-30 23:59:59','mia','XHO','Monday',1,100,50),('AL',1,11,NULL,NULL,'mia','lax',NULL,NULL,100,50),('AL',1,12,'2023-12-12 04:59:48','2023-12-12 07:00:00','ewr','lax',NULL,NULL,NULL,NULL),('AL',1,47,'2023-01-01 07:00:00','2023-01-01 09:30:00','JFK','MIA','Monday',0,120,15),('AL',1,53,'2023-01-07 08:00:00','2023-01-07 11:00:00','EWR','LAX','Saturday',1,210,30),('AL',1,87,'2023-12-12 17:00:00','2023-12-12 19:00:00','lax','ewr','Friday',0,200,30),('JB',954,6,'2023-12-24 23:59:59','2023-12-24 23:59:59','sfo','phl','Monday',0,100,50),('JB',954,48,'2023-01-04 12:00:00','2023-01-04 15:00:00','SFO','PHL','Thursday',0,180,25),('SA',59,5,'2023-12-22 23:59:59','2023-12-22 23:59:59','sfo','lax','Monday',0,100,50),('SA',59,49,'2023-01-02 06:00:00','2023-01-02 08:00:00','PHL','SFO','Tuesday',0,140,20),('SW',45,4,'2023-12-19 23:59:59','2023-12-19 23:59:59','ewr','mia','Friday',0,100,50),('SW',45,50,'2023-01-05 14:00:00','2023-01-05 17:00:00','EWR','MIA','Friday',0,170,25),('UA',2,2,'2023-12-12 14:59:59','2023-12-12 17:59:59','lax','ewr','Wednesday',0,100,50),('UA',2,9,NULL,NULL,'sfo','jfk',NULL,NULL,100,50),('UA',2,46,'2023-01-03 10:00:00','2023-01-03 13:30:00','MIA','JFK','Wednesday',0,130,15),('UA',2,51,'2023-01-03 15:00:00','2023-01-03 18:00:00','MIA','EWR','Wednesday',0,160,20),('UA',45,53,'2023-12-15 21:59:59','2023-12-15 22:59:59','jfk','lhr','Monday',1,150,NULL);
 /*!40000 ALTER TABLE `flight` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,7 +359,7 @@ CREATE TABLE `ticketed_flights` (
 
 LOCK TABLES `ticketed_flights` WRITE;
 /*!40000 ALTER TABLE `ticketed_flights` DISABLE KEYS */;
-INSERT INTO `ticketed_flights` VALUES (22,3,1,35,'AA','2023-12-12 22:39:31'),(23,2,2,2,'UA','2023-12-12 22:39:31'),(24,1,3,1,'AL','2023-12-12 22:39:31'),(25,4,4,45,'SW','2023-12-12 22:39:31'),(26,5,5,59,'SA','2023-12-12 22:39:31'),(27,6,6,954,'JB','2023-12-12 22:39:31'),(28,1,1,1,'AL','2023-12-12 22:39:31');
+INSERT INTO `ticketed_flights` VALUES (22,3,1,35,'AA','2023-12-12 22:39:31'),(23,2,2,2,'UA','2023-12-12 22:39:31'),(24,1,3,1,'AL','2023-12-12 22:39:31'),(25,4,4,45,'SW','2023-12-12 22:39:31'),(26,5,5,59,'SA','2023-12-12 22:39:31'),(27,6,6,954,'JB','2023-12-12 22:39:31'),(28,1,1,1,'AL','2023-12-12 22:39:31'),(29,1,99,1,'AL','2023-12-13 13:38:38'),(30,1,99,1,'AL','2023-12-13 13:42:05'),(31,1,99,1,'AL','2023-12-13 13:43:20'),(32,1,99,1,'AL','2023-12-13 13:45:23'),(33,1,99,1,'AL','2023-12-13 13:47:24');
 /*!40000 ALTER TABLE `ticketed_flights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -400,10 +400,11 @@ CREATE TABLE `waitlist` (
   `aircraft_id` int NOT NULL,
   `airline_id` varchar(50) NOT NULL,
   `time_added` time DEFAULT NULL,
+  `cust_id` int DEFAULT NULL,
   PRIMARY KEY (`wl_id`,`f_id`,`aircraft_id`,`airline_id`),
   KEY `waitlist_ibfk_1` (`f_id`,`aircraft_id`,`airline_id`),
   CONSTRAINT `waitlist_ibfk_1` FOREIGN KEY (`f_id`, `aircraft_id`, `airline_id`) REFERENCES `flight` (`f_id`, `aircraft_id`, `airline_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -412,7 +413,7 @@ CREATE TABLE `waitlist` (
 
 LOCK TABLES `waitlist` WRITE;
 /*!40000 ALTER TABLE `waitlist` DISABLE KEYS */;
-INSERT INTO `waitlist` VALUES (1,1,1,'AL','08:00:00'),(2,2,2,'UA','09:00:00'),(3,3,35,'AA','10:00:00');
+INSERT INTO `waitlist` VALUES (1,1,1,'AL','08:00:00',1),(2,2,2,'UA','09:00:00',2),(3,3,35,'AA','10:00:00',3),(4,1,1,'AL','13:48:41',99),(5,1,1,'AL','13:49:23',99);
 /*!40000 ALTER TABLE `waitlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,6 +443,10 @@ LOCK TABLES `wl_customers` WRITE;
 INSERT INTO `wl_customers` VALUES (1,1),(2,2),(3,3);
 /*!40000 ALTER TABLE `wl_customers` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'travel'
+--
 
 --
 -- Dumping routines for database 'travel'
@@ -1216,6 +1221,87 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbytest` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbytest`(
+    IN start_apt CHAR(3), 
+    IN end_apt CHAR(3), 
+    IN no_connections INT, 
+    IN flightdate DATE, 
+    IN orderby CHAR(50),
+    IN ascdesc CHAR(4)
+)
+BEGIN
+    SET @flightdate_var = flightdate;
+    SET @sql = CONCAT('
+        WITH RECURSIVE FlightPaths AS (
+            SELECT
+                departure_apt AS final_departure,
+                arrival_apt AS arrival,
+                departure_time as depart_time,
+                arrival_time as arrival_time,
+                CAST(f_id AS CHAR(100)) AS flight_ids,
+                CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+                CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+                CAST(f.airline_id as CHAR(100)) AS airline_ids,
+                CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+                CAST(duration_minutes as unsigned) AS total_duration,
+                1 AS connections
+            FROM flight f
+            WHERE departure_apt = "', start_apt, '"
+            AND DATE(departure_time) = "', @flightdate_var, '"
+            UNION ALL
+            SELECT 
+                f.departure_apt AS final_departure,
+                f.arrival_apt AS arrival,
+                f.departure_time as depart_time,
+                f.arrival_time as arrival_time,
+                CONCAT(fp.flight_ids, ",", CAST(f.f_id AS CHAR(100))) AS flight_ids,
+                fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+                fp.total_fares + f.fare AS total_fares,
+                CONCAT(fp.airline_ids, ",", CAST(f.airline_id AS CHAR(100))) as airline_ids,
+                CONCAT(fp.aircraft_ids, ",", CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+                fp.total_duration + f.duration_minutes AS total_duration,
+                fp.connections + 1 AS connections
+            FROM flight f
+            JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+            WHERE fp.connections < ', no_connections, '
+            AND f.arrival_apt <> final_departure
+            AND f.departure_time > fp.arrival_time
+        )
+        SELECT
+            final_departure,
+            depart_time,
+            arrival_time,
+            arrival,
+            total_booking_fees AS sum_of_booking_fees,
+            total_fares AS sum_of_fares,
+            flight_ids,
+            (total_booking_fees + total_fares) AS total_cost,
+            airline_ids,
+            aircraft_ids,
+            total_duration
+        FROM FlightPaths fp
+        WHERE arrival = "', end_apt, '" 
+        ORDER BY ', orderby, ' ', ascdesc);
+
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `GetFlightPaths` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1350,6 +1436,88 @@ BEGIN
         total_duration
     FROM FlightPaths 
     WHERE arrival = end_apt;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathsflexorderbytest` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathsflexorderbytest`(
+    IN start_apt CHAR(3), 
+    IN end_apt CHAR(3), 
+    IN no_connections INT, 
+    IN flightdate DATE, 
+    IN orderby CHAR(50),
+    IN ascdesc CHAR(4)
+)
+BEGIN
+    SET @flightdate_var = flightdate;
+    SET @sql = CONCAT('
+        WITH RECURSIVE FlightPaths AS (
+            SELECT
+                departure_apt AS final_departure,
+                arrival_apt AS arrival,
+                departure_time as depart_time,
+                arrival_time as arrival_time,
+                CAST(f_id AS CHAR(100)) AS flight_ids,
+                CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+                CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+                CAST(f.airline_id as CHAR(100)) AS airline_ids,
+                CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+                CAST(duration_minutes as unsigned) AS total_duration,
+                1 AS connections
+            FROM flight f
+            WHERE departure_apt = "', start_apt, '"
+            AND DATE(f.departure_time) >= DATE_SUB(@flightdate_var, INTERVAL 3 DAY) 
+			AND DATE(f.departure_time) <= DATE_ADD(@flightdate_var, INTERVAL 3 DAY)
+            UNION ALL
+            SELECT 
+                f.departure_apt AS final_departure,
+                f.arrival_apt AS arrival,
+                f.departure_time as depart_time,
+                f.arrival_time as arrival_time,
+                CONCAT(fp.flight_ids, ",", CAST(f.f_id AS CHAR(100))) AS flight_ids,
+                fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+                fp.total_fares + f.fare AS total_fares,
+                CONCAT(fp.airline_ids, ",", CAST(f.airline_id AS CHAR(100))) as airline_ids,
+                CONCAT(fp.aircraft_ids, ",", CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+                fp.total_duration + f.duration_minutes AS total_duration,
+                fp.connections + 1 AS connections
+            FROM flight f
+            JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+            WHERE fp.connections < ', no_connections, '
+            AND f.arrival_apt <> final_departure
+            AND f.departure_time > fp.arrival_time
+        )
+        SELECT
+            final_departure,
+            depart_time,
+            arrival_time,
+            arrival,
+            total_booking_fees AS sum_of_booking_fees,
+            total_fares AS sum_of_fares,
+            flight_ids,
+            (total_booking_fees + total_fares) AS total_cost,
+            airline_ids,
+            aircraft_ids,
+            total_duration
+        FROM FlightPaths fp
+        WHERE arrival = "', end_apt, '" 
+        ORDER BY ', orderby, ' ', ascdesc);
+
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1505,4 +1673,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-13 13:21:15
+-- Dump completed on 2023-12-13 14:37:05
