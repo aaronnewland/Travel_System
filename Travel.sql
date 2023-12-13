@@ -40,7 +40,7 @@ CREATE TABLE `Aircrafts` (
 
 LOCK TABLES `Aircrafts` WRITE;
 /*!40000 ALTER TABLE `Aircrafts` DISABLE KEYS */;
-INSERT INTO `Aircrafts` VALUES (1,3,'AL'),(1,100,'SW'),(2,100,'AL'),(2,19,'UA'),(35,120,'AA'),(35,100,'SW'),(45,100,'JB'),(45,95,'SW'),(45,100,'UA'),(59,100,'JB'),(59,11,'SA'),(59,100,'SW'),(134,100,'AL'),(285,100,'AA'),(300,3000,'bc'),(300,100,'SA'),(300,100,'UA'),(321,100,'JB'),(357,100,'UA'),(452,100,'SW'),(478,100,'AA'),(567,100,'SA'),(690,100,'JB'),(719,100,'AL'),(786,100,'UA'),(812,100,'SW'),(872,100,'SA'),(873,100,'AL'),(954,100,'AA'),(954,100,'AL'),(954,250,'JB'),(9999,4000,'ab'),(9999,100,'SA');
+INSERT INTO `Aircrafts` VALUES (1,3,'AL'),(1,100,'SW'),(2,100,'AL'),(2,19,'UA'),(35,120,'AA'),(35,100,'SW'),(45,100,'JB'),(45,95,'SW'),(45,100,'UA'),(59,100,'JB'),(59,11,'SA'),(59,100,'SW'),(134,100,'AL'),(285,100,'AA'),(300,3000,'bc'),(300,3000,'de'),(300,100,'SA'),(300,100,'UA'),(321,100,'JB'),(357,100,'UA'),(452,100,'SW'),(478,100,'AA'),(567,100,'SA'),(690,100,'JB'),(719,100,'AL'),(786,100,'UA'),(812,100,'SW'),(872,100,'SA'),(873,100,'AL'),(954,100,'AA'),(954,100,'AL'),(954,250,'JB'),(9999,4000,'ab'),(9999,100,'SA');
 /*!40000 ALTER TABLE `Aircrafts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `Airline` (
 
 LOCK TABLES `Airline` WRITE;
 /*!40000 ALTER TABLE `Airline` DISABLE KEYS */;
-INSERT INTO `Airline` VALUES ('AA'),('ab'),('AL'),('bc'),('JB'),('SA'),('SW'),('UA');
+INSERT INTO `Airline` VALUES ('AA'),('ab'),('AL'),('bc'),('de'),('JB'),('SA'),('SW'),('UA');
 /*!40000 ALTER TABLE `Airline` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,6 +162,7 @@ CREATE TABLE `customer` (
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `middle_name` varchar(20) DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -172,7 +173,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Billy','Johnson','M'),(2,'Mike','Michaels','M'),(3,'Steve','Stevenson','M'),(4,'Tom','Thompson','M'),(5,'Phil','Phillips','M'),(6,'Paul','Paulson','M'),(7,'Ringo','Ringoson','M'),(99,'a','c','b'),(103,'testpost first name','testpost last name',''),(105,'a','c','b'),(106,'a','c','b'),(107,'a','c','b'),(108,'a','c','b'),(109,'a','c','b'),(110,NULL,NULL,NULL);
+INSERT INTO `customer` VALUES (1,'Billy','Johnson','M',NULL),(2,'Mike','Michaels','M',NULL),(3,'Steve','Stevenson','M',NULL),(4,'Tom','Thompson','M',NULL),(5,'Phil','Phillips','M',NULL),(6,'Paul','Paulson','M',NULL),(7,'Ringo','Ringoson','M',NULL),(99,'a','c','b',NULL),(103,'testpost first name','testpost last name','',NULL),(105,'a','c','b',NULL),(106,'a','c','b',NULL),(107,'a','c','b',NULL),(108,'a','c','b',NULL),(109,'a','c','b',NULL),(110,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1673,4 +1674,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-13 14:37:05
+-- Dump completed on 2023-12-13 17:21:03
