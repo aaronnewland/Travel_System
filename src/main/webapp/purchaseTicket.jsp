@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>REP FAQ</title>
+    <title>PURCHASE TICKET</title>
     <style>
         table, th, td {
             border: 1px solid black;
