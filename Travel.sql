@@ -648,6 +648,574 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbyarrivalasc` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbyarrivalasc`(IN start_apt CHAR(3), IN end_apt CHAR(3), IN no_connections INT, IN flightdate DATE)
+BEGIN
+    SET @flightdate_var = flightdate;
+    WITH RECURSIVE FlightPaths AS (
+        SELECT
+            departure_apt AS final_departure,
+            arrival_apt AS arrival,
+            departure_time as depart_time,
+            arrival_time as arrival_time,
+            CAST(f_id AS CHAR(100)) AS flight_ids,
+            CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+            CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+            CAST(f.airline_id as CHAR(100)) AS airline_ids,
+            CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+            CAST(duration_minutes as unsigned) AS total_duration,
+            1 AS connections
+        FROM flight f
+        WHERE departure_apt = start_apt
+        AND DATE(departure_time) = @flightdate_var
+
+        UNION ALL
+
+        SELECT 
+            f.departure_apt AS final_departure,
+            f.arrival_apt AS arrival,
+            f.departure_time as depart_time,
+            f.arrival_time as arrival_time,
+            CONCAT(fp.flight_ids, ',', CAST(f.f_id AS CHAR(100))) AS flight_ids,
+            fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+            fp.total_fares + f.fare AS total_fares,
+            CONCAT(fp.airline_ids, ',',CAST(f.airline_id AS CHAR(100))) as airline_ids,
+            CONCAT(fp.aircraft_ids, ',',CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+            fp.total_duration + f.duration_minutes AS total_duration,
+            fp.connections + 1 AS connections
+        FROM flight f
+        JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+        WHERE fp.connections < no_connections
+        AND f.arrival_apt <> final_departure
+        AND f.departure_time > fp.arrival_time
+    )
+    SELECT
+        final_departure,
+        depart_time,
+        arrival_time,
+        arrival,
+        total_booking_fees AS sum_of_booking_fees,
+        total_fares AS sum_of_fares,
+        flight_ids,
+        (total_booking_fees + total_fares) AS total_cost,
+        airline_ids,
+        aircraft_ids,
+        total_duration
+    FROM FlightPaths 
+    WHERE arrival = end_apt
+    ORDER by arrival_time asc;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbyarrivaldesc` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbyarrivaldesc`(IN start_apt CHAR(3), IN end_apt CHAR(3), IN no_connections INT, IN flightdate DATE)
+BEGIN
+    SET @flightdate_var = flightdate;
+    WITH RECURSIVE FlightPaths AS (
+        SELECT
+            departure_apt AS final_departure,
+            arrival_apt AS arrival,
+            departure_time as depart_time,
+            arrival_time as arrival_time,
+            CAST(f_id AS CHAR(100)) AS flight_ids,
+            CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+            CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+            CAST(f.airline_id as CHAR(100)) AS airline_ids,
+            CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+            CAST(duration_minutes as unsigned) AS total_duration,
+            1 AS connections
+        FROM flight f
+        WHERE departure_apt = start_apt
+        AND DATE(departure_time) = @flightdate_var
+
+        UNION ALL
+
+        SELECT 
+            f.departure_apt AS final_departure,
+            f.arrival_apt AS arrival,
+            f.departure_time as depart_time,
+            f.arrival_time as arrival_time,
+            CONCAT(fp.flight_ids, ',', CAST(f.f_id AS CHAR(100))) AS flight_ids,
+            fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+            fp.total_fares + f.fare AS total_fares,
+            CONCAT(fp.airline_ids, ',',CAST(f.airline_id AS CHAR(100))) as airline_ids,
+            CONCAT(fp.aircraft_ids, ',',CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+            fp.total_duration + f.duration_minutes AS total_duration,
+            fp.connections + 1 AS connections
+        FROM flight f
+        JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+        WHERE fp.connections < no_connections
+        AND f.arrival_apt <> final_departure
+        AND f.departure_time > fp.arrival_time
+    )
+    SELECT
+        final_departure,
+        depart_time,
+        arrival_time,
+        arrival,
+        total_booking_fees AS sum_of_booking_fees,
+        total_fares AS sum_of_fares,
+        flight_ids,
+        (total_booking_fees + total_fares) AS total_cost,
+        airline_ids,
+        aircraft_ids,
+        total_duration
+    FROM FlightPaths 
+    WHERE arrival = end_apt
+    ORDER by arrival_time desc;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbycostasc` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbycostasc`(IN start_apt CHAR(3), IN end_apt CHAR(3), IN no_connections INT, IN flightdate DATE)
+BEGIN
+    SET @flightdate_var = flightdate;
+    WITH RECURSIVE FlightPaths AS (
+        SELECT
+            departure_apt AS final_departure,
+            arrival_apt AS arrival,
+            departure_time as depart_time,
+            arrival_time as arrival_time,
+            CAST(f_id AS CHAR(100)) AS flight_ids,
+            CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+            CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+            CAST(f.airline_id as CHAR(100)) AS airline_ids,
+            CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+            CAST(duration_minutes as unsigned) AS total_duration,
+            1 AS connections
+        FROM flight f
+        WHERE departure_apt = start_apt
+        AND DATE(departure_time) = @flightdate_var
+
+        UNION ALL
+
+        SELECT 
+            f.departure_apt AS final_departure,
+            f.arrival_apt AS arrival,
+            f.departure_time as depart_time,
+            f.arrival_time as arrival_time,
+            CONCAT(fp.flight_ids, ',', CAST(f.f_id AS CHAR(100))) AS flight_ids,
+            fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+            fp.total_fares + f.fare AS total_fares,
+            CONCAT(fp.airline_ids, ',',CAST(f.airline_id AS CHAR(100))) as airline_ids,
+            CONCAT(fp.aircraft_ids, ',',CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+            fp.total_duration + f.duration_minutes AS total_duration,
+            fp.connections + 1 AS connections
+        FROM flight f
+        JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+        WHERE fp.connections < no_connections
+        AND f.arrival_apt <> final_departure
+        AND f.departure_time > fp.arrival_time
+    )
+    SELECT
+        final_departure,
+        depart_time,
+        arrival_time,
+        arrival,
+        total_booking_fees AS sum_of_booking_fees,
+        total_fares AS sum_of_fares,
+        flight_ids,
+        (total_booking_fees + total_fares) AS total_cost,
+        airline_ids,
+        aircraft_ids,
+        total_duration
+    FROM FlightPaths 
+    WHERE arrival = end_apt
+    ORDER by total_cost asc;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbycostdesc` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbycostdesc`(IN start_apt CHAR(3), IN end_apt CHAR(3), IN no_connections INT, IN flightdate DATE)
+BEGIN
+    SET @flightdate_var = flightdate;
+    WITH RECURSIVE FlightPaths AS (
+        SELECT
+            departure_apt AS final_departure,
+            arrival_apt AS arrival,
+            departure_time as depart_time,
+            arrival_time as arrival_time,
+            CAST(f_id AS CHAR(100)) AS flight_ids,
+            CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+            CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+            CAST(f.airline_id as CHAR(100)) AS airline_ids,
+            CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+            CAST(duration_minutes as unsigned) AS total_duration,
+            1 AS connections
+        FROM flight f
+        WHERE departure_apt = start_apt
+        AND DATE(departure_time) = @flightdate_var
+
+        UNION ALL
+
+        SELECT 
+            f.departure_apt AS final_departure,
+            f.arrival_apt AS arrival,
+            f.departure_time as depart_time,
+            f.arrival_time as arrival_time,
+            CONCAT(fp.flight_ids, ',', CAST(f.f_id AS CHAR(100))) AS flight_ids,
+            fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+            fp.total_fares + f.fare AS total_fares,
+            CONCAT(fp.airline_ids, ',',CAST(f.airline_id AS CHAR(100))) as airline_ids,
+            CONCAT(fp.aircraft_ids, ',',CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+            fp.total_duration + f.duration_minutes AS total_duration,
+            fp.connections + 1 AS connections
+        FROM flight f
+        JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+        WHERE fp.connections < no_connections
+        AND f.arrival_apt <> final_departure
+        AND f.departure_time > fp.arrival_time
+    )
+    SELECT
+        final_departure,
+        depart_time,
+        arrival_time,
+        arrival,
+        total_booking_fees AS sum_of_booking_fees,
+        total_fares AS sum_of_fares,
+        flight_ids,
+        (total_booking_fees + total_fares) AS total_cost,
+        airline_ids,
+        aircraft_ids,
+        total_duration
+    FROM FlightPaths 
+    WHERE arrival = end_apt
+    ORDER by total_cost desc;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbydepartasc` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbydepartasc`(IN start_apt CHAR(3), IN end_apt CHAR(3), IN no_connections INT, IN flightdate DATE)
+BEGIN
+    SET @flightdate_var = flightdate;
+    WITH RECURSIVE FlightPaths AS (
+        SELECT
+            departure_apt AS final_departure,
+            arrival_apt AS arrival,
+            departure_time as depart_time,
+            arrival_time as arrival_time,
+            CAST(f_id AS CHAR(100)) AS flight_ids,
+            CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+            CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+            CAST(f.airline_id as CHAR(100)) AS airline_ids,
+            CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+            CAST(duration_minutes as unsigned) AS total_duration,
+            1 AS connections
+        FROM flight f
+        WHERE departure_apt = start_apt
+        AND DATE(departure_time) = @flightdate_var
+
+        UNION ALL
+
+        SELECT 
+            f.departure_apt AS final_departure,
+            f.arrival_apt AS arrival,
+            f.departure_time as depart_time,
+            f.arrival_time as arrival_time,
+            CONCAT(fp.flight_ids, ',', CAST(f.f_id AS CHAR(100))) AS flight_ids,
+            fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+            fp.total_fares + f.fare AS total_fares,
+            CONCAT(fp.airline_ids, ',',CAST(f.airline_id AS CHAR(100))) as airline_ids,
+            CONCAT(fp.aircraft_ids, ',',CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+            fp.total_duration + f.duration_minutes AS total_duration,
+            fp.connections + 1 AS connections
+        FROM flight f
+        JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+        WHERE fp.connections < no_connections
+        AND f.arrival_apt <> final_departure
+        AND f.departure_time > fp.arrival_time
+    )
+    SELECT
+        final_departure,
+        depart_time,
+        arrival_time,
+        arrival,
+        total_booking_fees AS sum_of_booking_fees,
+        total_fares AS sum_of_fares,
+        flight_ids,
+        (total_booking_fees + total_fares) AS total_cost,
+        airline_ids,
+        aircraft_ids,
+        total_duration
+    FROM FlightPaths 
+    WHERE arrival = end_apt
+    ORDER by depart_time asc;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbydepartdesc` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbydepartdesc`(IN start_apt CHAR(3), IN end_apt CHAR(3), IN no_connections INT, IN flightdate DATE)
+BEGIN
+    SET @flightdate_var = flightdate;
+    WITH RECURSIVE FlightPaths AS (
+        SELECT
+            departure_apt AS final_departure,
+            arrival_apt AS arrival,
+            departure_time as depart_time,
+            arrival_time as arrival_time,
+            CAST(f_id AS CHAR(100)) AS flight_ids,
+            CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+            CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+            CAST(f.airline_id as CHAR(100)) AS airline_ids,
+            CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+            CAST(duration_minutes as unsigned) AS total_duration,
+            1 AS connections
+        FROM flight f
+        WHERE departure_apt = start_apt
+        AND DATE(departure_time) = @flightdate_var
+
+        UNION ALL
+
+        SELECT 
+            f.departure_apt AS final_departure,
+            f.arrival_apt AS arrival,
+            f.departure_time as depart_time,
+            f.arrival_time as arrival_time,
+            CONCAT(fp.flight_ids, ',', CAST(f.f_id AS CHAR(100))) AS flight_ids,
+            fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+            fp.total_fares + f.fare AS total_fares,
+            CONCAT(fp.airline_ids, ',',CAST(f.airline_id AS CHAR(100))) as airline_ids,
+            CONCAT(fp.aircraft_ids, ',',CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+            fp.total_duration + f.duration_minutes AS total_duration,
+            fp.connections + 1 AS connections
+        FROM flight f
+        JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+        WHERE fp.connections < no_connections
+        AND f.arrival_apt <> final_departure
+        AND f.departure_time > fp.arrival_time
+    )
+    SELECT
+        final_departure,
+        depart_time,
+        arrival_time,
+        arrival,
+        total_booking_fees AS sum_of_booking_fees,
+        total_fares AS sum_of_fares,
+        flight_ids,
+        (total_booking_fees + total_fares) AS total_cost,
+        airline_ids,
+        aircraft_ids,
+        total_duration
+    FROM FlightPaths 
+    WHERE arrival = end_apt
+    ORDER by depart_time desc;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbydurationasc` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbydurationasc`(IN start_apt CHAR(3), IN end_apt CHAR(3), IN no_connections INT, IN flightdate DATE)
+BEGIN
+    SET @flightdate_var = flightdate;
+    WITH RECURSIVE FlightPaths AS (
+        SELECT
+            departure_apt AS final_departure,
+            arrival_apt AS arrival,
+            departure_time as depart_time,
+            arrival_time as arrival_time,
+            CAST(f_id AS CHAR(100)) AS flight_ids,
+            CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+            CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+            CAST(f.airline_id as CHAR(100)) AS airline_ids,
+            CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+            CAST(duration_minutes as unsigned) AS total_duration,
+            1 AS connections
+        FROM flight f
+        WHERE departure_apt = start_apt
+        AND DATE(departure_time) = @flightdate_var
+
+        UNION ALL
+
+        SELECT 
+            f.departure_apt AS final_departure,
+            f.arrival_apt AS arrival,
+            f.departure_time as depart_time,
+            f.arrival_time as arrival_time,
+            CONCAT(fp.flight_ids, ',', CAST(f.f_id AS CHAR(100))) AS flight_ids,
+            fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+            fp.total_fares + f.fare AS total_fares,
+            CONCAT(fp.airline_ids, ',',CAST(f.airline_id AS CHAR(100))) as airline_ids,
+            CONCAT(fp.aircraft_ids, ',',CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+            fp.total_duration + f.duration_minutes AS total_duration,
+            fp.connections + 1 AS connections
+        FROM flight f
+        JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+        WHERE fp.connections < no_connections
+        AND f.arrival_apt <> final_departure
+        AND f.departure_time > fp.arrival_time
+    )
+    SELECT
+        final_departure,
+        depart_time,
+        arrival_time,
+        arrival,
+        total_booking_fees AS sum_of_booking_fees,
+        total_fares AS sum_of_fares,
+        flight_ids,
+        (total_booking_fees + total_fares) AS total_cost,
+        airline_ids,
+        aircraft_ids,
+        total_duration
+    FROM FlightPaths 
+    WHERE arrival = end_apt
+    ORDER by total_duration asc;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetFlightPathorderbydurationdesc` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetFlightPathorderbydurationdesc`(IN start_apt CHAR(3), IN end_apt CHAR(3), IN no_connections INT, IN flightdate DATE)
+BEGIN
+    SET @flightdate_var = flightdate;
+    WITH RECURSIVE FlightPaths AS (
+        SELECT
+            departure_apt AS final_departure,
+            arrival_apt AS arrival,
+            departure_time as depart_time,
+            arrival_time as arrival_time,
+            CAST(f_id AS CHAR(100)) AS flight_ids,
+            CAST(f.booking_fee AS DECIMAL(10,2)) AS total_booking_fees,
+            CAST(f.fare AS DECIMAL(10,2)) AS total_fares,
+            CAST(f.airline_id as CHAR(100)) AS airline_ids,
+            CAST(f.aircraft_id as CHAR(100)) AS aircraft_ids,
+            CAST(duration_minutes as unsigned) AS total_duration,
+            1 AS connections
+        FROM flight f
+        WHERE departure_apt = start_apt
+        AND DATE(departure_time) = @flightdate_var
+
+        UNION ALL
+
+        SELECT 
+            f.departure_apt AS final_departure,
+            f.arrival_apt AS arrival,
+            f.departure_time as depart_time,
+            f.arrival_time as arrival_time,
+            CONCAT(fp.flight_ids, ',', CAST(f.f_id AS CHAR(100))) AS flight_ids,
+            fp.total_booking_fees + f.booking_fee AS total_booking_fees,
+            fp.total_fares + f.fare AS total_fares,
+            CONCAT(fp.airline_ids, ',',CAST(f.airline_id AS CHAR(100))) as airline_ids,
+            CONCAT(fp.aircraft_ids, ',',CAST(f.aircraft_id AS CHAR(100))) as aircraft_ids,
+            fp.total_duration + f.duration_minutes AS total_duration,
+            fp.connections + 1 AS connections
+        FROM flight f
+        JOIN FlightPaths fp ON f.departure_apt = fp.arrival
+        WHERE fp.connections < no_connections
+        AND f.arrival_apt <> final_departure
+        AND f.departure_time > fp.arrival_time
+    )
+    SELECT
+        final_departure,
+        depart_time,
+        arrival_time,
+        arrival,
+        total_booking_fees AS sum_of_booking_fees,
+        total_fares AS sum_of_fares,
+        flight_ids,
+        (total_booking_fees + total_fares) AS total_cost,
+        airline_ids,
+        aircraft_ids,
+        total_duration
+    FROM FlightPaths 
+    WHERE arrival = end_apt
+    ORDER by total_duration desc;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `GetFlightPaths` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -937,4 +1505,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-13 12:50:43
+-- Dump completed on 2023-12-13 13:21:15
