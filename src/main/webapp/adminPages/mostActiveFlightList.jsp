@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reservation List</title>
+    <title>Most active flights</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,7 +54,7 @@
                           "ORDER BY tickets_sold DESC;";
 
         rs = st.executeQuery(sqlQuery);
-        out.println("<h2>Flight Reservation Results</h2>");
+        out.println("<h2>Most Active Flights</h2>");
         out.println("<table>");
         out.println("<tr><th>Flight ID</th><th>Airline ID</th><th>Aircraft ID</th><th>Total Tickets Sold</th></tr>");
 
