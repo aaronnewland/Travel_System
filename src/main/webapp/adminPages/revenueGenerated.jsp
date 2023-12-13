@@ -47,7 +47,7 @@
 
         rs = st.executeQuery(sqlQuery);
         out.println("<table>");
-        out.println("<tr><th>Type</th><th>Value</th><th>Revenue Generated</th></tr>");
+        out.println("<tr><th>ID Type</th><th>ID</th><th>Revenue Generated</th></tr>");
 
         if (rs.next()) {
             String revenue = rs.getString("revenue");
@@ -58,10 +58,35 @@
             out.println("</tr>");
         }
         out.println("</table>");
-    } catch (Exception e) {
-        e.printStackTrace();  // For simplicity, printing stack trace. Consider logging this properly.
-    } finally {
-        // Close resources
+        
+        String topCustomerQuery = "SELECT c.id, c.first_name, c.last_name, c.middle_name, SUM(f.fare + f.booking_fee) AS total_revenue " +
+                "FROM customer c, ticketed_flights tf, flight f " +
+                "WHERE c.id = tf.cust_id AND tf.f_id = f.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id " +
+                "GROUP BY c.id " +
+                "ORDER BY total_revenue DESC " +
+                "LIMIT 1;";
+
+		rs = st.executeQuery(topCustomerQuery);
+		out.println("<h2>Top Customer Details</h2>");
+		out.println("<table>");
+		out.println("<tr><th>Customer ID</th><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Total Revenue</th></tr>");
+
+		if (rs.next()) {
+		out.println("<tr>");
+		out.println("<td>" + rs.getString("id") + "</td>");
+		out.println("<td>" + rs.getString("first_name") + "</td>");
+		out.println("<td>" + rs.getString("middle_name") + "</td>");
+		out.println("<td>" + rs.getString("last_name") + "</td>");
+		out.println("<td>" + rs.getDouble("total_revenue") + "</td>");
+		out.println("</tr>");
+		} else {
+		out.println("<tr><td colspan='4'>No data found</td></tr>");
+		}
+		out.println("</table>");
+        ;
+   		} catch (Exception e) {
+        e.printStackTrace();  
+      
         try {
             if (rs != null) rs.close();
             if (st != null) st.close();
