@@ -8,13 +8,31 @@
 <head>
     <title>Reservation List</title>
     <style>
-        table, th, td {
-            border: 1px solid black;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        table {
+            margin: 20px auto;
             border-collapse: collapse;
+            width: 80%;
         }
         th, td {
-            padding: 5px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
             text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
         }
     </style>
 </head>
@@ -36,7 +54,7 @@
                           "ORDER BY tickets_sold DESC;";
 
         rs = st.executeQuery(sqlQuery);
-        out.println("<h2>Most active flights</h2>");
+        out.println("<h2>Flight Reservation Results</h2>");
         out.println("<table>");
         out.println("<tr><th>Flight ID</th><th>Airline ID</th><th>Aircraft ID</th><th>Total Tickets Sold</th></tr>");
 
