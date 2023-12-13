@@ -40,7 +40,7 @@ CREATE TABLE `Aircrafts` (
 
 LOCK TABLES `Aircrafts` WRITE;
 /*!40000 ALTER TABLE `Aircrafts` DISABLE KEYS */;
-INSERT INTO `Aircrafts` VALUES (1,100,'AL'),(2,19,'UA'),(35,120,'AA'),(45,95,'SW'),(59,11,'SA'),(954,250,'JB');
+INSERT INTO `Aircrafts` VALUES (1,100,'AL'),(2,19,'UA'),(35,120,'AA'),(45,95,'SW'),(59,11,'SA'),(300,3000,'bc'),(954,250,'JB'),(9999,4000,'ab');
 /*!40000 ALTER TABLE `Aircrafts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `Airline` (
 
 LOCK TABLES `Airline` WRITE;
 /*!40000 ALTER TABLE `Airline` DISABLE KEYS */;
-INSERT INTO `Airline` VALUES ('AA'),('AL'),('JB'),('SA'),('SW'),('UA');
+INSERT INTO `Airline` VALUES ('AA'),('ab'),('AL'),('bc'),('JB'),('SA'),('SW'),('UA');
 /*!40000 ALTER TABLE `Airline` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,14 +399,11 @@ CREATE TABLE `waitlist` (
   `f_id` int NOT NULL,
   `aircraft_id` int NOT NULL,
   `airline_id` varchar(50) NOT NULL,
-  `cust_id` int DEFAULT NULL,
   `time_added` time DEFAULT NULL,
   PRIMARY KEY (`wl_id`,`f_id`,`aircraft_id`,`airline_id`),
   KEY `waitlist_ibfk_1` (`f_id`,`aircraft_id`,`airline_id`),
-  KEY `wl_cust_fk` (`cust_id`),
-  CONSTRAINT `waitlist_ibfk_1` FOREIGN KEY (`f_id`, `aircraft_id`, `airline_id`) REFERENCES `flight` (`f_id`, `aircraft_id`, `airline_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `wl_cust_fk` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `waitlist_ibfk_1` FOREIGN KEY (`f_id`, `aircraft_id`, `airline_id`) REFERENCES `flight` (`f_id`, `aircraft_id`, `airline_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,6 +412,7 @@ CREATE TABLE `waitlist` (
 
 LOCK TABLES `waitlist` WRITE;
 /*!40000 ALTER TABLE `waitlist` DISABLE KEYS */;
+INSERT INTO `waitlist` VALUES (1,1,1,'AL','08:00:00'),(2,2,2,'UA','09:00:00'),(3,3,35,'AA','10:00:00');
 /*!40000 ALTER TABLE `waitlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,12 +439,9 @@ CREATE TABLE `wl_customers` (
 
 LOCK TABLES `wl_customers` WRITE;
 /*!40000 ALTER TABLE `wl_customers` DISABLE KEYS */;
+INSERT INTO `wl_customers` VALUES (1,1),(2,2),(3,3);
 /*!40000 ALTER TABLE `wl_customers` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'travel'
---
 
 --
 -- Dumping routines for database 'travel'
@@ -731,4 +726,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-13  1:43:13
+-- Dump completed on 2023-12-13 10:26:11
