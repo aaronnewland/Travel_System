@@ -108,6 +108,8 @@
             out.println("<td>");
             out.println("<form action='purchaseTicket.jsp' method='POST'>");
             out.println("<input type='hidden' name='flightId' value='" + flight_ids + "'>");
+            out.println("<input type='hidden' name='airlineIds' value='" + airline_ids + "'>");
+            out.println("<input type='hidden' name='aircraftIds' value='" + aircraft_ids + "'>");
             out.println("<input type='submit' value='Purchase'>");
             out.println("</form>");
             out.println("</td>");

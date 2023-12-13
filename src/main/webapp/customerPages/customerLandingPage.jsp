@@ -43,6 +43,9 @@
     </div>
 
     <div class="center">
+<%--      <%--%>
+<%--        String customerIDGlobal = (String) session.getAttribute("customerIDGlobal");--%>
+<%--      %>--%>
       <h3>
         Search For Flights
       </h3>
@@ -52,7 +55,7 @@
         <div class="center">
           Search a flight (specific date):
           <div class="center">
-            <input type="radio" id="oneWaySpecific" name="tripType" value="oneWaySpecific">
+            <input type="radio" id="oneWaySpecific" name="tripType" value="oneWaySpecific" checked>
             <label for="oneWaySpecific">One Way</label>
             <input type="radio" id="roundTripSpecific" name="tripType" value="roundTripSpecific">
             <label for="roundTripSpecific">Round Trip</label>

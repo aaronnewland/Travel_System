@@ -45,20 +45,20 @@
             <div class="center">
                 Search a flight (specific date):
                 <div class="center">
-                    <input type="radio" id="one_way_specific" name="trip_type" value="ONE_WAY_SPECIFIC">
-                    <label for="one_way_specific">One Way</label>
-                    <input type="radio" id="round_trip_specific" name="trip_type" value="ROUND_TRIP_SPECIFIC">
-                    <label for="round_trip_specific">Round Trip</label>
+                    <input type="radio" id="oneWaySpecific" name="tripType" value="oneWaySpecific" checked>
+                    <label for="oneWaySpecific">One Way</label>
+                    <input type="radio" id="roundTripSpecific" name="tripType" value="roundTripSpecific">
+                    <label for="roundTripSpecific">Round Trip</label>
                 </div>
             </div>
             <div class="center">
                 <div class="center">
                     Search a flight (flexible dates within 3 days):
                     <div class="center">
-                        <input type="radio" id="one_way_flex" name="trip_type" value="ONE_WAY_FLEX">
-                        <label for="one_way_flex">One Way</label>
-                        <input type="radio" id="round_trip_flex" name="trip_type" value="ROUND_TRIP_FLEX">
-                        <label for="round_trip_flex">Round Trip</label>
+                        <input type="radio" id="oneWayFlex" name="tripType" value="oneWayFlex">
+                        <label for="oneWayFlex">One Way</label>
+                        <input type="radio" id="roundTripFlex" name="tripType" value="roundTripFlex">
+                        <label for="roundTripFlex">Round Trip</label>
                     </div>
                 </div>
             </div>
@@ -77,15 +77,15 @@
             </div>
             <div class="center padTop">
                 <label for="departure">Departure Airport: </label>
-                <input type="text" id="departure" name="DEPARTURE"/>
+                <input type="text" id="departure" name="departure"/>
                 <div class="padLeft">
                     <label for="destination">Destination Airport: </label>
-                    <input type="text" id="destination" name="DESTINATION"/>
+                    <input type="text" id="destination" name="destination"/>
                 </div>
             </div>
             <div class="center">
                 <label for="flightDate">Desired date: </label>
-                <input type="date" value="Flight Date" id="flightDate" name="FLIGHT_DATE" min="<%= LocalDate.now().toString() %>"/>
+                <input type="date" value="Flight Date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>"/>
             </div>
             <div class="center padTop header">
                 <input type="submit" value="Search Flights"/>

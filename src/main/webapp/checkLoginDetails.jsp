@@ -35,6 +35,13 @@
             out.println("welcome " + userid);
             out.println("<a href='logout.jsp'>Log out</a>");
             if ("user".equals(access)) {
+                ResultSet rs2 = st.executeQuery("SELECT * FROM customer WHERE username='" + userid + "'");
+
+                if (rs2.next()) {
+                    session.setAttribute("customerIDGlobal", rs2.getString("id"));
+                }
+
+
                 response.sendRedirect(request.getContextPath() + "/customerPages/customerLandingPage.jsp");
             } else if ("admin".equals(access)) {
                 response.sendRedirect(request.getContextPath() + "/adminPages/adminLandingPage.jsp");
