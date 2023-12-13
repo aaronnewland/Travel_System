@@ -3,8 +3,9 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
+ <%@ page import="java.text.SimpleDateFormat" %>
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
     <title>Flight Path Results</title>
@@ -17,30 +18,50 @@
             padding: 5px;
             text-align: left;
         }
+        .center {
+            display: flex;
+            justify-content: center;
+            /*align-items: center;*/
+        }
+        .padBottom {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
+<div class="center">
+    <label for="searchDropdown">Sort by flight criteria:</label>
+    <select id="searchDropdown" name="criteria">
+        <option value="price">Price</option>
+        <option value="numStops">Number of stops</option>
+        <option value="airline">Airline</option>
+        <option value="departureTime">Departure Time</option>
+    </select>
+</div>
 <%
 	
-    String departure = "ewr"; // Default departure value for demonstration
-    String arrival = "lhr"; // Default arrival value for demonstration
+//    String departure = "ewr"; // Default departure value for demonstration
+    String departure = request.getParameter("departure");
+//    String arrival = "lhr"; // Default arrival value for demonstration
+    String arrival = request.getParameter("destination");
 	int numconnect = 4;
-   	String departure_date = "2023-12-10";
-   
+//   	String departure_date = "2023-12-10";
+    String departure_date = request.getParameter("flightDate");
+    String flexOption = request.getParameter("tripType");
+
+
     Class.forName("com.mysql.jdbc.Driver");
     ApplicationDB db = new ApplicationDB();
     Connection con = db.getConnection();
     Statement st = con.createStatement();
     Statement s2 = con.createStatement();
-    
- /*   //pick out the ite_id number to add it to underneath the main results?
-    ResultSet rs2 = s2.executeQuery("Select max(ite_id) from itinerary;"); rs2.first();
-    int current_ite_id = rs2.getInt("ite_id"); */
-    
-    //getflightPaths(departing airport, arrival airport, number of connections, YY-MM-DD)
-    ResultSet rs = st.executeQuery("Call getflightpaths('" + departure + "','" + arrival + "'," + numconnect + ",'" + departure_date + "');");
-    
-   
+
+    String query = "Call getflightpaths('" + departure + "','" + arrival + "'," + numconnect + ",'" + departure_date + "');";
+    if (flexOption.equals("oneWayFlex") || flexOption.equals("roundTripFlex")) {
+        query = "Call getflightpathsflex('" + departure + "','" + arrival + "'," + numconnect + ",'" + departure_date + "');";
+    }
+
+    ResultSet rs = st.executeQuery(query);
     
     out.println("<table>");
     out.println("<tr><th>Arrival City</th><th>Booking Fees</th><th>Sum of Fares</th><th>Flight IDs</th><th>Total Cost</th><th>Airline IDs</th><th>Aircraft IDs</th><th>Duration in min</th><th>departure time</th><th>Arrival time</th></tr>");
