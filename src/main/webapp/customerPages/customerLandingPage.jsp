@@ -107,7 +107,7 @@
       </div>
       <div>
 
-        <a href="flightPortfolio.jsp">Upcoming and Past Flights</a>
+        <a href="upcomingAndPastFlights.jsp">Upcoming and Past Flights</a>
       </div>
       <div>
         Cancel a flight? (Business/First Class only)
