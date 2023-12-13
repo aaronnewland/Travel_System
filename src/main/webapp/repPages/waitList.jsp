@@ -31,12 +31,7 @@
         con = db.getConnection();
         st = con.createStatement();
 
-        String sqlQuery = "SELECT wl.wl_id, wl.f_id, wl.aircraft_id, wl.airline_id, wl.time_added, c.id as cust_id, c.first_name, c.middle_name, c.last_name " +
-                          "FROM waitlist wl " +
-                          "JOIN wl_customers wlc ON wl.wl_id = wlc.wl_id " +
-                          "JOIN customer c ON wlc.cust_id = c.id " +
-                          "WHERE wl.f_id = " + Fid + ";";
-
+        String sqlQuery = "SELECT wl.wl_id, wl.f_id, wl.aircraft_id, wl.airline_id, wl.time_added, c.id as cust_id, c.first_name, c.middle_name, c.last_name FROM waitlist wl JOIN customer c on wl.cust_id = c.id WHERE wl.f_id = " + Fid + ";";
         rs = st.executeQuery(sqlQuery);
         out.println("<h2>Waiting List Details</h2>");
         out.println("<table>");
