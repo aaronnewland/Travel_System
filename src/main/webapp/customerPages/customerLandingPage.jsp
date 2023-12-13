@@ -48,7 +48,7 @@
       </h3>
     </div>
     <div class="center">
-      <form action="oneWaySearch.jsp" method="POST">
+      <form action="../oneWaySearch.jsp" method="POST">
         <div class="center">
           Search a flight (specific date):
           <div class="center">
