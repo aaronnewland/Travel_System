@@ -20,7 +20,7 @@
 </head>
 <body>
 <%
-    String post_term = request.getParameter("question");
+    String post_term = request.getParameter("questionToPost");
 
     Connection con = null;
     PreparedStatement pstmt = null;

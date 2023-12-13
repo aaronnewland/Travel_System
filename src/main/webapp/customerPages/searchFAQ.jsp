@@ -22,19 +22,19 @@
 </head>
 <body>
 <%
-    String search_term = request.getParameter("search_q");
+    String search_term = request.getParameter("searchQ");
 
     Class.forName("com.mysql.jdbc.Driver");
     ApplicationDB db = new ApplicationDB();
     Connection con = db.getConnection();
     Statement st = con.createStatement();
     Statement s2 = con.createStatement();
-    
- 
-    ResultSet rs = st.executeQuery("select * from faq WHERE question like '%" + search_term + "%';");
-    
-   
-    
+
+
+    ResultSet rs = st.executeQuery("select * from FAQ WHERE question like '%" + search_term + "%';");
+
+
+
     out.println("<table>");
     out.println("<tr><th>Question_No</th><th>Question</th><th>Answer</th>");
 

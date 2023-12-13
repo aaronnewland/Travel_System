@@ -32,7 +32,7 @@
         if ((session.getAttribute("user") == null)) {
       %>
       You are not logged in<br/>
-      <a href="login.jsp">Please Login</a>
+      <a href="../login.jsp">Please Login</a>
       <%} else {
       %>
     </div>
@@ -106,10 +106,8 @@
         </h3>
       </div>
       <div>
-        Upcoming Flight Table
-      </div>
-      <div>
-        Past Flight Table
+
+        <a href="flightPortfolio.jsp">Upcoming and Past Flights</a>
       </div>
       <div>
         Cancel a flight? (Business/First Class only)
@@ -129,21 +127,23 @@
       <div>
         <form action="searchFAQ.jsp" method="POST">
           <label for="searchQ">Search Questions: </label>
-          <input type="search" id="searchQ" name="SEARCH_Q"/> <br/>
+          <input type="search" id="searchQ" name="searchQ"/> <br/>
           <div class="center">
             <input type="submit" value="Search"/>
           </div>
+          <div class="padTop">
+            Or browse our FAQ page  <a href="searchFAQ.jsp?searchQ=">here</a>.
+          </div>
         </form>
-      </div>
-      <div>
-        FAQ Table
       </div>
       <div class="center">
         <form action="postFAQ.jsp" method="POST">
           <div class="center">
-            <label for="question_to_post">Post a question: </label>
+            <h4>
+              <label for="questionToPost">Post a question: </label>
+            </h4>
           </div>
-          <textarea id="question_to_post" name="QUESTION" rows="4" cols="50"></textarea>
+          <textarea id="questionToPost" name="questionToPost" rows="4" cols="50"></textarea>
           <div class="center">
             <input type="submit" value="Post"/>
           </div>
@@ -153,7 +153,7 @@
 
     <%-- displays username in the session --%>
     <div class="center">
-      <a href='logout.jsp'>Log out</a>
+      <a href='../logout.jsp'>Log out</a>
     </div>
     <%
       }

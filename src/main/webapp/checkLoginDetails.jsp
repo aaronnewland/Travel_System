@@ -35,11 +35,11 @@
             out.println("welcome " + userid);
             out.println("<a href='logout.jsp'>Log out</a>");
             if ("user".equals(access)) {
-                response.sendRedirect("customerLandingPage.jsp");
+                response.sendRedirect(request.getContextPath() + "/customerPages/customerLandingPage.jsp");
             } else if ("admin".equals(access)) {
-                response.sendRedirect("adminLandingPage.jsp");
+                response.sendRedirect(request.getContextPath() + "/adminPages/adminLandingPage.jsp");
             } else if ("rep".equals(access)) {
-                response.sendRedirect("repLandingPage.jsp");
+                response.sendRedirect(request.getContextPath() + "/repPages/repLandingPage.jsp");
             }
         } else {
             out.println("Invalid password <a href='login.jsp'>try again</a>");
