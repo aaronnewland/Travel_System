@@ -32,8 +32,8 @@
     int cust_id = 99;
     int ticketed_passengers = 0;
     int numSeats = 0;
-    String sqlQuery ="";
-    String updateSQL ="";
+    String sqlQuery = "";
+    String updateSQL = "";
 
     try {
         Class.forName("com.mysql.jdbc.Driver");

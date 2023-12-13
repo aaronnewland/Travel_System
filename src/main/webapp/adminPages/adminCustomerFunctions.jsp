@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<%
+<%  
     String first_name = request.getParameter("first_name");
     String mid_init = request.getParameter("mid_init");
     String last_name = request.getParameter("last_name");

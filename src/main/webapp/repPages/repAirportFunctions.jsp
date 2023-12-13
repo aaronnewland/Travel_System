@@ -35,7 +35,7 @@
     }
 
     action = "add";
-    airline_id = "bc"; 
+    airline_id = "de"; 
     aircraft_id = 300;
     num_seats = 3000;
     
@@ -49,7 +49,6 @@
         ApplicationDB db = new ApplicationDB();
         con = db.getConnection();
 
-        // Add, edit, or delete aircraft based on the action
         if ("add".equals(action)) {
         	String insertSQL = "Insert into Airline VALUES (?);";
         	pstmt = con.prepareStatement(insertSQL);
@@ -75,7 +74,7 @@
             pstmt.executeUpdate();
         }
 
-        // Fetching data to display
+       
         st = con.createStatement();
         rs = st.executeQuery("SELECT * FROM Aircrafts;");
         out.println("<table>");
@@ -90,9 +89,9 @@
         }
         out.println("</table>");
     } catch (Exception e) {
-        e.printStackTrace(); // Consider better error handling for production
+        e.printStackTrace(); 
     } finally {
-        // Close resources
+       
         try {
             if (rs != null) rs.close();
             if (st != null) st.close();
