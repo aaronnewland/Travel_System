@@ -66,11 +66,11 @@
                 <div class="center">
                     Seat Type:
                     <div class="center">
-                        <input type="radio" id="economy" name="seat_type" value="ECONOMY">
+                        <input type="radio" id="economy" name="seatType" value="economy">
                         <label for="economy">Economy</label>
-                        <input type="radio" id="business" name="seat_type" value="BUSINESS">
+                        <input type="radio" id="business" name="seatType" value="business">
                         <label for="business">Business</label>
-                        <input type="radio" id="first" name="seat_type" value="FIRST">
+                        <input type="radio" id="first" name="seatType" value="first">
                         <label for="first">First Class</label>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
             </div>
             <div class="center">
                 <label for="flightDate">Desired date: </label>
-                <input type="date" value="Flight Date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>"/>
+                <input type="date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now().toString() %>"/>
             </div>
             <div class="center padTop header">
                 <input type="submit" value="Search Flights"/>
