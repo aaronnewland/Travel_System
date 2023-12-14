@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html>
 <style>
@@ -40,7 +41,7 @@
   <div class="center">
     <form action="salesReport.jsp" method="POST">
       <label for="monthYearSelected">Get sales for month/year selected.</label>
-      <input type="month" id="monthYearSelected" name="monthYearSelected"/>
+      <input type="month" id="monthYearSelected" name="monthYearSelected" value="<%= LocalDate.now().toString() %>"/>
       <input type="submit" id="searchSalesMonth" value="Generate"/>
     </form>
   </div>

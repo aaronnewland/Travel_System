@@ -21,7 +21,9 @@
 </head>
 <body>
 <%
-    int month = 12; //pass a number parameter for sql search]
+    // Get month for sales report from admin landing page
+    int month = Integer.parseInt(request.getParameter("monthYearSelected").substring(5));
+
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
