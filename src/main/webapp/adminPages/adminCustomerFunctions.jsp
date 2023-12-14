@@ -35,11 +35,14 @@
     ResultSet rs = null;
     
     //testCODE
-   /*  first_name = "a";
+   first_name = "a";
     mid_init="b";
     last_name="c";
-	passed_cust_id=99;
-	cust_id_to_delete=104; */
+    passed_cust_id = 103;
+    //cust_id_to_delete = 112;
+    
+	/* passed_cust_id=999; */
+	/* cust_id_to_delete=104;  */
     try {
         Class.forName("com.mysql.jdbc.Driver");
         ApplicationDB db = new ApplicationDB();
@@ -72,9 +75,10 @@
         } else {
             cust_id = 1; // default to 1 if the table is empty
         }
+        /* out.println(cust_id); */
 
         // Insert a new customer
-        String insertSQL = "INSERT INTO CUSTOMER VALUES (?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO CUSTOMER(id,first_name,last_name,middle_name) VALUES (?, ?, ?, ?);";
         pstmt = con.prepareStatement(insertSQL);
         pstmt.setInt(1, cust_id);
         pstmt.setString(2, first_name);
