@@ -63,7 +63,6 @@
     <input type="hidden" name="tripType" value="<%= flexOption %>" />
 </form>
 <%
-
     try {
         Class.forName("com.mysql.jdbc.Driver");
         ApplicationDB db = new ApplicationDB();
@@ -115,6 +114,7 @@
             out.println("<input type='hidden' name='flightId' value='" + flight_ids + "'>");
             out.println("<input type='hidden' name='airlineIds' value='" + airline_ids + "'>");
             out.println("<input type='hidden' name='aircraftIds' value='" + aircraft_ids + "'>");
+            out.println("<input type='hidden' name='customerID' value='" + customerID + "'>");
             out.println("<input type='submit' value='Purchase'>");
             out.println("</form>");
             out.println("</td>");
