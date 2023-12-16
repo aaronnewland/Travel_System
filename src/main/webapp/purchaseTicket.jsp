@@ -49,7 +49,7 @@
             current_ticket_number = 1; // default to 1 if the table is empty
         }
         
-        sqlQuery = "select COUNT(ticket_number) from ticketed_flights where f_id=? and aircraft_id = ? and airline_id = ?; ";
+        sqlQuery = "select COUNT(ticket_number) from ticketed_flights where f_id= ? and aircraft_id = ? and airline_id = ?; ";
        	pstmt = con.prepareStatement(sqlQuery);
        	pstmt.setInt(1,f_id);
        	pstmt.setInt(2,aircraft_id);
@@ -67,7 +67,7 @@
 
         if (rs.next()) {
             numSeats = rs.getInt(1);
-            // Use numSeats as needed
+           
         }
        	
        	
