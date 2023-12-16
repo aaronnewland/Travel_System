@@ -20,7 +20,7 @@
 </head>
 <body>
 <%
-    Integer Fid = 1; // This should be retrieved from a request parameter
+   
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;

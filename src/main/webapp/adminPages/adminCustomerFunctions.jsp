@@ -6,116 +6,266 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ADMIN ADD EDIT DELETE</title>
+    <title>ADMIN - Manage Customers</title>
+    <!-- CSS Styles (identical to the CSR management page) -->
     <style>
-        table, th, td {
-            border: 1px solid black;
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #50b3a2;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+
+        header #branding {
+            float: left;
+        }
+
+        header #branding h1 {
+            margin: 0;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+
+        header a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .form-section {
+            background: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .form-section h2 {
+            color: #50b3a2;
+        }
+
+        .form-section form {
+            margin-top: 15px;
+        }
+
+        .form-section form input[type="text"], .form-section form input[type="submit"] {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        .form-section form input[type="submit"] {
+            background: #50b3a2;
+            border: 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form-section form input[type="submit"]:hover {
+            background: #333;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
             border-collapse: collapse;
         }
-        th, td {
-            padding: 5px;
+
+        table, th, td {
+            border: 1px solid #cccccc;
+        }
+
+        table th, table td {
+            padding: 15px;
             text-align: left;
+        }
+
+        table tr:nth-child(even) {
+            background: #f2f2f2;
         }
     </style>
 </head>
 <body>
-<%  
-    String first_name = request.getParameter("first_name");
-    String mid_init = request.getParameter("mid_init");
-    String last_name = request.getParameter("last_name");
-    String passed_cust_id_param = request.getParameter("passed_cust_id");
-    String custIDtoDelete_param = request.getParameter("custIDtoDelete");
-    int cust_id;
-    int passed_cust_id = passed_cust_id_param != null && !passed_cust_id_param.isEmpty() ? Integer.parseInt(passed_cust_id_param) : 0;
-    int cust_id_to_delete = custIDtoDelete_param != null && !custIDtoDelete_param.isEmpty() ? Integer.parseInt(custIDtoDelete_param) : 0;
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">ADMIN</span> Customer Management</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="adminLandingPage">Admin home page</a></li>
+                    <!-- Additional navigation items if needed -->
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    Connection con = null;
-    PreparedStatement pstmt = null;
-    Statement st = null;
-    ResultSet rs = null;
-    
-    //testCODE
-   first_name = "a";
-    mid_init="b";
-    last_name="c";
-    passed_cust_id = 103;
-    //cust_id_to_delete = 112;
-    
-	/* passed_cust_id=999; */
-	/* cust_id_to_delete=104;  */
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        ApplicationDB db = new ApplicationDB();
-        con = db.getConnection();
+    <div class="container">
+        <!-- Form for Adding a Customer -->
+        <div class="form-section">
+            <h2>Add Customer</h2>
+            <form action="" method="post">
+                <input type="text" name="first_name" placeholder="First Name" required>
+                <input type="text" name="mid_init" placeholder="Middle Name">
+                <input type="text" name="last_name" placeholder="Last Name" required>
+                <input type="submit" value="Add Customer">
+            </form>
+        </div>
 
-        // Perform update if passed_cust_id has a value
-        if (passed_cust_id > 0) {
-            String updateSQL = "UPDATE CUSTOMER SET first_name = ?, last_name = ?, middle_name = ? WHERE id = ?";
-            pstmt = con.prepareStatement(updateSQL);
-            pstmt.setString(1, first_name);
-            pstmt.setString(2, last_name);
-            pstmt.setString(3, mid_init);
-            pstmt.setInt(4, passed_cust_id);
-            pstmt.executeUpdate();
-        }
+        <!-- Form for Editing a Customer -->
+        <div class="form-section">
+            <h2>Edit Customer</h2>
+            <form action="" method="post">
+                <input type="text" name="custIDtoEdit" placeholder="Customer ID" required>
+                <input type="text" name="first_name" placeholder="First Name" required>
+                <input type="text" name="mid_init" placeholder="Middle Name">
+                <input type="text" name="last_name" placeholder="Last Name" required>
+                <input type="submit" value="Edit Customer">
+            </form>
+        </div>
 
-        // Perform delete if custIDtoDelete has a value
-        if (cust_id_to_delete > 0) {
-            String deleteSQL = "DELETE FROM CUSTOMER WHERE id = ?";
-            pstmt = con.prepareStatement(deleteSQL);
-            pstmt.setInt(1, cust_id_to_delete);
-            pstmt.executeUpdate();
-        }
+        <!-- Form for Deleting a Customer -->
+        <div class="form-section">
+            <h2>Delete Customer</h2>
+            <form action="" method="post">
+                <input type="text" name="custIDtoDelete" placeholder="Customer ID" required>
+                <input type="submit" value="Delete Customer">
+            </form>
+        </div>
 
-        // Fetching the maximum cust_id for a new customer entry
-        st = con.createStatement();
-        rs = st.executeQuery("SELECT MAX(id) FROM CUSTOMER");
-        if (rs.next()) {
-            cust_id = rs.getInt(1) + 1;
-        } else {
-            cust_id = 1; // default to 1 if the table is empty
-        }
-        /* out.println(cust_id); */
+        <%  
+            String firstName = request.getParameter("first_name");
+            String midName = request.getParameter("mid_init");
+            String lastName = request.getParameter("last_name");
+            
+            String custIDtoEdit_param = request.getParameter("custIDtoEdit");
+            String custIDtoDelete_param = request.getParameter("custIDtoDelete");
+            int cust_id;
+            int custIDtoEdit = custIDtoEdit_param != null && !custIDtoEdit_param.isEmpty() ? Integer.parseInt(custIDtoEdit_param) : 0;
+            int custIDtoDelete = custIDtoDelete_param != null && !custIDtoDelete_param.isEmpty() ? Integer.parseInt(custIDtoDelete_param) : 0;
 
-        // Insert a new customer
-        String insertSQL = "INSERT INTO CUSTOMER(id,first_name,last_name,middle_name) VALUES (?, ?, ?, ?);";
-        pstmt = con.prepareStatement(insertSQL);
-        pstmt.setInt(1, cust_id);
-        pstmt.setString(2, first_name);
-        pstmt.setString(3, last_name);
-        pstmt.setString(4, mid_init);
-        pstmt.executeUpdate();
+            Connection con = null;
+            PreparedStatement pstmt = null;
+            Statement st = null;
+            ResultSet rs = null;
 
-        // Fetching data to display
-        rs = st.executeQuery("SELECT * FROM CUSTOMER;");
-        out.println("<table>");
-        out.println("<tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Mid Init</th>");
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                ApplicationDB db = new ApplicationDB();
+                con = db.getConnection();
 
-        while (rs.next()) {
-            String id = rs.getString(1);
-            String fName = rs.getString(2);
-            String lName = rs.getString(3);
-            String mInit = rs.getString(4);
+                // Perform update if custIDtoEdit has a value
+                if (custIDtoEdit > 0) {
+                    String updateSQL = "UPDATE CUSTOMER SET first_name = ?, last_name = ?, middle_name = ? WHERE id = ?";
+                    pstmt = con.prepareStatement(updateSQL);
+                    pstmt.setString(1, firstName);
+                    pstmt.setString(2, lastName);
+                    pstmt.setString(3, midName);
+                    pstmt.setInt(4, custIDtoEdit);
+                    pstmt.executeUpdate();
+                }
 
-            out.println("<tr>");
-            out.println("<td>" + id + "</td>");
-            out.println("<td>" + fName + "</td>");
-            out.println("<td>" + lName + "</td>");
-            out.println("<td>" + mInit + "</td>");
-            out.println("</tr>");
-        }
-        out.println("</table>");
-    } catch (Exception e) {
-        e.printStackTrace(); // Consider better error handling for production
-    } finally {
-        // Close resources
-        try {
-            if (rs != null) rs.close();
-            if (st != null) st.close();
-            if (pstmt != null) pstmt.close();
-            if (con != null) con.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-%>
+                // Perform delete if custIDtoDelete has a value
+                if (custIDtoDelete > 0) {
+                    String deleteSQL = "DELETE FROM CUSTOMER WHERE id = ?";
+                    pstmt = con.prepareStatement(deleteSQL);
+                    pstmt.setInt(1, custIDtoDelete);
+                    pstmt.executeUpdate();
+                }
+
+                // Insert a new customer
+                if (firstName != null && !firstName.isEmpty() && custIDtoEdit == 0 && custIDtoDelete == 0) {
+                    st = con.createStatement();
+                    rs = st.executeQuery("SELECT MAX(id) FROM CUSTOMER");
+                    if (rs.next()) {
+                        cust_id = rs.getInt(1) + 1;
+                    } else {
+                        cust_id = 1; // default to 1 if the table is empty
+                    }
+
+                    String insertSQL = "INSERT INTO CUSTOMER(id, first_name, last_name, middle_name) VALUES (?, ?, ?, ?);";
+                    pstmt = con.prepareStatement(insertSQL);
+                    pstmt.setInt(1, cust_id);
+                    pstmt.setString(2, firstName);
+                    pstmt.setString(3, lastName);
+                    pstmt.setString(4, midName);
+                    pstmt.executeUpdate();
+                }
+
+                // Fetching data to display
+                st = con.createStatement();
+                rs = st.executeQuery("SELECT * FROM CUSTOMER;");
+                out.println("<table>");
+                out.println("<tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Mid Init</th>");
+
+                while (rs.next()) {
+                    String id = rs.getString(1);
+                    String fName = rs.getString(2);
+                    String lName = rs.getString(3);
+                    String mInit = rs.getString(4);
+
+                    out.println("<tr>");
+                    out.println("<td>" + id + "</td>");
+                    out.println("<td>" + fName + "</td>");
+                    out.println("<td>" + lName + "</td>");
+                    out.println("<td>" + mInit + "</td>");
+                    out.println("</tr>"); 
+                }
+                out.println("</table>");
+            } catch (Exception e) {
+                e.printStackTrace(); // Consider better error handling for production
+            } finally {
+                // Close resources
+                try {
+                    if (rs != null) rs.close();
+                    if (st != null) st.close();
+                    if (pstmt != null) pstmt.close();
+                    if (con != null) con.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+        %>
+    </div>
+</body>
+</html>

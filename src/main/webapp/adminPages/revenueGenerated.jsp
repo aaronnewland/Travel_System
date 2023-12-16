@@ -6,95 +6,194 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <h1>Revenue Report</h1>
     <title>Revenue Report</title>
+    <!-- CSS Styles -->
     <style>
-        table, th, td {
-            border: 1px solid black;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #50b3a2;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .form-section {
+            background: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .form-section h2 {
+            color: #50b3a2;
+        }
+        .form-section form {
+            margin-top: 15px;
+        }
+        .form-section form input[type="text"], .form-section form input[type="submit"] {
+            padding: 10px;
+            margin: 5px;
+        }
+        .form-section form input[type="submit"] {
+            background: #50b3a2;
+            border: 0;
+            color: white;
+            cursor: pointer;
+        }
+        .form-section form input[type="submit"]:hover {
+            background: #333;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
             border-collapse: collapse;
         }
-        th, td {
-            padding: 5px;
+        table, th, td {
+            border: 1px solid #cccccc;
+        }
+        table th, table td {
+            padding: 15px;
             text-align: left;
         }
+        table tr:nth-child(even) {
+            background: #f2f2f2;
+        }
     </style>
+<script>
+        function toggleFlightIDTextbox() {
+            var flightIDRadio = document.getElementById('flightIDRadio');
+            var flightIDTextbox = document.getElementById('flightIDTextbox');
+            flightIDTextbox.style.display = flightIDRadio.checked ? 'block' : 'none';
+        }
+    </script>
 </head>
-<body>
-<%
-    String filterType = request.getParameter("filterType"); // "flight", "airline", or "customer"
-    String filterValue = request.getParameter("filterValue"); // f_id, airline_id, or customer_id
-    filterType = "flight";
-    filterValue = "1";
+<body onload="toggleFlightIDTextbox()">
+    <header>
+        <!-- Header Content -->
+    </header>
+
+    <div class="container">
+        <div class="form-section">
+            <h2>Filter Revenue</h2>
+            <form action="" method="post">
+                <label><input type="radio" name="filterType" id="flightIDRadio" value="flight" checked onchange="toggleFlightIDTextbox()"> Flight ID</label>
+                <label><input type="radio" name="filterType" value="airline" onchange="toggleFlightIDTextbox()"> Airline ID</label>
+                <label><input type="radio" name="filterType" value="customer" onchange="toggleFlightIDTextbox()"> Customer ID</label>
+                <input type="text" name="filterValue" placeholder="Enter ID" required>
+                <div id="flightIDTextbox" style="display:none;">
+                    <input type="text" name="airlineID" placeholder="Airline ID">
+                </div>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+     
+
+        <%  
+    String filterType = request.getParameter("filterType");
+    String filterValue = request.getParameter("filterValue");
+    String airlineID = request.getParameter("airlineID");
 
     Connection con = null;
-    Statement st = null;
+    PreparedStatement pstmt = null;
     ResultSet rs = null;
 
     try {
         Class.forName("com.mysql.jdbc.Driver");
         ApplicationDB db = new ApplicationDB();
         con = db.getConnection();
-        st = con.createStatement();
 
         String sqlQuery = "";
         if ("flight".equals(filterType)) {
-            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM flight f WHERE f.f_id = " + filterValue + ";";
+            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM flight f WHERE f.f_id = ? AND f.airline_id = ?;";
+            pstmt = con.prepareStatement(sqlQuery);
+            pstmt.setInt(1, Integer.parseInt(filterValue));
+            pstmt.setString(2, airlineID);
         } else if ("airline".equals(filterType)) {
-            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM flight f WHERE f.airline_id = '" + filterValue + "';";
+            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM flight f WHERE f.airline_id = ?;";
+            pstmt = con.prepareStatement(sqlQuery);
+            pstmt.setString(1, filterValue);
         } else if ("customer".equals(filterType)) {
-            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM ticketed_flights tf JOIN flight f ON tf.f_id = f.f_id WHERE tf.cust_id = " + filterValue + ";";
+            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM ticketed_flights tf JOIN flight f ON tf.f_id = f.f_id WHERE tf.cust_id = ?;";
+            pstmt = con.prepareStatement(sqlQuery);
+            pstmt.setInt(1, Integer.parseInt(filterValue));
         }
 
-        rs = st.executeQuery(sqlQuery);
-        out.println("<table>");
-        out.println("<tr><th>ID Type</th><th>ID</th><th>Revenue Generated</th></tr>");
+        rs = pstmt.executeQuery();
 
         if (rs.next()) {
             String revenue = rs.getString("revenue");
-            out.println("<tr>");
-            out.println("<td>" + filterType + "</td>");
-            out.println("<td>" + filterValue + "</td>");
-            out.println("<td>" + revenue + "</td>");
-            out.println("</tr>");
+            if (revenue != null) {
+                out.println("<table>");
+                out.println("<tr><th>ID Type</th><th>ID</th><th>Revenue Generated</th></tr>");
+                out.println("<tr>");
+                out.println("<td>" + filterType + "</td>");
+                out.println("<td>" + filterValue + "</td>");
+                out.println("<td>" + revenue + "</td>");
+                out.println("</tr>");
+                out.println("</table>");
+            } else {
+                out.println("<p>Match not found.</p>");
+            }
+        } else {
+            out.println("<p>Match not found.</p>");
         }
-        out.println("</table>");
-        
-        String topCustomerQuery = "SELECT c.id, c.first_name, c.last_name, c.middle_name, SUM(f.fare + f.booking_fee) AS total_revenue " +
-                "FROM customer c, ticketed_flights tf, flight f " +
-                "WHERE c.id = tf.cust_id AND tf.f_id = f.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id " +
-                "GROUP BY c.id " +
-                "ORDER BY total_revenue DESC " +
-                "LIMIT 1;";
-
-		rs = st.executeQuery(topCustomerQuery);
-		out.println("<h2>Top Customer Details</h2>");
-		out.println("<table>");
-		out.println("<tr><th>Customer ID</th><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Total Revenue</th></tr>");
-
-		if (rs.next()) {
-		out.println("<tr>");
-		out.println("<td>" + rs.getString("id") + "</td>");
-		out.println("<td>" + rs.getString("first_name") + "</td>");
-		out.println("<td>" + rs.getString("middle_name") + "</td>");
-		out.println("<td>" + rs.getString("last_name") + "</td>");
-		out.println("<td>" + rs.getDouble("total_revenue") + "</td>");
-		out.println("</tr>");
-		} else {
-		out.println("<tr><td colspan='4'>No data found</td></tr>");
-		}
-		out.println("</table>");
-        ;
-   		} catch (Exception e) {
-        e.printStackTrace();  
-      
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
         try {
             if (rs != null) rs.close();
-            if (st != null) st.close();
+            if (pstmt != null) pstmt.close();
             if (con != null) con.close();
         } catch (SQLException se) {
             se.printStackTrace();
         }
     }
 %>
+
+    </div>
 </body>
 </html>
