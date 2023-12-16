@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<%
+	<%
   
     Connection con = null;
     PreparedStatement pstmt = null;
@@ -91,14 +91,13 @@
         pstmt.setInt(3, cust_id);
         pstmt.setInt(4,aircraft_id);
         pstmt.setString(5,airline_id);
-        pstmt.executeUpdate(); // Execute update
+        pstmt.executeUpdate(); 
 		
         }
       
     } catch (Exception e) {
-        e.printStackTrace(); // Consider better error handling for production
+        e.printStackTrace();
     } finally {
-        // Close resources
         try {
             if (rs != null) rs.close();
             if (pstmt != null) pstmt.close();
@@ -107,6 +106,6 @@
             se.printStackTrace();
         }
     }
-%>
+	%>
 </body>
 </html>
