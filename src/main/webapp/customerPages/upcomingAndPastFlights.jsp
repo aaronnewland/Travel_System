@@ -93,7 +93,7 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage">Admin Home Page</a></li>
-                    <!-- Add other navigation items as needed -->
+                   
                 </ul>
             </nav>
         </div>
