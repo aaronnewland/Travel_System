@@ -173,7 +173,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Billy','Johnson','M',NULL),(2,'Mike','Michaels','M',NULL),(3,'Steve','Stevenson','M',NULL),(4,'Tom','Thompson','M',NULL),(5,'Phil','Phillips','M',NULL),(6,'Paul','Paulson','M',NULL),(7,'Ringo','Ringoson','M',NULL),(99,'a','c','b',NULL),(103,'testpost first name','testpost last name','',NULL),(105,'a','c','b',NULL),(106,'a','c','b',NULL),(107,'a','c','b',NULL),(108,'a','c','b',NULL),(109,'a','c','b',NULL),(110,NULL,NULL,NULL,NULL);
+INSERT INTO `customer` VALUES (1,'Billy','Johnson','M','bob'),(2,'Mike','Michaels','M',NULL),(3,'Steve','Stevenson','M',NULL),(4,'Tom','Thompson','M',NULL),(5,'Phil','Phillips','M',NULL),(6,'Paul','Paulerson','J',NULL),(7,'Ringo','Ringoson','M',NULL),(103,'a','b','',NULL),(105,'e','g','f',NULL),(106,'a','c','b',NULL),(107,'a','c','b',NULL),(108,'a','c','b',NULL),(109,'a','c','b',NULL),(111,'a','c','b',NULL),(112,NULL,NULL,NULL,NULL),(113,'a','c','b',NULL),(114,'John','Smith','J',NULL),(115,'jon','stevenson','b',NULL),(116,'steve','smith','m',NULL),(117,'John','Targ','M',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +223,7 @@ CREATE TABLE `FAQ` (
   `question` text,
   `answer` text,
   PRIMARY KEY (`qid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `FAQ` (
 
 LOCK TABLES `FAQ` WRITE;
 /*!40000 ALTER TABLE `FAQ` DISABLE KEYS */;
-INSERT INTO `FAQ` VALUES (1,'apple25apple25','apple25apple25'),(2,'test',NULL),(3,'test',NULL),(4,'test',NULL),(5,'testpost',NULL),(6,'testpost','akjfhskahf'),(7,'testpost',NULL),(8,'testpost','akjfhskahf'),(9,'testpost',NULL);
+INSERT INTO `FAQ` VALUES (1,'apple25apple25','apple25apple25'),(2,'test',NULL),(3,'test',NULL),(4,'test',NULL),(5,'testpost',NULL),(6,'testpost','akjfhskahf'),(7,'testpost',NULL),(8,'testpost','akjfhskahf'),(9,'testpost',NULL),(10,'test',NULL),(11,NULL,NULL);
 /*!40000 ALTER TABLE `FAQ` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +271,7 @@ CREATE TABLE `flight` (
 
 LOCK TABLES `flight` WRITE;
 /*!40000 ALTER TABLE `flight` DISABLE KEYS */;
-INSERT INTO `flight` (`airline_id`, `aircraft_id`, `f_id`, `departure_time`, `arrival_time`, `departure_apt`, `arrival_apt`, `day_of_week`, `is_international`, `fare`, `booking_fee`) VALUES ('AA',35,3,'2023-12-15 23:59:59','2023-12-15 23:59:59','jfk','lhr','Monday',1,100,50),('AA',35,8,'2023-12-31 23:59:59','2023-12-31 23:59:59','ewr','sfo','Monday',0,100,50),('AA',35,10,NULL,NULL,'lax','jfk',NULL,NULL,100,50),('AA',35,44,'2023-01-01 08:00:00','2023-01-01 11:00:00','JFK','LAX','Monday',0,150,20),('AA',35,45,'2023-01-02 09:00:00','2023-01-02 12:00:00','LAX','JFK','Tuesday',0,160,20),('AA',35,52,'2023-01-06 09:00:00','2023-01-06 12:00:00','LAX','EWR','Friday',1,200,30),('AL',1,1,'2023-12-10 06:59:59','2023-12-10 15:59:59','ewr','lax','Monday',0,200,50),('AL',1,7,'2023-12-30 23:59:59','2023-12-30 23:59:59','mia','XHO','Monday',1,100,50),('AL',1,11,NULL,NULL,'mia','lax',NULL,NULL,100,50),('AL',1,12,'2023-12-12 04:59:48','2023-12-12 07:00:00','ewr','lax',NULL,NULL,NULL,NULL),('AL',1,47,'2023-01-01 07:00:00','2023-01-01 09:30:00','JFK','MIA','Monday',0,120,15),('AL',1,53,'2023-01-07 08:00:00','2023-01-07 11:00:00','EWR','LAX','Saturday',1,210,30),('AL',1,87,'2023-12-12 17:00:00','2023-12-12 19:00:00','lax','ewr','Friday',0,200,30),('JB',954,6,'2023-12-24 23:59:59','2023-12-24 23:59:59','sfo','phl','Monday',0,100,50),('JB',954,48,'2023-01-04 12:00:00','2023-01-04 15:00:00','SFO','PHL','Thursday',0,180,25),('SA',59,5,'2023-12-22 23:59:59','2023-12-22 23:59:59','sfo','lax','Monday',0,100,50),('SA',59,49,'2023-01-02 06:00:00','2023-01-02 08:00:00','PHL','SFO','Tuesday',0,140,20),('SW',45,4,'2023-12-19 23:59:59','2023-12-19 23:59:59','ewr','mia','Friday',0,100,50),('SW',45,50,'2023-01-05 14:00:00','2023-01-05 17:00:00','EWR','MIA','Friday',0,170,25),('UA',2,2,'2023-12-12 14:59:59','2023-12-12 17:59:59','lax','ewr','Wednesday',0,100,50),('UA',2,9,NULL,NULL,'sfo','jfk',NULL,NULL,100,50),('UA',2,46,'2023-01-03 10:00:00','2023-01-03 13:30:00','MIA','JFK','Wednesday',0,130,15),('UA',2,51,'2023-01-03 15:00:00','2023-01-03 18:00:00','MIA','EWR','Wednesday',0,160,20),('UA',45,53,'2023-12-15 21:59:59','2023-12-15 22:59:59','jfk','lhr','Monday',1,150,NULL);
+INSERT INTO `flight` (`airline_id`, `aircraft_id`, `f_id`, `departure_time`, `arrival_time`, `departure_apt`, `arrival_apt`, `day_of_week`, `is_international`, `fare`, `booking_fee`) VALUES ('AA',35,3,'2023-12-15 23:59:59','2023-12-15 23:59:59','jfk','lhr','Monday',1,100,50),('AA',35,8,'2023-12-31 23:59:59','2023-12-31 23:59:59','ewr','sfo','Monday',0,100,50),('AA',35,10,NULL,NULL,'lax','jfk',NULL,NULL,100,50),('AA',35,44,'2023-01-01 08:00:00','2023-01-01 11:00:00','JFK','LAX','Monday',0,150,20),('AA',35,45,'2023-01-02 09:00:00','2023-01-02 12:00:00','LAX','JFK','Tuesday',0,160,20),('AA',35,52,'2023-01-06 09:00:00','2023-01-06 12:00:00','LAX','EWR','Friday',1,200,30),('AA',35,1001,'2023-12-20 08:00:00','2023-12-20 10:00:00','LAX','SFO','Wednesday',0,180,30),('AA',35,1002,'2023-12-21 09:00:00','2023-12-21 11:00:00','JFK','MIA','Thursday',0,200,35),('AA',35,1020,'2023-12-30 07:00:00','2023-12-30 09:00:00','SFO','LAX','Friday',0,190,25),('AA',285,1008,'2023-12-27 15:00:00','2023-12-27 17:00:00','SFO','JFK','Wednesday',1,230,35),('AA',285,1014,'2024-01-02 21:00:00','2024-01-02 23:00:00','LAX','SFO','Tuesday',1,250,37),('AA',285,1020,'2024-01-08 04:00:00','2024-01-08 06:00:00','SFO','LAX','Monday',1,240,38),('AL',1,1,'2023-12-10 06:59:59','2023-12-10 15:59:59','ewr','lax','Monday',0,200,50),('AL',1,7,'2023-12-30 23:59:59','2023-12-30 23:59:59','mia','XHO','Monday',1,100,50),('AL',1,11,NULL,NULL,'mia','lax',NULL,NULL,100,50),('AL',1,12,'2023-12-12 04:59:48','2023-12-12 07:00:00','ewr','lax',NULL,NULL,NULL,NULL),('AL',1,47,'2023-01-01 07:00:00','2023-01-01 09:30:00','JFK','MIA','Monday',0,120,15),('AL',1,53,'2023-01-07 08:00:00','2023-01-07 11:00:00','EWR','LAX','Saturday',1,210,30),('AL',1,87,'2023-12-12 17:00:00','2023-12-12 19:00:00','lax','ewr','Friday',0,200,30),('AL',1,1009,'2023-12-28 16:00:00','2023-12-28 18:00:00','MIA','LAX','Thursday',0,180,28),('AL',1,1015,'2024-01-03 22:00:00','2024-01-03 00:00:00','MIA','JFK','Wednesday',0,190,29),('JB',321,1010,'2023-12-29 17:00:00','2023-12-29 19:30:00','JFK','SFO','Friday',0,260,42),('JB',321,1016,'2024-01-04 23:00:00','2024-01-05 01:30:00','SFO','LAX','Thursday',0,270,43),('JB',954,6,'2023-12-24 23:59:59','2023-12-24 23:59:59','sfo','phl','Monday',0,100,50),('JB',954,48,'2023-01-04 12:00:00','2023-01-04 15:00:00','SFO','PHL','Thursday',0,180,25),('JB',954,1004,'2023-12-23 11:00:00','2023-12-23 13:30:00','LAX','JFK','Saturday',1,250,40),('SA',59,5,'2023-12-22 23:59:59','2023-12-22 23:59:59','sfo','lax','Monday',0,100,50),('SA',59,49,'2023-01-02 06:00:00','2023-01-02 08:00:00','PHL','SFO','Tuesday',0,140,20),('SA',59,1007,'2023-12-26 14:00:00','2023-12-26 16:00:00','LAX','MIA','Tuesday',0,210,33),('SA',59,1013,'2024-01-01 20:00:00','2024-01-01 22:00:00','JFK','LAX','Monday',0,220,32),('SA',59,1019,'2024-01-07 03:00:00','2024-01-07 05:00:00','MIA','JFK','Sunday',0,230,33),('SW',45,4,'2023-12-19 23:59:59','2023-12-19 23:59:59','ewr','mia','Friday',0,100,50),('SW',45,50,'2023-01-05 14:00:00','2023-01-05 17:00:00','EWR','MIA','Friday',0,170,25),('SW',45,1006,'2023-12-25 13:00:00','2023-12-25 15:00:00','JFK','SFO','Monday',0,190,25),('SW',45,1012,'2023-12-31 19:00:00','2023-12-31 21:00:00','SFO','MIA','Sunday',0,200,30),('SW',45,1018,'2024-01-06 02:00:00','2024-01-06 04:00:00','LAX','SFO','Saturday',0,210,31),('UA',2,2,'2023-12-12 14:59:59','2023-12-12 17:59:59','lax','ewr','Wednesday',0,100,50),('UA',2,9,NULL,NULL,'sfo','jfk',NULL,NULL,100,50),('UA',2,46,'2023-01-03 10:00:00','2023-01-03 13:30:00','MIA','JFK','Wednesday',0,130,15),('UA',2,51,'2023-01-03 15:00:00','2023-01-03 18:00:00','MIA','EWR','Wednesday',0,160,20),('UA',2,1005,'2023-12-24 12:00:00','2023-12-24 14:00:00','MIA','LAX','Sunday',0,220,30),('UA',2,1011,'2023-12-30 18:00:00','2023-12-30 20:00:00','LAX','JFK','Saturday',0,240,36),('UA',2,1017,'2024-01-05 01:00:00','2024-01-05 03:00:00','JFK','MIA','Friday',0,230,34),('UA',45,53,'2023-12-15 21:59:59','2023-12-15 22:59:59','jfk','lhr','Monday',1,150,NULL);
 /*!40000 ALTER TABLE `flight` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,7 +360,7 @@ CREATE TABLE `ticketed_flights` (
 
 LOCK TABLES `ticketed_flights` WRITE;
 /*!40000 ALTER TABLE `ticketed_flights` DISABLE KEYS */;
-INSERT INTO `ticketed_flights` VALUES (22,3,1,35,'AA','2023-12-12 22:39:31'),(23,2,2,2,'UA','2023-12-12 22:39:31'),(24,1,3,1,'AL','2023-12-12 22:39:31'),(25,4,4,45,'SW','2023-12-12 22:39:31'),(26,5,5,59,'SA','2023-12-12 22:39:31'),(27,6,6,954,'JB','2023-12-12 22:39:31'),(28,1,1,1,'AL','2023-12-12 22:39:31'),(29,1,99,1,'AL','2023-12-13 13:38:38'),(30,1,99,1,'AL','2023-12-13 13:42:05'),(31,1,99,1,'AL','2023-12-13 13:43:20'),(32,1,99,1,'AL','2023-12-13 13:45:23'),(33,1,99,1,'AL','2023-12-13 13:47:24');
+INSERT INTO `ticketed_flights` VALUES (22,3,1,35,'AA','2023-12-12 22:39:31'),(23,2,2,2,'UA','2023-12-12 22:39:31'),(24,1,3,1,'AL','2023-12-12 22:39:31'),(25,4,4,45,'SW','2023-12-12 22:39:31'),(26,5,5,59,'SA','2023-12-12 22:39:31'),(27,6,6,954,'JB','2023-12-12 22:39:31'),(28,1,1,1,'AL','2023-12-12 22:39:31'),(1001,3,1,35,'AA','2023-12-17 00:00:00'),(1002,2,2,2,'UA','2023-12-18 00:00:00'),(1003,1,3,1,'AL','2023-12-19 00:00:00'),(1004,4,4,45,'SW','2023-12-20 00:00:00'),(1005,5,5,59,'SA','2023-12-21 00:00:00'),(10021,8,2,35,'AA','2023-12-16 00:00:00'),(10031,10,3,35,'AA','2023-12-17 00:00:00'),(10041,44,4,35,'AA','2023-12-18 00:00:00'),(10051,45,5,35,'AA','2023-12-19 00:00:00'),(10061,52,6,35,'AA','2023-12-20 00:00:00'),(10071,1001,1,35,'AA','2023-12-21 00:00:00'),(10081,1002,2,35,'AA','2023-12-22 00:00:00'),(10091,1020,3,35,'AA','2023-12-23 00:00:00'),(10101,1008,4,285,'AA','2023-12-24 00:00:00'),(10111,3,1,35,'AA','2023-12-15 00:00:00'),(10111,1014,5,285,'AA','2023-12-25 00:00:00'),(10121,1020,6,285,'AA','2023-12-26 00:00:00'),(10131,1,1,1,'AL','2023-12-27 00:00:00'),(10141,7,2,1,'AL','2023-12-28 00:00:00'),(10151,11,3,1,'AL','2023-12-29 00:00:00'),(10161,47,4,1,'AL','2023-12-30 00:00:00'),(10171,53,5,1,'AL','2023-12-31 00:00:00'),(10181,87,6,1,'AL','2024-01-01 00:00:00'),(10191,1009,1,1,'AL','2024-01-02 00:00:00'),(10201,1015,2,1,'AL','2024-01-03 00:00:00');
 /*!40000 ALTER TABLE `ticketed_flights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -374,7 +374,10 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `username` varchar(20) DEFAULT NULL,
   `password` varchar(20) DEFAULT NULL,
-  `access` enum('admin','user','rep') NOT NULL
+  `access` enum('admin','user','rep') NOT NULL,
+  `fName` varchar(50) DEFAULT NULL,
+  `mName` varchar(50) DEFAULT NULL,
+  `lName` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -384,7 +387,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('alice','alicepassword','rep'),('bob','bobpassword','user'),('Paul','paulpassword','admin'),('John','johnpassword','admin'),('George','georgepassword','admin'),('Ringo','ringopassword','admin'),('vb','vb123','admin');
+INSERT INTO `users` VALUES ('alice','alicepassword','rep','alice','in','chains'),('bob','bobpassword','user',NULL,NULL,NULL),('Paul','paulpassword','admin',NULL,NULL,NULL),('John','johnpassword','admin',NULL,NULL,NULL),('George','georgepassword','admin',NULL,NULL,NULL),('Ringo','ringopassword','admin',NULL,NULL,NULL),('vb123','vb123','admin','Van','M','Bir');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,7 +408,7 @@ CREATE TABLE `waitlist` (
   PRIMARY KEY (`wl_id`,`f_id`,`aircraft_id`,`airline_id`),
   KEY `waitlist_ibfk_1` (`f_id`,`aircraft_id`,`airline_id`),
   CONSTRAINT `waitlist_ibfk_1` FOREIGN KEY (`f_id`, `aircraft_id`, `airline_id`) REFERENCES `flight` (`f_id`, `aircraft_id`, `airline_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,7 +417,7 @@ CREATE TABLE `waitlist` (
 
 LOCK TABLES `waitlist` WRITE;
 /*!40000 ALTER TABLE `waitlist` DISABLE KEYS */;
-INSERT INTO `waitlist` VALUES (1,1,1,'AL','08:00:00',1),(2,2,2,'UA','09:00:00',2),(3,3,35,'AA','10:00:00',3),(4,1,1,'AL','13:48:41',99),(5,1,1,'AL','13:49:23',99);
+INSERT INTO `waitlist` VALUES (1,1,1,'AL','08:00:00',1),(2,2,2,'UA','09:00:00',2),(3,3,35,'AA','10:00:00',3),(4,1,1,'AL','13:48:41',99),(5,1,1,'AL','13:49:23',99),(6,1,1,'AL','17:32:45',99);
 /*!40000 ALTER TABLE `waitlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -444,10 +447,6 @@ LOCK TABLES `wl_customers` WRITE;
 INSERT INTO `wl_customers` VALUES (1,1),(2,2),(3,3);
 /*!40000 ALTER TABLE `wl_customers` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'travel'
---
 
 --
 -- Dumping routines for database 'travel'
@@ -1674,4 +1673,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-13 17:21:03
+-- Dump completed on 2023-12-16 11:41:25

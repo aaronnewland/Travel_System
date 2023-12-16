@@ -1,6 +1,9 @@
  <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" import="com.example.travel_system.*"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.Date" %>
 
  <!DOCTYPE html>
 <html>
@@ -33,6 +36,28 @@
 	int numconnect = 4;
     String aircraftIds = request.getParameter("aircraftIds");
     String flexOption = request.getParameter("tripType");
+    String departure = request.getParameter("arrival");
+    String arrival = request.getParameter("departure");
+    String arrivalDateStr = request.getParameter("arrivalDate");
+    
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Adjust the pattern to match your date format
+    Date arrivalDate = dateFormat.parse(arrivalDateStr);
+
+    // Create a Calendar instance and add 3 hours
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(arrivalDate);
+    calendar.add(Calendar.HOUR_OF_DAY, 3);
+
+    // Convert back to String
+    String departure_date = dateFormat.format(calendar.getTime());
+    
+    
+    
+    //test
+     departure_date = "2023-12-15";
+    departure = "lax";
+    arrival = "ewr";
+    
 %>
 <%-- <form action="oneWaySearch.jsp" method="POST">
     <div class="center">
