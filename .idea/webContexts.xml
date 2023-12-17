@@ -9,6 +9,8 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/adminPages/revenueGenerated.jsp" value="file://$PROJECT_DIR$/src/main/webapp/adminPages" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/checkLoginDetails.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/customerLandingPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/customerPages/customerFlightSearch.jsp" value="file://$PROJECT_DIR$/src/main/webapp/customerPages" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/customerPages/upcomingAndPastFlights.jsp" value="file://$PROJECT_DIR$/src/main/webapp/customerPages" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/displayLoginDetails.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/flightportfolio.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />

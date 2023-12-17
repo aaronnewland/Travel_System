@@ -39,6 +39,7 @@
     }
 
     String[] airline_ids = request.getParameter("airlineIds").split(",");
+    String seatType = request.getParameter("seatType");
 
     int cust_id = Integer.parseInt(request.getParameter("customerID"));
     int ticketed_passengers = 0;
@@ -96,13 +97,17 @@
             } else {
 
                 // INSERT A TICKETED CUSTOMER
-                updateSQL = "Insert INTO ticketed_flights(ticket_number,f_id,cust_id,aircraft_id,airline_id,purchase_date) VALUES(?,?,?,?,?,NOW());";
+                updateSQL = "Insert INTO ticketed_flights(ticket_number,f_id,cust_id,aircraft_id,airline_id,purchase_date,is_paid,class) VALUES(?,?,?,?,?,NOW(),?,?);";
                 pstmt = con.prepareStatement(updateSQL);
                 pstmt.setInt(1, current_ticket_number);
                 pstmt.setInt(2, f_ids[i]);
                 pstmt.setInt(3, cust_id);
                 pstmt.setInt(4,aircraft_ids[i]);
                 pstmt.setString(5,airline_ids[i]);
+                if (seatType.equalsIgnoreCase("economy")) {
+                    pstmt.setInt(6, 0);
+                } else  pstmt.setInt(6, 1);
+                pstmt.setString(7, seatType);
                 pstmt.executeUpdate(); // Execute update
                 out.println("Successfully booked flight number " + f_ids[i] + " on ticket number " + current_ticket_number + ".");
             }

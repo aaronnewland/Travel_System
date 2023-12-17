@@ -159,7 +159,7 @@
     Statement st = con.createStatement();
     String customerIDGlobal = (String) session.getAttribute("customerIDGlobal");
     int Custid = Integer.parseInt(customerIDGlobal);
-    Custid=2;
+//    Custid=2;
     // Flights departing before the current datetime
     ResultSet rsBefore = st.executeQuery("SELECT * FROM flight f, ticketed_flights tf WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND cust_id = " + Custid + " AND departure_time < NOW() ORDER BY departure_time ASC;");
     

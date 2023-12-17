@@ -76,7 +76,7 @@
           <div class="center">
             Seat Type:
             <div class="center">
-              <input type="radio" id="economy" name="seatType" value="economy">
+              <input type="radio" id="economy" name="seatType" value="economy" checked>
               <label for="economy">Economy</label>
               <input type="radio" id="business" name="seatType" value="business">
               <label for="business">Business</label>

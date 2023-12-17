@@ -78,31 +78,18 @@
     }
 
     String roundTripFlightID = request.getParameter("flightId");
-    if (!(roundTripFlightID == null || roundTripFlightID.isEmpty())) {
-        out.println(roundTripFlightID);
-    }
     String roundTripAirlineID = request.getParameter("airlineIds");
-    if (!(roundTripAirlineID == null || roundTripAirlineID.isEmpty())) {
-        out.println(roundTripAirlineID);
-    }
     String roundTripAircraftID = request.getParameter("aircraftIds");
-    if (!(roundTripAircraftID == null || roundTripAircraftID.isEmpty())) {
-        out.println(roundTripAircraftID);
-    }
     String roundTripCustomerID = request.getParameter("customerID");
-    if (!(roundTripCustomerID == null || roundTripCustomerID.isEmpty())) {
-        out.println(roundTripCustomerID);
-    }
     boolean terminate = false;
     String roundTripTerminate = request.getParameter("roundTripTerminate");
     if (!(roundTripTerminate == null || roundTripTerminate.isEmpty())) {
-        out.println(roundTripTerminate);
         if (roundTripTerminate.equalsIgnoreCase("true")) {
             terminate = true;
         }
     }
 
-
+    String seatType = request.getParameter("seatType");
 
 %>
 
@@ -160,11 +147,6 @@
 
             boolean flex = false;
             if (flexOption.equalsIgnoreCase("oneWayFlex") || flexOption.equalsIgnoreCase("roundTripFlex")) flex = true;
-
-            out.println(departure);
-            out.println(arrival);
-            out.println(flex);
-            out.println(departureDate);
 
             List<FlightPath> paths = flightPaths.findFlightPaths(departure, arrival, numConnect, flex, departureDate, con);
 
@@ -299,6 +281,7 @@
                         out.println("<input type='hidden' name='airlineIds' value='" + joinList(path.getAirlineIds()) + "'>");
                         out.println("<input type='hidden' name='aircraftIds' value='" + joinList(path.getAircraftIds()) + "'>");
                         out.println("<input type='hidden' name='customerID' value='" + customerID + "'>");
+                        out.println("<input type='hidden' name='seatType' value='" + seatType + "'>");
                         out.println("<input type='submit' value='Purchase'>");
                         out.println("</form>");
                     } else if (!terminate){
@@ -312,6 +295,7 @@
                         out.println("<input type='hidden' name='departure' value='" + arrival + "' >");
                         out.println("<input type='hidden' name='destination' value='" + departure + "' >");
                         out.println("<input type='hidden' name='roundTripTerminate' value='" + "true" + "' >");
+                        out.println("<input type='hidden' name='seatType' value='" + seatType + "'>");
                         out.println("<input type='submit' value='Purchase'>");
                         out.println("</form>");
                     } else {
@@ -320,6 +304,7 @@
                         out.println("<input type='hidden' name='airlineIds' value='" + roundTripAirlineID.concat(",").concat(joinList(path.getAirlineIds())) + "'>");
                         out.println("<input type='hidden' name='aircraftIds' value='" + roundTripAircraftID.concat(",").concat(joinList(path.getAircraftIds())) + "'>");
                         out.println("<input type='hidden' name='customerID' value='" + customerID + "'>");
+                        out.println("<input type='hidden' name='seatType' value='" + seatType + "'>");
                         out.println("<input type='submit' value='Purchase'>");
                         out.println("</form>");
                     }
