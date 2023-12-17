@@ -2,7 +2,7 @@
          pageEncoding="ISO-8859-1" import="com.example.travel_system.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
-<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.LocalDateTime" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,6 +143,7 @@
           <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
             <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a> -->
             <a href="customerLandingPage2.jsp" class="tablinks">Home</a>
+             <a href="customerFlightSearch.jsp" class="tablinks">Flight Search</a>
             <a href="cancelFlight.jsp" class="tablinks">Cancel a flight</a>
             <a href="postFAQ.jsp" class="tablinks">Ask a Question</a>
             <a href="searchFAQ.jsp" class="tablinks">Search FAQ</a>
@@ -162,7 +163,7 @@
     // Flights departing before the current datetime
     ResultSet rsBefore = st.executeQuery("SELECT * FROM flight f, ticketed_flights tf WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND cust_id = " + Custid + " AND departure_time < NOW() ORDER BY departure_time ASC;");
     
-    out.println("<h2>Flights Departing Before Current Datetime</h2>");
+    out.println("<h2>Flights Departing Before Current Time</h2>");
     out.println("<table>");
     out.println("<tr><th>Ticket_number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight IDs</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
     while (rsBefore.next()) {
@@ -193,7 +194,7 @@
     // Flights departing after the current datetime
     ResultSet rsAfter = st.executeQuery("SELECT * FROM flight f, ticketed_flights tf WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND cust_id = " + Custid + " AND departure_time > NOW() ORDER BY departure_time ASC;");
 
-    out.println("<h2>Flights Departing After Current Datetime</h2>");
+    out.println("<h2>Flights Departing After Current Time</h2>");
     out.println("<table>");
     out.println("<tr><th>Ticket_number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight IDs</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
     while (rsAfter.next()) {

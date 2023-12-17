@@ -129,15 +129,15 @@
     </script>
 </head>
 <body>
-
     <header>
         <div class="container">
             <div id="branding">
-                <h1><span class="highlight">Customer</span> Flight Search</h1>
+                <h1><span class="highlight">Customer Rep</span> Edit Customer Reservations</h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="customerLandingPage2.jsp">Customer Home</a></li>
+                    <li><a href="repLandingPage2.jsp">Rep Home</a></li>
+       
                 </ul>
             </nav>
         </div>
@@ -145,15 +145,20 @@
 
     <div class="container">
         <div class="tab">
-            <a href="customerLandingPage2.jsp" class="tablinks">Home</a>
-            <a href="customerFlightSearch.jsp" class="tablinks active">Flight Search</a>
-            <a href="cancelFlight.jsp" class="tablinks">Cancel a flight</a>
-            <a href="postFAQ.jsp" class="tablinks">Ask a Question</a>
-            <a href="searchFAQ.jsp" class="tablinks">Search FAQ</a>
-            <a href="upcomingAndPastFlights.jsp" class="tablinks">Past and Upcoming Itinerary</a>
+            <a href="editCustomerReservations1.jsp" class="tablinks">Edit Customer Reservations</a>
+            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
+            <a href="repAirportFunctions.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a>
+            <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
+            <a href="waitList.jsp" class="tablinks">Waitlist</a>
+            <a href="repMakeReservations.jsp" class="tablinks active">Rep Make Reservations</a>
         </div>
     </div>
-    <div class="center">
+    
+   <%
+          String cust_id_param = request.getParameter("customerIDReservation");
+          int custIDReservation = Integer.parseInt(cust_id_param);
+          %>
+   <div class="center">
         <form id="searchForm" method="POST" onsubmit="updateFormAction()">
             <div class="center">
                 Search a flight (specific date):
@@ -195,10 +200,13 @@
                 <input type="date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now() %>"/>
             </div>
             <div class="center padTop header">
-            	
+           	    <input type="hidden" name="customerIDReservation" value="<%= custIDReservation %>" />
                 <input type="submit" value="Search Flights"/>
             </div>
-        </form>
-    </div>
+            </form>
+          </div>
+          
+         
+        
 </body>
 </html>

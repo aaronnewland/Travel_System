@@ -141,7 +141,7 @@
         </div>
     </div>
    
-           <form action="oneWaySearch.jsp" method="post">
+           <form action="repMakeReservations2.jsp" method="post">
             <div class="form-section">
                 <label for="customerID">Customer ID:</label>
                 <input type="text" id="customerIDReservation" name="customerIDReservation" required>

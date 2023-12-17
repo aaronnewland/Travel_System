@@ -149,6 +149,7 @@
           <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
             <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a> -->
             <a href="customerLandingPage2.jsp" class="tablinks">Home</a>
+            <a href="customerFlightSearch.jsp" class="tablinks">Flight Search</a>
             <a href="cancelFlight.jsp" class="tablinks active">Cancel a flight</a>
             <a href="postFAQ.jsp" class="tablinks">Ask a Question</a>
             <a href="searchFAQ.jsp" class="tablinks">Search FAQ</a>

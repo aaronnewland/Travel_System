@@ -142,6 +142,6 @@
     </div>
     <hr>
     <hr>
-     <center><b>Please pick a tab <%=session.getAttribute("user")%>.</b></center>
+     
 </body>
 </html>
