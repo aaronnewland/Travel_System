@@ -90,8 +90,31 @@
                 <option value="ASC">Ascending</option>
                 <option value="DESC">Descending</option>
             </select>
-            <input type="submit" value="Filter">
+<%--            <input type="submit" value="Sort">--%>
         </div>
+    </div>
+    <input type="hidden" name="departure" value="<%= departure %>" />
+    <input type="hidden" name="destination" value="<%= arrival %>" />
+    <input type="hidden" name="flightDate" value="<%= departure_date %>" />
+    <input type="hidden" name="tripType" value="<%= flexOption %>" />
+    <div class="center">
+        <label for="filterType"> Filter By </label>
+        <select id="filterType" name="filterType">
+            <option value="greaterPrice">> Price</option>
+            <option value="lessPrice">< Price</option>
+            <option value="greaterNumStops">> Number of Stops</option>
+            <option value="lessNumStops">< Number of Stops</option>
+            <option value="airline">Airline (e.g. AA, UA)</option>
+            <option value="greaterTakeOffTime">> Take-Off-Time (HH:MM)</option>
+            <option value="lessTakeOffTime">< Take-Off-Time (HH:MM)</option>
+            <option value="greaterArrivalTime">> Arrival Time (HH:MM)</option>
+            <option value="lessArrivalTime">< Arrival Time (HH:MM)</option>
+        </select>
+        <label for="filterBy">Enter Value</label>
+        <input type="text" id="filterBy" name="filterBy"/>
+    </div>
+    <div class="center">
+        <input type="submit" value="Update"/>
     </div>
     <input type="hidden" name="departure" value="<%= departure %>" />
     <input type="hidden" name="destination" value="<%= arrival %>" />
@@ -103,16 +126,23 @@
             Class.forName("com.mysql.jdbc.Driver");
             ApplicationDB db = new ApplicationDB();
             Connection con = db.getConnection();
+
+            out.println("<table border='1'><tr><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Day of Week</th><th>Is International</th><th>Fare</th><th>Booking Fee</th><th>Duration</th><th>Purchase Ticket</th></tr>");
+
+            FlightPath flightPaths = new FlightPath();
+            List<FlightPath> paths = flightPaths.findFlightPaths(departure, arrival, numConnect, con);
+
+            String filter = request.getParameter("filterType");
+            String filterVal = request.getParameter("filterBy");
+
+
+
             String orderBy = request.getParameter("criteria");
             String ascdesc = request.getParameter("howSort");
 
             if (orderBy == null || orderBy.isEmpty()) { orderBy = "depart_time"; }
             if (ascdesc == null || ascdesc.isEmpty()) { ascdesc = "ASC"; }
 
-            out.println("<table border='1'><tr><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Day of Week</th><th>Is International</th><th>Fare</th><th>Booking Fee</th><th>Duration</th><th>Purchase Ticket</th></tr>");
-
-            FlightPath flightPaths = new FlightPath();
-            List<FlightPath> paths = flightPaths.findFlightPaths(departure, arrival, numConnect, con);
 
             String finalOrderBy = orderBy;
             String finalAscdesc = ascdesc;
@@ -133,6 +163,81 @@
                 }
                 return 0;
             });
+
+            if (!(filterVal == null || filterVal.isEmpty()) && !(filter == null || filter.isEmpty())) {
+                Iterator<FlightPath> iterator = paths.iterator();
+                DateTimeFormatter hourMinuteFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                while (iterator.hasNext()) {
+                    FlightPath path = iterator.next();
+                    boolean remove = false;
+
+                        switch (filter) {
+                            case "greaterPrice":
+                                double price = Double.parseDouble(filterVal);
+                                if (path.getFare() < price) remove = true;
+                                break;
+                            case "lessPrice":
+                                price = Double.parseDouble(filterVal);
+                                if (path.getFare() > price) remove = true;
+                                break;
+                            case "greaterNumStops":
+                                int numberStops = path.getArrivalAirports().size();
+                                int desiredStops = Integer.parseInt(filterVal);
+                                if (desiredStops > numberStops) remove = true;
+                                break;
+                            case "lessNumStops":
+                                numberStops = path.getArrivalAirports().size();
+                                desiredStops = Integer.parseInt(filterVal);
+                                if (desiredStops < numberStops) remove = true;
+                                break;
+                            case "airline":
+                                for (Flight flight : path.getFlightList()) {
+                                    if (!filterVal.equalsIgnoreCase(flight.getAirlineID())) {
+                                        remove = true;
+                                        break;
+                                    }
+                                }
+                                break;
+                            case "greaterTakeOffTime":
+                                LocalTime time = LocalTime.parse(filterVal, hourMinuteFormatter);
+                                // get take off time of first flight to compare
+                                LocalTime takeOffTime = path.getDepartureTimes().get(0).toLocalDateTime().toLocalTime();
+                                String tempTime = takeOffTime.format(hourMinuteFormatter);
+                                takeOffTime = LocalTime.parse(tempTime, hourMinuteFormatter);
+                                if (!takeOffTime.isAfter(time)) remove = true;
+                                break;
+                            case "lessTakeOffTime":
+                                time = LocalTime.parse(filterVal, hourMinuteFormatter);
+                                // get take off time of first flight to compare
+                                takeOffTime = path.getDepartureTimes().get(0).toLocalDateTime().toLocalTime();
+                                tempTime = takeOffTime.format(hourMinuteFormatter);
+                                takeOffTime = LocalTime.parse(tempTime, hourMinuteFormatter);
+                                out.println(takeOffTime);
+                                if (!takeOffTime.isBefore(time)) remove = true;
+                                break;
+                            case "greaterArrivalTime":
+                                time = LocalTime.parse(filterVal, hourMinuteFormatter);
+                                // get arrival time of last flight to compare
+                                LocalTime arrivalTime = path.getArrivalTimes().get(path.getFlightList().size() - 1).toLocalDateTime().toLocalTime();
+                                tempTime = arrivalTime.format(hourMinuteFormatter);
+                                arrivalTime = LocalTime.parse(tempTime, hourMinuteFormatter);
+                                if (!arrivalTime.isAfter(time)) remove = true;
+                                break;
+                            case "lessArrivalTime":
+                                time = LocalTime.parse(filterVal, hourMinuteFormatter);
+                                // get arrival time of last flight to compare
+                                arrivalTime = path.getArrivalTimes().get(path.getFlightList().size() - 1).toLocalDateTime().toLocalTime();
+                                tempTime = arrivalTime.format(hourMinuteFormatter);
+                                arrivalTime = LocalTime.parse(tempTime, hourMinuteFormatter);
+                                if (!arrivalTime.isBefore(time)) remove = true;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    if (remove) iterator.remove();
+                }
+            }
 
             for (FlightPath path : paths) {
                 LocalDate timestampDate = path.getDepartureTimes().get(0).toLocalDateTime().toLocalDate();
