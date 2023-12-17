@@ -1,6 +1,7 @@
 package com.example.travel_system;
 
 import java.sql.*;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.*;
@@ -63,9 +64,9 @@ public class FlightPath {
         return flightList;
     }
 
-    public List<FlightPath> findFlightPaths(String departure, String destination, int maxStops, Connection con) throws SQLException {
+    public List<FlightPath> findFlightPaths(String departure, String destination, int maxStops, boolean flex, LocalDate desiredDate, Connection con) throws SQLException {
         List<FlightPath> validPaths = new ArrayList<>();
-        findFlightPathsRecursive(departure, destination, maxStops, new FlightPath(), validPaths, con);
+        findFlightPathsRecursive(departure, destination, maxStops, new FlightPath(), validPaths, flex, desiredDate,  con);
 
         for (FlightPath paths : validPaths) {
             for (Flight flight : paths.getFlightList()) {
@@ -83,13 +84,10 @@ public class FlightPath {
                 paths.setDuration(paths.getDuration() + flight.getDuration());
             }
         }
-
-        System.out.println(validPaths.get(0).flightIds);
-        System.out.println(validPaths.get(1).flightIds);
         return validPaths;
     }
 
-    private void findFlightPathsRecursive(String currentAirport, String destination, int stopsLeft, FlightPath currentPath, List<FlightPath> validPaths, Connection con) throws SQLException {
+    private void findFlightPathsRecursive(String currentAirport, String destination, int stopsLeft, FlightPath currentPath, List<FlightPath> validPaths, boolean flex, LocalDate desiredDate, Connection con) throws SQLException {
         if (stopsLeft < 0) {
             return;
         }
@@ -101,6 +99,14 @@ public class FlightPath {
                         rs.getTimestamp("departure_time"), rs.getTimestamp("arrival_time"), rs.getString("departure_apt"),
                         rs.getString("arrival_apt"), rs.getString("day_of_week"), rs.getInt("is_international"),
                         rs.getDouble("fare"), rs.getDouble("booking_fee"), rs.getInt("duration_minutes"));
+
+                if (currentPath.getFlightList().isEmpty() && flex) {
+                    LocalDate flightDepartureDate = flight.getDepartureTime().toLocalDateTime().toLocalDate();
+                    long daysBetween = ChronoUnit.DAYS.between(desiredDate, flightDepartureDate);
+                    if (Math.abs(daysBetween) > 3) {
+                        continue;
+                    }
+                }
 
                 if (!currentPath.getFlightList().isEmpty()) {
                     Duration duration = Duration.between(currentPath.getFlightList().get(currentPath.getFlightList().size() - 1).getArrivalTime().toLocalDateTime(), flight.getDepartureTime().toLocalDateTime());
@@ -116,10 +122,9 @@ public class FlightPath {
                 newPath.getFlightList().addAll(currentPath.getFlightList());
                 newPath.addFlight(flight);
                 if (flight.getArrivalAirport().equalsIgnoreCase(destination)) {
-                    System.out.println(flight);
                     validPaths.add(newPath);
                 } else if (stopsLeft > 0) {
-                    findFlightPathsRecursive(flight.getArrivalAirport(), destination, stopsLeft - 1, newPath, validPaths, con);
+                    findFlightPathsRecursive(flight.getArrivalAirport(), destination, stopsLeft - 1, newPath, validPaths, flex, desiredDate, con);
                 }
             }
         }

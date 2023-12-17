@@ -93,10 +93,6 @@
 <%--            <input type="submit" value="Sort">--%>
         </div>
     </div>
-    <input type="hidden" name="departure" value="<%= departure %>" />
-    <input type="hidden" name="destination" value="<%= arrival %>" />
-    <input type="hidden" name="flightDate" value="<%= departure_date %>" />
-    <input type="hidden" name="tripType" value="<%= flexOption %>" />
     <div class="center">
         <label for="filterType"> Filter By </label>
         <select id="filterType" name="filterType">
@@ -130,7 +126,11 @@
             out.println("<table border='1'><tr><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Day of Week</th><th>Is International</th><th>Fare</th><th>Booking Fee</th><th>Duration</th><th>Purchase Ticket</th></tr>");
 
             FlightPath flightPaths = new FlightPath();
-            List<FlightPath> paths = flightPaths.findFlightPaths(departure, arrival, numConnect, con);
+
+            boolean flex = false;
+            if (flexOption.equalsIgnoreCase("oneWayFlex")) flex = true;
+
+            List<FlightPath> paths = flightPaths.findFlightPaths(departure, arrival, numConnect, flex, departureDate, con);
 
             String filter = request.getParameter("filterType");
             String filterVal = request.getParameter("filterBy");
@@ -241,7 +241,7 @@
 
             for (FlightPath path : paths) {
                 LocalDate timestampDate = path.getDepartureTimes().get(0).toLocalDateTime().toLocalDate();
-                if (flexOption.equalsIgnoreCase("oneWaySpecific") &&timestampDate.isEqual(departureDate)) {
+                if ((flexOption.equalsIgnoreCase("oneWaySpecific") && timestampDate.isEqual(departureDate)) || flexOption.equalsIgnoreCase("oneWayFlex")) {
                     out.println("<tr>");
                     out.println("<td>" + joinList(path.getAirlineIds()) + "</td>");
                     out.println("<td>" + joinList(path.getAircraftIds()) + "</td>");
