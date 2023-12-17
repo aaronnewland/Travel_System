@@ -1,42 +1,127 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" import="com.example.travel_system.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+         pageEncoding="ISO-8859-1" import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
+<%@ page import="com.example.travel_system.*"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Most active flights</title>
+    <title>Sales Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
             color: #333;
-            text-align: center;
         }
-        table {
-            margin: 20px auto;
-            border-collapse: collapse;
+        .container {
             width: 80%;
+            margin: auto;
+            overflow: hidden;
         }
-        th, td {
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            text-align: left;
+        header {
+            background: #50b3a2;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
         }
-        th {
-            background-color: #4CAF50;
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .tab a {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .tab a:hover {
+            background-color: #ddd;
+        }
+        .tab a.active {
+            background-color: #50b3a2;
             color: white;
         }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
+        .form-section {
+            background: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
         }
-        tr:hover {
-            background-color: #ddd;
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">ADMIN</span> Sales Report</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="adminLandingPage">Admin Home Page</a></li>
+                    <!-- Other navigation items -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tab">
+            <a href="adminCustomerFunctions.jsp" class="tablinks">Customer Functions</a>
+            <a href="salesReport.jsp" class="tablinks">Sales Report</a>
+            <a href="reservationList.jsp" class="tablinks">Reservations</a>
+            <a href="revenueGenerated.jsp" class="tablinks">Revenue</a>
+            <a href="mostActiveFlightList.jsp" class="tablinks active">Active Flights</a>
+        </div>
+    </div>
 <%
     Connection con = null;
     Statement st = null;

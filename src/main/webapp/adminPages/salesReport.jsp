@@ -15,13 +15,11 @@
             padding: 0;
             color: #333;
         }
-
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
         }
-
         header {
             background: #50b3a2;
             color: white;
@@ -29,61 +27,71 @@
             min-height: 70px;
             border-bottom: #e8491d 3px solid;
         }
-
         header a {
             color: #ffffff;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
         }
-
         header ul {
             padding: 0;
             margin: 0;
             list-style: none;
             overflow: hidden;
         }
-
         header li {
             float: left;
             display: inline;
             padding: 0 20px 0 20px;
         }
-
         header #branding {
             float: left;
         }
-
         header #branding h1 {
             margin: 0;
         }
-
         header nav {
             float: right;
             margin-top: 10px;
         }
-
         header .highlight, header .current a {
             color: #e8491d;
             font-weight: bold;
         }
-
         header a:hover {
             color: #ffffff;
             font-weight: bold;
         }
-
+        .tab a {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .tab a:hover {
+            background-color: #ddd;
+        }
+        .tab a.active {
+            background-color: #50b3a2;
+            color: white;
+        }
         .form-section {
             background: #ffffff;
             padding: 20px;
             margin-top: 20px;
         }
-
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
         }
-
         th, td {
             padding: 5px;
             text-align: left;
@@ -99,11 +107,21 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage">Admin Home Page</a></li>
-         
+                    <!-- Other navigation items -->
                 </ul>
             </nav>
         </div>
     </header>
+
+    <div class="container">
+        <div class="tab">
+            <a href="adminCustomerFunctions.jsp" class="tablinks">Customer Functions</a>
+            <a href="salesReport.jsp" class="tablinks active">Sales Report</a>
+            <a href="reservationList.jsp" class="tablinks">Reservations</a>
+            <a href="revenueGenerated.jsp" class="tablinks">Revenue</a>
+            <a href="mostActiveFlightList.jsp" class="tablinks">Active Flights</a>
+        </div>
+    </div>
 
     <div class="container">
         <div class="form-section">

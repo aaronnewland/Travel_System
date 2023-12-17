@@ -5,7 +5,6 @@
 <head>
     <title>Admin Page</title>
     <style>
-        /* Existing styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -71,26 +70,19 @@
             font-weight: bold;
         }
 
-        /* Tab styles */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #cccccc;
-            background-color: #f2f2f2;
-        }
-
         .tab a {
-            padding: 14px 16px;
-            margin-right: 5px;
             background-color: inherit;
             float: left;
             border: none;
             outline: none;
             cursor: pointer;
-            text-decoration: none;
+            padding: 14px 16px;
             transition: 0.3s;
             font-size: 17px;
+            text-decoration: none;
             color: #333;
             border-radius: 4px;
+            margin-right: 5px;
         }
 
         .tab a:hover {
@@ -102,6 +94,25 @@
             color: white;
         }
 
+        .form-section {
+            background: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        table tr:nth-child(even) {
+            background: #f2f2f2;
+        }
     </style>
 </head>
 <body>
@@ -124,10 +135,9 @@
             <a href="adminCustomerFunctions.jsp" class="tablinks">Customer Functions</a>
             <a href="salesReport.jsp" class="tablinks">Sales Report</a>
             <a href="reservationList.jsp" class="tablinks">Reservations</a>
-            <a href="revenueGenerated.jsp" class="tablinks active">Revenue</a>
+            <a href="revenueGenerated.jsp" class="tablinks">Revenue</a>
             <a href="mostActiveFlightList.jsp" class="tablinks">Active Flights</a>
         </div>
-
     </div>
 </body>
 </html>
