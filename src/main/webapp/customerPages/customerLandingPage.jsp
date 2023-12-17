@@ -95,7 +95,7 @@
         </div>
         <div class="center">
           <label for="flightDate">Desired date: </label>
-          <input type="date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now().toString() %>"/>
+          <input type="date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now() %>"/>
         </div>
         <div class="center padTop header">
           <input type="submit" value="Search Flights"/>
