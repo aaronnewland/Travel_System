@@ -116,17 +116,7 @@
             background-color: #e8491d;
         }
     </style>
-    <script>
-        function updateFormAction() {
-            var form = document.getElementById("searchForm");
-            var tripType = document.querySelector('input[name="tripType"]:checked').value;
-            if (tripType === "oneWaySpecific" || tripType === "oneWayFlex") {
-                form.action = "../oneWaySearch.jsp";
-            } else if (tripType === "roundTripSpecific" || tripType === "roundTripFlex") {
-                form.action = "../roundTripSearch.jsp";
-            }
-        }
-    </script>
+
 </head>
 <body>
     <header>
@@ -158,55 +148,64 @@
           String cust_id_param = request.getParameter("customerIDReservation");
           int custIDReservation = Integer.parseInt(cust_id_param);
           %>
-   <div class="center">
-        <form id="searchForm" method="POST" onsubmit="updateFormAction()">
-            <div class="center">
-                Search a flight (specific date):
-                <div class="center">
-                    <input type="radio" id="oneWaySpecific" name="tripType" value="oneWaySpecific" checked>
-                    <label for="oneWaySpecific">One Way</label>
-                    <input type="radio" id="roundTripSpecific" name="tripType" value="roundTripSpecific">
-                    <label for="roundTripSpecific">Round Trip</label>
-                </div>
-            </div>
-            <div class="center">
-                Search a flight (flexible dates within 3 days):
-                <div class="center">
-                    <input type="radio" id="oneWayFlex" name="tripType" value="oneWayFlex">
-                    <label for="oneWayFlex">One Way</label>
-                    <input type="radio" id="roundTripFlex" name="tripType" value="roundTripFlex">
-                    <label for="roundTripFlex">Round Trip</label>
-                </div>
-            </div>
-            <div class="center">
-                Seat Type:
-                <div class="center">
-                    <input type="radio" id="economy" name="seatType" value="economy" checked>
-                    <label for="economy">Economy</label>
-                    <input type="radio" id="business" name="seatType" value="business">
-                    <label for="business">Business</label>
-                    <input type="radio" id="first" name="seatType" value="first">
-                    <label for="first">First Class</label>
-                </div>
-            </div>
-            <div class="center">
-                <label for="departure">Departure Airport: </label>
-                <input type="text" id="departure" name="departure"/>
-                <label for="destination">Destination Airport: </label>
-                <input type="text" id="destination" name="destination"/>
-            </div>
-            <div class="center">
-                <label for="flightDate">Desired date: </label>
-                <input type="date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now() %>"/>
-            </div>
-            <div class="center padTop header">
-           	    <input type="hidden" name="customerIDReservation" value="<%= custIDReservation %>" />
-                <input type="submit" value="Search Flights"/>
-            </div>
-            </form>
-          </div>
           
-         
-        
+        <h3>
+        <center>Search For Flights</center>
+      </h3>
+    <div class="center">
+      <form action="../oneWaySearch.jsp" method="POST">
+        <div class="center">
+          Search a flight (specific date):
+          <div class="center">
+            <input type="radio" id="oneWaySpecific" name="tripType" value="oneWaySpecific" checked>
+            <label for="oneWaySpecific">One Way</label>
+            <input type="radio" id="roundTripSpecific" name="tripType" value="roundTripSpecific">
+            <label for="roundTripSpecific">Round Trip</label>
+          </div>
+        </div>
+        <div class="center">
+          <div class="center">
+            Search a flight (flexible dates within 3 days):
+            <div class="center">
+              <input type="radio" id="oneWayFlex" name="tripType" value="oneWayFlex">
+              <label for="oneWayFlex">One Way</label>
+              <input type="radio" id="roundTripFlex" name="tripType" value="roundTripFlex">
+              <label for="roundTripFlex">Round Trip</label>
+            </div>
+          </div>
+        </div>
+        <div class="center">
+          <div class="center">
+            Seat Type:
+            <div class="center">
+              <input type="radio" id="economy" name="seatType" value="economy" checked>
+              <label for="economy">Economy</label>
+              <input type="radio" id="business" name="seatType" value="business">
+              <label for="business">Business</label>
+              <input type="radio" id="first" name="seatType" value="first">
+              <label for="first">First Class</label>
+            </div>
+          </div>
+        </div>
+        <div class="center padTop">
+          <label for="departure">Departure Airport: </label>
+          <input type="text" id="departure" name="departure"/>
+          <div class="padLeft">
+            <label for="destination">Destination Airport: </label>
+            <input type="text" id="destination" name="destination"/>
+          </div>
+        </div>
+        <div class="center">
+          <label for="flightDate">Desired date: </label>
+          <input type="date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now() %>"/>
+          <label for="flightReturnDate">Desired Return date: </label>
+          <input type="date" id="flightReturnDate" name="flightReturnDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now() %>"/>
+        </div>
+        <div class="center padTop header">
+        <input type="hidden" name="customerIDReservation" value="<%= custIDReservation %>" />
+          <input type="submit" value="Search Flights"/>
+        </div>
+      </form>
+    </div>
 </body>
 </html>

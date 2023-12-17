@@ -282,11 +282,11 @@
                         out.println("<td>" + departCity + "</td>");
                         out.println("<td>" + arrivalCity + "</td>");
 
-                        // Show purchase button if seats are available
+                        
                         if (ticketed_passengers < numSeats) {
                             out.println("<td><form method='post' action='purchaseTicket.jsp'><input type='hidden' name='f_id' value='" + f_id + "'>" 
                                         + "<input type='hidden' name='aircraft_id' value='" + aircraft_id + "'>"
-                                        + "<input type='hidden' name='airline_id' value='" + airline_id + "'>"
+                                        + "<input type='hidden' name='airlineID' value='" + airline_id + "'>"
                                         + "<input type='submit' value='Purchase'></form></td>");
                         } else {
                             out.println("<td>Full</td>");

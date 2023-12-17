@@ -107,7 +107,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Home Page</a></li>
-                    <!-- Other navigation items -->
+                
                 </ul>
             </nav>
         </div>
@@ -156,7 +156,7 @@
                     <input type="number" name="new_seat_number" placeholder="New Seat Number">
                 </div>
 				
-                <!-- Class Change Options (initially hidden) -->
+           
                 <div id="classChangeOptions" style="display:none;">
                     <label><input type="radio" name="new_class" value="economy"> Economy</label>
                     <label><input type="radio" name="new_class" value="business"> Business</label>
@@ -168,7 +168,7 @@
                     <label><input type="checkbox" name="is_paid" value="yes"> Paid for Cancellation</label>
                 </div>
 
-                <!-- Action Radio Buttons -->
+    
                 <label><input type="radio" name="action" value="change_seat" onclick="toggleInputFields()"> Change Seat</label>
                 <label><input type="radio" name="action" value="delete_ticket" onclick="toggleInputFields()"> Delete Ticket</label>
                 <label><input type="radio" name="action" value="is_Paid" onclick="toggleInputFields()"> Pay for cancellation (for Economy only)</label>
