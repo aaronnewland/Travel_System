@@ -132,7 +132,7 @@
             <nav>
                 <ul>
                     <li><a href="customerLandingPage2.jsp">Customer Home</a></li>
-                    <!-- Additional navigation items -->
+           
                 </ul>
             </nav>
         </div>
@@ -198,7 +198,8 @@
     out.println("<table>");
     out.println("<tr><th>Ticket_number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight IDs</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
     while (rsAfter.next()) {
-        // Assuming same column names as in rsBefore
+       
+    	
         String ticket_number = rsAfter.getString("ticket_number");
         String airline_id = rsAfter.getString("airline_id");
         String aircraft_id = rsAfter.getString("aircraft_id");

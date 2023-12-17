@@ -123,11 +123,6 @@
             margin-top: 20px;
         }
     </style>
-    <script>
-        function confirmCancellation() {
-            return confirm('Are you sure you want to cancel this flight?');
-        }
-    </script>
 </head>
 <body>
     <header>

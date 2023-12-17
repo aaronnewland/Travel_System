@@ -42,12 +42,12 @@
                 }
 
 
-                response.sendRedirect(request.getContextPath() + "/customerPages/customerLandingPage.jsp");
+                response.sendRedirect(request.getContextPath() + "/customerPages/customerLandingPage2.jsp");
             } else if ("admin".equals(access)) {
-                response.sendRedirect(request.getContextPath() + "/adminPages/adminLandingPage.jsp");
+                response.sendRedirect(request.getContextPath() + "/adminPages/adminLandingPage2.jsp");
                 session.setAttribute("customerIDGlobal", "0");
             } else if ("rep".equals(access)) {
-                response.sendRedirect(request.getContextPath() + "/repPages/repLandingPage.jsp");
+                response.sendRedirect(request.getContextPath() + "/repPages/repLandingPage2.jsp");
                 session.setAttribute("customerIDGlobal", "0");
             }
         } else {
