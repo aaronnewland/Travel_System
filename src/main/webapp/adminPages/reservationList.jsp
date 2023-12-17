@@ -165,6 +165,7 @@
     Connection con = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
+    
 
     try {
         Class.forName("com.mysql.jdbc.Driver");
@@ -175,32 +176,45 @@
         if ("fId".equals(searchType)) {
             sqlQuery = "SELECT tf.ticket_number, f.airline_id, f.aircraft_id, f.f_id, f.departure_time, f.arrival_time, f.departure_apt, f.arrival_apt, (f.fare + f.booking_fee) AS fare " +
                        "FROM flight f, ticketed_flights tf " +
-                       "WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND f.airline_id = ? AND f.f_id = ?";
+                       "WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND f.airline_id = ? AND f.f_id = ? ORDER BY f.departure_time ASC";
             pstmt = con.prepareStatement(sqlQuery);
             pstmt.setString(1, airlineId);
             pstmt.setInt(2, Integer.parseInt(searchValue));
         } else if ("custId".equals(searchType)) {
             sqlQuery = "SELECT tf.ticket_number, f.airline_id, f.aircraft_id, f.f_id, f.departure_time, f.arrival_time, f.departure_apt, f.arrival_apt, (f.fare + f.booking_fee) AS fare " +
                        "FROM flight f, ticketed_flights tf " +
-                       "WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND tf.cust_id = ?";
+                       "WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND tf.cust_id = ? ORDER by f.departure_time ASC";
             pstmt = con.prepareStatement(sqlQuery);
             pstmt.setInt(1, Integer.parseInt(searchValue));
         }
         rs = pstmt.executeQuery();
-
-        // Rest of your code for displaying the results...
-    } catch (SQLException e) {
-        out.println("SQL Error: " + e.getMessage());
+     // Table Display
+        out.println("<h2>Flight Path Results for " + searchType + " " + searchValue + "</h2>");
+        out.println("<table>");
+        out.println("<tr><th>Ticket Number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
+        while (rs.next()) {
+            out.println("<tr>");
+            out.println("<td>" + rs.getString("ticket_number") + "</td>");
+            out.println("<td>" + rs.getString("airline_id") + "</td>");
+            out.println("<td>" + rs.getString("aircraft_id") + "</td>");
+            out.println("<td>" + rs.getString("f_id") + "</td>");
+            out.println("<td>" + rs.getString("departure_time") + "</td>");
+            out.println("<td>" + rs.getString("arrival_time") + "</td>");
+            out.println("<td>" + rs.getString("departure_apt") + "</td>");
+            out.println("<td>" + rs.getString("arrival_apt") + "</td>");
+            out.println("<td>" + rs.getDouble("fare") + "</td>");
+            out.println("</tr>");
+        }
+        out.println("</table>");
     } catch (Exception e) {
-        out.println("Error: " + e.getMessage());
+        e.printStackTrace();
     } finally {
         if (rs != null) rs.close();
         if (pstmt != null) pstmt.close();
         if (con != null) con.close();
     }
 %>
-
-        </div>
-    </div>
+</div>
+</div>
 </body>
 </html>
