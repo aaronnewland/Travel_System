@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Page</title>
+    <title>Rep Edit Reservations Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -119,11 +119,11 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1><span class="highlight">ADMIN</span> Dashboard</h1>
+                <h1><span class="highlight">Customer Rep</span> Edit Customer Reservations</h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="adminLandingPage">Home</a></li>
+                    <li><a href="repLandingPage2.jsp">Rep Home</a></li>
        
                 </ul>
             </nav>
@@ -132,16 +132,21 @@
 
     <div class="container">
         <div class="tab">
-            <a href="adminCustomerFunctions.jsp" class="tablinks">Customer Functions</a>
-            <a href="CustomerRepFunctions.jsp" class="tablinks">Customer Rep Functions</a>
-            <a href="salesReport.jsp" class="tablinks">Sales Report</a>
-            <a href="reservationList.jsp" class="tablinks">Reservations</a>
-            <a href="revenueGenerated.jsp" class="tablinks">Revenue</a>
-            <a href="mostActiveFlightList.jsp" class="tablinks">Active Flights</a>
+            <a href="editCustomerReservations1.jsp" class="tablinks active">Customer Functions</a>
+            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
+            <a href="repAirportFunctions.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a>
+            <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
+            <a href="waitList.jsp" class="tablinks">Waitlist</a>
         </div>
     </div>
-    <hr>
-    <hr>
-     <center><b>Please pick a tab <%=session.getAttribute("user")%>.</b></center>
+   
+           <form action="editCustomerReservations2.jsp" method="post">
+            <div class="form-section">
+                <label for="customerID">Customer ID:</label>
+                <input type="text" id="customerID" name="customerID" required>
+                <input type="submit" value="Edit Reservations">
+            </div>
+        </form>
+    
 </body>
 </html>

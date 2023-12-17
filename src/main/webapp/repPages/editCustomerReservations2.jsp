@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.example.travel_system.*" %>
-<%@ page import="java.io.*,java.util.*,java.sql.*" %>
-<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*" %>
+         pageEncoding="ISO-8859-1" import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
+<%@ page import="com.example.travel_system.*"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Customer Reservations</title>
+    <title>Rep Edit Cistomer Reservations</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,13 +15,11 @@
             padding: 0;
             color: #333;
         }
-
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
         }
-
         header {
             background: #50b3a2;
             color: white;
@@ -29,119 +27,101 @@
             min-height: 70px;
             border-bottom: #e8491d 3px solid;
         }
-
         header a {
             color: #ffffff;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
         }
-
         header ul {
             padding: 0;
             margin: 0;
             list-style: none;
             overflow: hidden;
         }
-
         header li {
             float: left;
             display: inline;
             padding: 0 20px 0 20px;
         }
-
         header #branding {
             float: left;
         }
-
         header #branding h1 {
             margin: 0;
         }
-
         header nav {
             float: right;
             margin-top: 10px;
         }
-
         header .highlight, header .current a {
             color: #e8491d;
             font-weight: bold;
         }
-
         header a:hover {
             color: #ffffff;
             font-weight: bold;
         }
-
+        .tab a {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .tab a:hover {
+            background-color: #ddd;
+        }
+        .tab a.active {
+            background-color: #50b3a2;
+            color: white;
+        }
         .form-section {
             background: #ffffff;
             padding: 20px;
             margin-top: 20px;
         }
-
-        .form-section h2 {
-            color: #50b3a2;
-        }
-
-        .form-section form {
-            margin-top: 15px;
-        }
-
-        .form-section form input[type="text"], .form-section form input[type="number"], .form-section form input[type="submit"], .form-section form input[type="radio"] {
-            padding: 10px;
-            margin: 5px;
-        }
-
-        .form-section form input[type="submit"] {
-            background: #50b3a2;
-            border: 0;
-            color: white;
-            cursor: pointer;
-        }
-
-        .form-section form input[type="submit"]:hover {
-            background: #333;
-        }
-
-        /* New Table Styles */
-        table {
-            width: 100%;
+        table, th, td {
+            border: 1px solid black;
             border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.9em;
-            min-width: 400px;
-            border-radius: 5px 5px 0 0;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         }
-
-        table thead tr {
-            background-color: #009879;
-            color: white;
+        th, td {
+            padding: 5px;
             text-align: left;
         }
-
-        table th, table td {
-            padding: 12px 15px;
-        }
-
-        table tbody tr {
-            border-bottom: 1px solid #dddddd;
-        }
-
-        table tbody tr:nth-of-type(even) {
-            background-color: #f3f3f3;
-        }
-
-        table tbody tr:last-of-type {
-            border-bottom: 2px solid #009879;
-        }
-
-        table tbody tr.active-row {
-            font-weight: bold;
-            color: #009879;
-        }
     </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Rep</span> Edit Customer Reservations</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="repLandingPage2.jsp">Rep Home Page</a></li>
+                    <!-- Other navigation items -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+  <div class="container">
+        <div class="tab">
+            <a href="editCustomerReservations1.jsp" class="tablinks active">Customer Functions</a>
+            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
+            <a href="repAirportFunctions.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a>
+            <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
+            <a href="waitList.jsp" class="tablinks">Waitlist</a>
+        </div>
+    </div>
 
    <script>
         function toggleInputFields() {
@@ -157,20 +137,24 @@
     </script>
 </head>
 <body onload="toggleInputFields()">
-    <header>
-        <!-- Header content -->
-    </header>
 
     <div class="container">
         <div class="form-section">
             <h2>Edit Ticket</h2>
+             <%
+                String custId_param = request.getParameter("customerID");
+                int custId = 0;
+                if (custId_param != null && !custId_param.isEmpty()) { 
+                    custId = Integer.parseInt(custId_param); 
+                }
+            %>
             <form action="" method="post">
-                <!-- Form fields -->
+                <input type="hidden" name="customerID" value="<%= custId %>">
                 <input type="number" name="ticket_number" placeholder="Ticket Number" required>
                 <div id="newSeatNumberField" style="display:none;">
                     <input type="number" name="new_seat_number" placeholder="New Seat Number">
                 </div>
-
+				
                 <!-- Class Change Options (initially hidden) -->
                 <div id="classChangeOptions" style="display:none;">
                     <label><input type="radio" name="new_class" value="economy"> Economy</label>
@@ -178,7 +162,7 @@
                     <label><input type="radio" name="new_class" value="first_class"> First Class</label>
                 </div>
 
-                <!-- Paid Checkbox (initially hidden) -->
+
                 <div id="paidCheckbox" style="display:none;">
                     <label><input type="checkbox" name="is_paid" value="yes"> Paid for Cancellation</label>
                 </div>
@@ -190,13 +174,16 @@
                 <label><input type="radio" name="action" value="changeClass" onclick="toggleInputFields()"> Change class</label>
                 <input type="submit" value="Submit">
             </form>
+
         </div>
+        
        <%
-            // Server-side code to handle the form submission and check ticket existence
-            int custId = 0;
+        
             String ticketNumberStr = request.getParameter("ticket_number");
             String action = request.getParameter("action");
-            String custId_param = request.getParameter("customerIDEdit");
+           
+            
+            
             
             if (custId_param != null && !custId_param.isEmpty()) { custId = Integer.parseInt(custId_param); }
             
@@ -289,6 +276,8 @@
                 }
             }
         %>
+                  
+               
     </div>
 </body>
 </html>

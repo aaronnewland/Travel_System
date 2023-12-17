@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.example.travel_system.*" %>
-<%@ page import="java.io.*,java.util.*,java.sql.*" %>
-<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*" %>
+         pageEncoding="ISO-8859-1" import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
+<%@ page import="com.example.travel_system.*"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Aircraft Management</title>
+    <title>Rep Airport, Airline, Aircraft Functions</title>
     <style>
-        /* Styles copied from the first code block */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -16,13 +15,11 @@
             padding: 0;
             color: #333;
         }
-
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
         }
-
         header {
             background: #50b3a2;
             color: white;
@@ -30,80 +27,67 @@
             min-height: 70px;
             border-bottom: #e8491d 3px solid;
         }
-
         header a {
             color: #ffffff;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
         }
-
         header ul {
             padding: 0;
             margin: 0;
             list-style: none;
             overflow: hidden;
         }
-
         header li {
             float: left;
             display: inline;
             padding: 0 20px 0 20px;
         }
-
         header #branding {
             float: left;
         }
-
         header #branding h1 {
             margin: 0;
         }
-
         header nav {
             float: right;
             margin-top: 10px;
         }
-
         header .highlight, header .current a {
             color: #e8491d;
             font-weight: bold;
         }
-
         header a:hover {
             color: #ffffff;
             font-weight: bold;
         }
-
+        .tab a {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .tab a:hover {
+            background-color: #ddd;
+        }
+        .tab a.active {
+            background-color: #50b3a2;
+            color: white;
+        }
         .form-section {
             background: #ffffff;
             padding: 20px;
             margin-top: 20px;
         }
-
-        .form-section h2 {
-            color: #50b3a2;
-        }
-
-        .form-section form {
-            margin-top: 15px;
-        }
-
-        .form-section form input[type="text"], .form-section form input[type="number"], .form-section form input[type="submit"], .form-section form input[type="radio"] {
-            padding: 10px;
-            margin: 5px;
-        }
-
-        .form-section form input[type="submit"] {
-            background: #50b3a2;
-            border: 0;
-            color: white;
-            cursor: pointer;
-        }
-
-        .form-section form input[type="submit"]:hover {
-            background: #333;
-        }
-
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -118,15 +102,26 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1><span class="highlight">Aircraft Management</span></h1>
+                <h1><span class="highlight">Rep</span> Airport, Airline, Flight Functions</h1>
             </div>
             <nav>
                 <ul>
-                    <li class="current"><a href="repLandingPage">Customer Rep Homepage</a></li>
+                    <li><a href="repLandingPage2.jsp">Rep Home Page</a></li>
+                    <!-- Other navigation items -->
                 </ul>
             </nav>
         </div>
     </header>
+
+  <div class="container">
+        <div class="tab">
+            <a href="editCustomerReservations.jsp" class="tablinks">Customer Functions</a>
+            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
+            <a href="repAirportFunctions.jsp" class="tablinks active">Airport, Aircraft, Flight Functions</a>
+            <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
+            <a href="waitList.jsp" class="tablinks">Waitlist</a>
+        </div>
+    </div>
 
     <div class="container">
         <div class="form-section">
@@ -186,6 +181,7 @@
                 pstmt.setInt(2, num_seats);
                 pstmt.setString(3, airline_id);
                 pstmt.executeUpdate();
+                out.println("Change successfully complete");
             	} else if ("edit".equals(action)) {
                 String updateSQL = "UPDATE Aircrafts SET num_seats = ? WHERE aircraft_id = ? AND airline_id = ?";
                 pstmt = con.prepareStatement(updateSQL);
@@ -193,16 +189,18 @@
                 pstmt.setInt(2, aircraft_id);
                 pstmt.setString(3, airline_id);
                 pstmt.executeUpdate();
+                out.println("Change successfully complete");
             	} else if ("delete".equals(action)) {
                 String deleteSQL = "DELETE FROM Aircrafts WHERE aircraft_id = ?";
                 pstmt = con.prepareStatement(deleteSQL);
                 pstmt.setInt(1, aircraft_id);
                 pstmt.executeUpdate();
+                out.println("Change successfully complete");
             	}
            	 } catch (SQLException e) {out.println("<p> Failed to make make a change.");} 
         }
 
-        // Display aircraft data
+/*         // Display aircraft data
         st = con.createStatement();
         rs = st.executeQuery("SELECT * FROM Aircrafts;");
         out.println("<table>");
@@ -215,7 +213,7 @@
             out.println("<td>" + rs.getString("airline_id") + "</td>");
             out.println("</tr>");
         }
-        out.println("</table>");
+        out.println("</table>"); */
     } catch (Exception e) {
         e.printStackTrace();
     } finally {
