@@ -141,10 +141,10 @@
 
     <div class="container">
         <div class="tab">
-           <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
-            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
-            <a href=search.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a> -->
-            <a href="postFAQjsp" class="tablinks active">Ask a Question</a>
+          <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
+            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a> -->
+            <a href="cancelFlight.jsp" class="tablinks">Cancel a flight</a>
+            <a href="postFAQ.jsp" class="tablinks active">Ask a Question</a>
             <a href="searchFAQ.jsp" class="tablinks">Search FAQ</a>
             <a href="upcomingAndPastFlights.jsp" class="tablinks">Past and Upcoming Itinerary</a>
         </div>

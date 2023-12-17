@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Page</title>
+    <title>Cancel Flight Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -123,6 +123,11 @@
             margin-top: 20px;
         }
     </style>
+    <script>
+        function confirmCancellation() {
+            return confirm('Are you sure you want to cancel this flight?');
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -139,64 +144,84 @@
         </div>
     </header>
 
-  <div class="container">
+    <div class="container">
         <div class="tab">
           <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
             <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a> -->
-            <a href="cancelFlight.jsp" class="tablinks">Cancel a flight</a>
+            <a href="cancelFlight.jsp" class="tablinks active">Cancel a flight</a>
             <a href="postFAQ.jsp" class="tablinks">Ask a Question</a>
-            <a href="searchFAQ.jsp" class="tablinks active">Search FAQ</a>
+            <a href="searchFAQ.jsp" class="tablinks">Search FAQ</a>
             <a href="upcomingAndPastFlights.jsp" class="tablinks">Past and Upcoming Itinerary</a>
         </div>
     </div>
     <br>
 <div class="container">
-        <!-- Search Form -->
-        <form method="post" action=""> <!-- Changed to 'post' method -->
-            <input type="text" name="searchQ" placeholder="Search FAQs">
-            <input type="submit" value="Search">
-        </form>
-        <br>
-  
+       
+ 
         <%
-            String search_term = request.getParameter("searchQ");
-            if (search_term != null && !search_term.isEmpty()) {
-                Class.forName("com.mysql.jdbc.Driver");
-                ApplicationDB db = new ApplicationDB();
-                Connection con = db.getConnection();
+            Class.forName("com.mysql.jdbc.Driver");
+            ApplicationDB db = new ApplicationDB();
+            Connection con = db.getConnection();
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
 
-                // Using PreparedStatement to prevent SQL Injection
-                String query = "SELECT * FROM FAQ WHERE question LIKE ?";
-                PreparedStatement pstmt = con.prepareStatement(query);
-                pstmt.setString(1, "%" + search_term + "%");
-
-                ResultSet rs = pstmt.executeQuery();
-
-                out.println("<table>");
-                out.println("<tr><th>Question_No</th><th>Question</th><th>Answer</th>");
-
-                while (rs.next()) {
-                    String qid = rs.getString(1);
-                    String question = rs.getString(2);
-                    String answer = rs.getString(3);
-
-                    out.println("<tr>");
-                    out.println("<td>" + qid + "</td>");
-                    out.println("<td>" + question + "</td>");
-                    if (rs.getString("answer") == null) {
-                    	out.println("<td> Sorry, no answer yet. </td>");
-                    } else {
-                    out.println("<td>" + rs.getString("answer") + "</td>");
-                    }
-                    out.println("</tr>");
+            String customerIDGlobal = (String) session.getAttribute("customerIDGlobal");
+            int Custid = Integer.parseInt(customerIDGlobal);
+            Custid = 1;
+            
+            String ticketToCancel = request.getParameter("ticket_number");
+            if (ticketToCancel != null && !ticketToCancel.isEmpty()) {
+                // Perform the cancellation
+                String deleteSQL = "DELETE FROM ticketed_flights WHERE ticket_number = ?";
+                pstmt = con.prepareStatement(deleteSQL);
+                pstmt.setString(1, ticketToCancel);
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows > 0) {
+                    out.println("<p>Flight cancelled successfully.</p>");
+                } else {
+                    out.println("<p>Error cancelling flight.</p>");
                 }
-
-                out.println("</table>");
-
-                rs.close();
-                pstmt.close();
-                con.close();
             }
+
+            // Query for upcoming flights
+            String sqlQuery = "SELECT * FROM ticketed_flights JOIN flight f using (f_id,aircraft_id,airline_id) WHERE cust_id = ? AND departure_time > NOW() ORDER BY departure_time ASC;";
+            pstmt = con.prepareStatement(sqlQuery);
+            pstmt.setInt(1, Custid);
+            rs = pstmt.executeQuery();
+
+            out.println("<h2>Upcoming Flights</h2>");
+            out.println("<table>");
+            out.println("<tr><th>Ticket Number</th><th>Flight ID</th><th>Departure City</th><th>Arrival City</th><th>Departure Time</th><th>Arrival Time</th><th>Is Paid</th><th>Action</th></tr>");
+            while (rs.next()) {
+                String ticket_number = rs.getString("ticket_number");
+                String f_id = rs.getString("f_id");
+                String departure_time = rs.getString("departure_time");
+                String arrival_time = rs.getString("arrival_time");
+                int is_paid = rs.getInt("is_paid");
+                String departCity = rs.getString("departure_apt");
+                String arrivalCity = rs.getString("arrival_apt");
+
+                out.println("<tr>");
+                out.println("<td>" + ticket_number + "</td>");
+                out.println("<td>" + f_id + "</td>");
+                out.println("<td>" + departCity + "</td>");
+                out.println("<td>" + arrivalCity + "</td>");
+                out.println("<td>" + departure_time + "</td>");
+                out.println("<td>" + arrival_time + "</td>");
+                out.println("<td>" + (is_paid == 1 ? "Paid" : "Not Paid") + "</td>");
+
+                if (is_paid == 1) {
+                	out.println("<td><form method='post' action=''><input type='hidden' name='ticket_number' value='" + ticket_number + "'><input type='submit' value='Cancel' onclick='return confirmCancellation();'></form></td>");
+                } else {
+                    out.println("<td>Contact customer service to pay cancellation fee</td>");
+                }
+                out.println("</tr>");
+            }
+            out.println("</table>");
+
+            rs.close();
+            pstmt.close();
+            con.close();
         %>
     </div>
 </body>
