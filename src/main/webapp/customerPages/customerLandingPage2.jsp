@@ -122,6 +122,56 @@
             text-align: center;
             margin-top: 20px;
         }
+        .waiting-list-intro {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #e0f2f1;
+            border: 1px solid #b2dfdb;
+            border-radius: 5px;
+            text-align: center;
+            color: #333;
+        }
+
+        .waiting-list-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .waiting-list-table th, .waiting-list-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .waiting-list-table th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .waiting-list-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .waiting-list-table tr:hover {
+            background-color: #ddd;
+        }
+
+        .purchase-button {
+            background-color: #4caf50;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .full {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -150,10 +200,17 @@
             <a href="upcomingAndPastFlights.jsp" class="tablinks">Past and Upcoming Itinerary</a>
         </div>
     </div>
-    
+    <br>
+    <br>
+    <div class="container">
+        <div class="waiting-list-intro">
+            Currently on the waiting list for the following flights. Purchase is available for flights with available seats.
+        </div>
+     </div>
     <hr>
     <hr>
     <div class="center">
+    <table class = "waiting-list-table">
       <%--   <% 
                 if (session.getAttribute("user") == null) {
             %>
@@ -181,8 +238,8 @@
                     pstmt.setInt(1, Custid);
                     rs = pstmt.executeQuery();
 
-                    out.println("<table>");
-                    out.println("Currently on the waiting list for the following flights. Purchase is available for flights with available seats");
+                    
+                   
                     		
                     out.println("<tr><th>Flight ID</th><th>Aircraft ID</th><th>Airline ID</th><th>Time Added</th><th>Departure City</th><th>Arrival City</th><th>Action</th></tr>");
 
@@ -235,7 +292,7 @@
                         }
                         out.println("</tr>");
                     }
-                    out.println("</table>");
+                   
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -249,6 +306,7 @@
                 }
             
             %>
+            </table>
     </div>
 </body>
 </html>
