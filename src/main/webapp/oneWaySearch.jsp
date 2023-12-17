@@ -103,65 +103,58 @@
             Class.forName("com.mysql.jdbc.Driver");
             ApplicationDB db = new ApplicationDB();
             Connection con = db.getConnection();
+            String orderBy = request.getParameter("criteria");
+            String ascdesc = request.getParameter("howSort");
+
+            if (orderBy == null || orderBy.isEmpty()) { orderBy = "depart_time"; }
+            if (ascdesc == null || ascdesc.isEmpty()) { ascdesc = "ASC"; }
 
             out.println("<table border='1'><tr><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Day of Week</th><th>Is International</th><th>Fare</th><th>Booking Fee</th><th>Duration</th><th>Purchase Ticket</th></tr>");
 
             FlightPath flightPaths = new FlightPath();
             List<FlightPath> paths = flightPaths.findFlightPaths(departure, arrival, numConnect, con);
-            for (FlightPath path : paths) {
-                List<String> airlineIds = new ArrayList<>();
-                List<Integer> aircraftIds = new ArrayList<>();
-                List<Integer> flightIds = new ArrayList<>();
-                List<Timestamp> departureTimes = new ArrayList<>();
-                List<Timestamp> arrivalTimes = new ArrayList<>();
-                List<String> departureAirports = new ArrayList<>();
-                List<String> arrivalAirports = new ArrayList<>();
-                List<String> daysOfWeek = new ArrayList<>();
-                List<Boolean> areInternational = new ArrayList<>();
-                double fare = 0;
-                double bookingFee = 0;
-                int duration = 0;
 
-                boolean inDateRange = false;
-                for (Flight flight : path.getFlightList()) {
-                    LocalDate timestampDate = flight.getDepartureTime().toLocalDateTime().toLocalDate();
-                    if (timestampDate.isEqual(departureDate)) {
-                        inDateRange = true;
-                        airlineIds.add(flight.getAirlineID());
-                        aircraftIds.add(flight.getAircraftID());
-                        flightIds.add(flight.getFlightID());
-                        departureTimes.add(flight.getDepartureTime());
-                        arrivalTimes.add(flight.getArrivalTime());
-                        departureAirports.add(flight.getDepartureAirport());
-                        arrivalAirports.add(flight.getArrivalAirport());
-                        daysOfWeek.add(flight.getDayOfWeek());
-                        areInternational.add(flight.isInternational());
-                        fare += flight.getFare();
-                        bookingFee += flight.getBookingFee();
-                        duration += flight.getDuration();
-                    }
-
+            String finalOrderBy = orderBy;
+            String finalAscdesc = ascdesc;
+            Collections.sort(paths, (o1, o2) -> {
+                switch (finalOrderBy) {
+                    case "total_cost":
+                        return finalAscdesc.equalsIgnoreCase("ASC") ? Double.compare(o1.getFare(), o2.getFare())
+                                : Double.compare(o2.getFare(), o1.getFare());
+                    case "depart_time":
+                        return finalAscdesc.equalsIgnoreCase("ASC") ? o1.getDepartureTimes().get(0).compareTo(o2.getDepartureTimes().get(0))
+                                : o2.getDepartureTimes().get(0).compareTo(o1.getDepartureTimes().get(0));
+                    case "arrival_time":
+                        return finalAscdesc.equalsIgnoreCase("ASC") ? o1.getArrivalTimes().get(o1.getArrivalTimes().size() - 1).compareTo(o2.getArrivalTimes().get(o2.getArrivalTimes().size() - 1))
+                                : o2.getArrivalTimes().get(o2.getArrivalTimes().size() - 1).compareTo(o1.getArrivalTimes().get(o1.getArrivalTimes().size() - 1));
+                    case "total_duration":
+                        return finalAscdesc.equalsIgnoreCase("ASC") ? Integer.compare(o1.getDuration(), o2.getDuration())
+                                : Integer.compare(o2.getDuration(), o1.getDuration());
                 }
+                return 0;
+            });
 
-                if (inDateRange) {
+            for (FlightPath path : paths) {
+                LocalDate timestampDate = path.getDepartureTimes().get(0).toLocalDateTime().toLocalDate();
+                if (flexOption.equalsIgnoreCase("oneWaySpecific") &&timestampDate.isEqual(departureDate)) {
                     out.println("<tr>");
-                    out.println("<td>" + joinList(airlineIds) + "</td>");
-                    out.println("<td>" + joinList(aircraftIds) + "</td>");
-                    out.println("<td>" + joinList(flightIds) + "</td>");
-                    out.println("<td>" + joinList(departureTimes) + "</td>");
-                    out.println("<td>" + joinList(arrivalTimes) + "</td>");
-                    out.println("<td>" + joinList(departureAirports) + "</td>");
-                    out.println("<td>" + joinList(arrivalAirports) + "</td>");
-                    out.println("<td>" + joinList(daysOfWeek) + "</td>");
-                    out.println("<td>" + joinList(areInternational) + "</td>");
-                    out.println("<td>" + fare + "</td>");
-                    out.println("<td>" + bookingFee + "</td>");
-                    out.println("<td>" + duration + "</td>");
+                    out.println("<td>" + joinList(path.getAirlineIds()) + "</td>");
+                    out.println("<td>" + joinList(path.getAircraftIds()) + "</td>");
+                    out.println("<td>" + joinList(path.getFlightIds()) + "</td>");
+                    out.println("<td>" + joinList(path.getDepartureTimes()) + "</td>");
+                    out.println("<td>" + joinList(path.getArrivalTimes()) + "</td>");
+                    out.println("<td>" + joinList(path.getDepartureAirports()) + "</td>");
+                    out.println("<td>" + joinList(path.getArrivalAirports()) + "</td>");
+                    out.println("<td>" + joinList(path.getDaysOfWeek()) + "</td>");
+                    out.println("<td>" + joinList(path.getAreInternational()) + "</td>");
+                    out.println("<td>" + path.getFare() + "</td>");
+                    out.println("<td>" + path.getBookingFee() + "</td>");
+                    out.println("<td>" + path.getDuration() + "</td>");
                     out.println("<td>");
                     out.println("<form action='purchaseTicket.jsp' method='POST'>");
-                    out.println("<input type='hidden' name='flightId' value='" + joinList(flightIds) + "'>");
-                    out.println("<input type='hidden' name='airlineIds' value='" + joinList(airlineIds) + "'>");
-                    out.println("<input type='hidden' name='aircraftIds' value='" + joinList(aircraftIds) + "'>");
+                    out.println("<input type='hidden' name='flightId' value='" + joinList(path.getFlightIds()) + "'>");
+                    out.println("<input type='hidden' name='airlineIds' value='" + joinList(path.getAirlineIds()) + "'>");
+                    out.println("<input type='hidden' name='aircraftIds' value='" + joinList(path.getAircraftIds()) + "'>");
                     out.println("<input type='hidden' name='customerID' value='" + customerID + "'>");
                     out.println("<input type='submit' value='Purchase'>");
                     out.println("</form>");
