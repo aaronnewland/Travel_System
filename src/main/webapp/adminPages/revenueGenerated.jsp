@@ -63,6 +63,28 @@
             color: #ffffff;
             font-weight: bold;
         }
+        /* Tab styles */
+        .tab a {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .tab a:hover {
+            background-color: #ddd;
+        }
+        .tab a.active {
+            background-color: #50b3a2;
+            color: white;
+        }
         .form-section {
             background: #ffffff;
             padding: 20px;
@@ -103,19 +125,32 @@
             background: #f2f2f2;
         }
     </style>
-<script>
-        function toggleFlightIDTextbox() {
-            var flightIDRadio = document.getElementById('flightIDRadio');
-            var flightIDTextbox = document.getElementById('flightIDTextbox');
-            flightIDTextbox.style.display = flightIDRadio.checked ? 'block' : 'none';
-        }
-    </script>
 </head>
-<body onload="toggleFlightIDTextbox()">
+<body>
     <header>
-        <!-- Header Content -->
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Revenue Report</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="adminLandingPage">Home</a></li>
+                    <!-- Additional navigation items if needed -->
+                </ul>
+            </nav>
+        </div>
     </header>
 
+    <div class="container">
+        <div class="tab">
+            <a href="adminCustomerFunctions.jsp" class="tablinks">Customer Functions</a>
+            <a href="salesReport.jsp" class="tablinks">Sales Report</a>
+            <a href="reservationList.jsp" class="tablinks">Reservations</a>
+            <a href="revenueGenerated.jsp" class="tablinks active">Revenue</a>
+            <a href="mostActiveFlightList.jsp" class="tablinks">Active Flights</a>
+        </div>
+    </div>
+     
     <div class="container">
         <div class="form-section">
             <h2>Filter Revenue</h2>

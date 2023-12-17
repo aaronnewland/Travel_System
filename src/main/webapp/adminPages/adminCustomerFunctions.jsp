@@ -6,10 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ADMIN - Manage Customers</title>
-    <!-- CSS Styles (identical to the CSR management page) -->
+    <title>Revenue Report</title>
+    <!-- CSS Styles -->
     <style>
-        <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -17,13 +16,11 @@
             padding: 0;
             color: #333;
         }
-
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
         }
-
         header {
             background: #50b3a2;
             color: white;
@@ -31,95 +28,99 @@
             min-height: 70px;
             border-bottom: #e8491d 3px solid;
         }
-
         header a {
             color: #ffffff;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
         }
-
         header ul {
             padding: 0;
             margin: 0;
             list-style: none;
             overflow: hidden;
         }
-
         header li {
             float: left;
             display: inline;
             padding: 0 20px 0 20px;
         }
-
         header #branding {
             float: left;
         }
-
         header #branding h1 {
             margin: 0;
         }
-
         header nav {
             float: right;
             margin-top: 10px;
         }
-
         header .highlight, header .current a {
             color: #e8491d;
             font-weight: bold;
         }
-
         header a:hover {
             color: #ffffff;
             font-weight: bold;
         }
-
+        /* Tab styles */
+        .tab a {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .tab a:hover {
+            background-color: #ddd;
+        }
+        .tab a.active {
+            background-color: #50b3a2;
+            color: white;
+        }
         .form-section {
             background: #ffffff;
             padding: 20px;
             margin-top: 20px;
         }
-
         .form-section h2 {
             color: #50b3a2;
         }
-
         .form-section form {
             margin-top: 15px;
         }
-
         .form-section form input[type="text"], .form-section form input[type="submit"] {
             padding: 10px;
             margin: 5px;
         }
-
         .form-section form input[type="submit"] {
             background: #50b3a2;
             border: 0;
             color: white;
             cursor: pointer;
         }
-
         .form-section form input[type="submit"]:hover {
             background: #333;
         }
-
         table {
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
         }
-
         table, th, td {
             border: 1px solid #cccccc;
         }
-
         table th, table td {
             padding: 15px;
             text-align: left;
         }
-
         table tr:nth-child(even) {
             background: #f2f2f2;
         }
@@ -129,16 +130,26 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1><span class="highlight">ADMIN</span> Customer Management</h1>
+                <h1><span class="highlight">Revenue Report</span></h1>
             </div>
             <nav>
                 <ul>
-                    <li class="current"><a href="adminLandingPage">Admin home page</a></li>
+                    <li><a href="adminLandingPage">Home</a></li>
                     <!-- Additional navigation items if needed -->
                 </ul>
             </nav>
         </div>
     </header>
+
+    <div class="container">
+        <div class="tab">
+            <a href="adminCustomerFunctions.jsp" class="tablinks active">Customer Functions</a>
+            <a href="salesReport.jsp" class="tablinks">Sales Report</a>
+            <a href="reservationList.jsp" class="tablinks">Reservations</a>
+            <a href="revenueGenerated.jsp" class="tablinks">Revenue</a>
+            <a href="mostActiveFlightList.jsp" class="tablinks">Active Flights</a>
+        </div>
+    </div>
 
     <div class="container">
         <!-- Form for Adding a Customer -->
