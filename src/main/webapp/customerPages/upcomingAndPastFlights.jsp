@@ -138,12 +138,13 @@
         </div>
     </header>
 
-    <div class="container">
+      <div class="container">
         <div class="tab">
-           <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
-            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
-            <a href=search.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a> -->
-            <a href="postFAQjsp" class="tablinks">Ask a Question</a>
+          <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
+            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a> -->
+            <a href="customerLandingPage2.jsp" class="tablinks">Home</a>
+            <a href="cancelFlight.jsp" class="tablinks">Cancel a flight</a>
+            <a href="postFAQ.jsp" class="tablinks">Ask a Question</a>
             <a href="searchFAQ.jsp" class="tablinks">Search FAQ</a>
             <a href="upcomingAndPastFlights.jsp" class="tablinks active">Past and Upcoming Itinerary</a>
         </div>
@@ -156,8 +157,8 @@
     Connection con = db.getConnection();
     Statement st = con.createStatement();
     String customerIDGlobal = (String) session.getAttribute("customerIDGlobal");
-    String Custid = customerIDGlobal;
-    Custid="2";
+    int Custid = Integer.parseInt(customerIDGlobal);
+    Custid=2;
     // Flights departing before the current datetime
     ResultSet rsBefore = st.executeQuery("SELECT * FROM flight f, ticketed_flights tf WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND cust_id = " + Custid + " AND departure_time < NOW() ORDER BY departure_time ASC;");
     

@@ -139,12 +139,13 @@
         </div>
     </header>
 
-    <div class="container">
+  <div class="container">
         <div class="tab">
-           <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
-            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
-            <a href=search.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a> -->
-            <a href="postFAQjsp" class="tablinks">Ask a Question</a>
+          <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
+            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a> -->
+            <a href="customerLandingPage2.jsp" class="tablinks">Home</a>
+            <a href="cancelFlight.jsp" class="tablinks">Cancel a flight</a>
+            <a href="postFAQ.jsp" class="tablinks">Ask a Question</a>
             <a href="searchFAQ.jsp" class="tablinks active">Search FAQ</a>
             <a href="upcomingAndPastFlights.jsp" class="tablinks">Past and Upcoming Itinerary</a>
         </div>

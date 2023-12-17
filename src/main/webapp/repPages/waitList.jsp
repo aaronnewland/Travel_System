@@ -115,7 +115,7 @@
 
   <div class="container">
         <div class="tab">
-            <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
+            <a href="editCustomerReservations1.jsp" class="tablinks">Edit Customer Reservations</a>
             <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
             <a href="repAirportFunctions.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a>
             <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
