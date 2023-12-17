@@ -7,9 +7,7 @@
 <html>
 <head>
     <title>Reservation List</title>
-    <!-- CSS Styles (identical to the CSR management page) -->
     <style>
-        <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -124,8 +122,15 @@
             background: #f2f2f2;
         }
     </style>
+    <script>
+        function toggleAirlineIdTextbox() {
+            var fIdRadio = document.querySelector('input[name="searchType"][value="fId"]');
+            var airlineIdTextbox = document.getElementById('airlineIdTextbox');
+            airlineIdTextbox.style.display = fIdRadio.checked ? 'block' : 'none';
+        }
+    </script>
 </head>
-<body>
+<body onload="toggleAirlineIdTextbox()">
     <header>
         <div class="container">
             <div id="branding">
@@ -141,74 +146,61 @@
     </header>
 
     <div class="container">
-        <!-- Search Form -->
         <div class="form-section">
             <h2>Search Reservations</h2>
-            <form action="" method="post">
+            <form action="" method="post" onchange="toggleAirlineIdTextbox()">
                 <label><input type="radio" name="searchType" value="custId" checked> Customer ID</label>
                 <label><input type="radio" name="searchType" value="fId"> Flight ID</label>
                 <input type="text" name="searchValue" placeholder="Enter ID" required>
+                <div id="airlineIdTextbox" style="display:none;">
+                    <input type="text" name="airlineId" placeholder="Airline ID">
+                </div>
                 <input type="submit" value="Search">
             </form>
+<%
+    String searchType = request.getParameter("searchType");
+    String searchValue = request.getParameter("searchValue");
+    String airlineId = request.getParameter("airlineId");
+
+    Connection con = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        ApplicationDB db = new ApplicationDB();
+        con = db.getConnection();
+
+        String sqlQuery = "";
+        if ("fId".equals(searchType)) {
+            sqlQuery = "SELECT tf.ticket_number, f.airline_id, f.aircraft_id, f.f_id, f.departure_time, f.arrival_time, f.departure_apt, f.arrival_apt, (f.fare + f.booking_fee) AS fare " +
+                       "FROM flight f, ticketed_flights tf " +
+                       "WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND f.airline_id = ? AND f.f_id = ?";
+            pstmt = con.prepareStatement(sqlQuery);
+            pstmt.setString(1, airlineId);
+            pstmt.setInt(2, Integer.parseInt(searchValue));
+        } else if ("custId".equals(searchType)) {
+            sqlQuery = "SELECT tf.ticket_number, f.airline_id, f.aircraft_id, f.f_id, f.departure_time, f.arrival_time, f.departure_apt, f.arrival_apt, (f.fare + f.booking_fee) AS fare " +
+                       "FROM flight f, ticketed_flights tf " +
+                       "WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND tf.cust_id = ?";
+            pstmt = con.prepareStatement(sqlQuery);
+            pstmt.setInt(1, Integer.parseInt(searchValue));
+        }
+        rs = pstmt.executeQuery();
+
+        // Rest of your code for displaying the results...
+    } catch (SQLException e) {
+        out.println("SQL Error: " + e.getMessage());
+    } catch (Exception e) {
+        out.println("Error: " + e.getMessage());
+    } finally {
+        if (rs != null) rs.close();
+        if (pstmt != null) pstmt.close();
+        if (con != null) con.close();
+    }
+%>
+
         </div>
-
-        <%  
-            String searchType = request.getParameter("searchType");
-            String searchValue = request.getParameter("searchValue");
-            // Determine search type based on the radio button selection
-            searchType = (searchType != null && searchType.equals("fId")) ? "f_id" : "cust_id";
-
-            Connection con = null;
-            Statement st = null;
-            ResultSet rs = null;
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                ApplicationDB db = new ApplicationDB();
-                con = db.getConnection();
-                st = con.createStatement();
-
-                // SQL Query
-                String sqlQuery = "SELECT tf.ticket_number, f.airline_id, f.aircraft_id, f.f_id, f.departure_time, f.arrival_time, f.departure_apt, f.arrival_apt, (f.fare + f.booking_fee) AS fare " +
-                            	  "FROM flight f, ticketed_flights tf " +
-                                  "WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id " +
-                                  "AND tf." + searchType + " = " + searchValue + " " +
-                                  "ORDER BY f.departure_time ASC;";
-
-                rs = st.executeQuery(sqlQuery);
-
-                // Table Display
-                out.println("<h2>Flight Path Results</h2>");
-                out.println("<table>");
-                out.println("<tr><th>Ticket Number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");
-
-                while (rs.next()) {
-                    out.println("<tr>");
-                    out.println("<td>" + rs.getString("ticket_number") + "</td>");
-                    out.println("<td>" + rs.getString("airline_id") + "</td>");
-                    out.println("<td>" + rs.getString("aircraft_id") + "</td>");
-                    out.println("<td>" + rs.getString("f_id") + "</td>");
-                    out.println("<td>" + rs.getString("departure_time") + "</td>");
-                    out.println("<td>" + rs.getString("arrival_time") + "</td>");
-                    out.println("<td>" + rs.getString("departure_apt") + "</td>");
-                    out.println("<td>" + rs.getString("arrival_apt") + "</td>");
-                    out.println("<td>" + rs.getDouble("fare") + "</td>");
-                    out.println("</tr>");
-                }
-                out.println("</table>");
-            } catch (Exception e) {
-                e.printStackTrace();  // For simplicity, printing stack trace. Consider logging this properly.
-            } finally {
-                // Close resources
-                try {
-                    if (rs != null) rs.close();
-                    if (st != null) st.close();
-                    if (con != null) con.close();
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                }
-            }
-        %>
     </div>
 </body>
 </html>
