@@ -67,12 +67,43 @@
     String departure_date = request.getParameter("flightDate");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate departureDate = LocalDate.parse(departure_date, formatter);
+
+    String return_date = request.getParameter("flightReturnDate");
+
     String flexOption = request.getParameter("tripType");
 
     String customerID = (String) session.getAttribute("customerIDGlobal");
     if (customerID.equals("0")) {
         customerID = request.getParameter("customerIDReservation");
     }
+
+    String roundTripFlightID = request.getParameter("flightId");
+    if (!(roundTripFlightID == null || roundTripFlightID.isEmpty())) {
+        out.println(roundTripFlightID);
+    }
+    String roundTripAirlineID = request.getParameter("airlineIds");
+    if (!(roundTripAirlineID == null || roundTripAirlineID.isEmpty())) {
+        out.println(roundTripAirlineID);
+    }
+    String roundTripAircraftID = request.getParameter("aircraftIds");
+    if (!(roundTripAircraftID == null || roundTripAircraftID.isEmpty())) {
+        out.println(roundTripAircraftID);
+    }
+    String roundTripCustomerID = request.getParameter("customerID");
+    if (!(roundTripCustomerID == null || roundTripCustomerID.isEmpty())) {
+        out.println(roundTripCustomerID);
+    }
+    boolean terminate = false;
+    String roundTripTerminate = request.getParameter("roundTripTerminate");
+    if (!(roundTripTerminate == null || roundTripTerminate.isEmpty())) {
+        out.println(roundTripTerminate);
+        if (roundTripTerminate.equalsIgnoreCase("true")) {
+            terminate = true;
+        }
+    }
+
+
+
 %>
 
 <form action="oneWaySearch.jsp" method="POST">
@@ -128,7 +159,12 @@
             FlightPath flightPaths = new FlightPath();
 
             boolean flex = false;
-            if (flexOption.equalsIgnoreCase("oneWayFlex")) flex = true;
+            if (flexOption.equalsIgnoreCase("oneWayFlex") || flexOption.equalsIgnoreCase("roundTripFlex")) flex = true;
+
+            out.println(departure);
+            out.println(arrival);
+            out.println(flex);
+            out.println(departureDate);
 
             List<FlightPath> paths = flightPaths.findFlightPaths(departure, arrival, numConnect, flex, departureDate, con);
 
@@ -241,7 +277,8 @@
 
             for (FlightPath path : paths) {
                 LocalDate timestampDate = path.getDepartureTimes().get(0).toLocalDateTime().toLocalDate();
-                if ((flexOption.equalsIgnoreCase("oneWaySpecific") && timestampDate.isEqual(departureDate)) || flexOption.equalsIgnoreCase("oneWayFlex")) {
+                if (((flexOption.equalsIgnoreCase("oneWaySpecific") && timestampDate.isEqual(departureDate)) || flexOption.equalsIgnoreCase("oneWayFlex")) ||
+                    ((flexOption.equalsIgnoreCase("roundTripSpecific") && timestampDate.isEqual(departureDate)) || flexOption.equalsIgnoreCase("roundTripFlex"))) {
                     out.println("<tr>");
                     out.println("<td>" + joinList(path.getAirlineIds()) + "</td>");
                     out.println("<td>" + joinList(path.getAircraftIds()) + "</td>");
@@ -256,13 +293,36 @@
                     out.println("<td>" + path.getBookingFee() + "</td>");
                     out.println("<td>" + path.getDuration() + "</td>");
                     out.println("<td>");
-                    out.println("<form action='purchaseTicket.jsp' method='POST'>");
-                    out.println("<input type='hidden' name='flightId' value='" + joinList(path.getFlightIds()) + "'>");
-                    out.println("<input type='hidden' name='airlineIds' value='" + joinList(path.getAirlineIds()) + "'>");
-                    out.println("<input type='hidden' name='aircraftIds' value='" + joinList(path.getAircraftIds()) + "'>");
-                    out.println("<input type='hidden' name='customerID' value='" + customerID + "'>");
-                    out.println("<input type='submit' value='Purchase'>");
-                    out.println("</form>");
+                    if (flexOption.equalsIgnoreCase("oneWaySpecific") || flexOption.equalsIgnoreCase("oneWayFlex")) {
+                        out.println("<form action='purchaseTicket.jsp' method='POST'>");
+                        out.println("<input type='hidden' name='flightId' value='" + joinList(path.getFlightIds()) + "'>");
+                        out.println("<input type='hidden' name='airlineIds' value='" + joinList(path.getAirlineIds()) + "'>");
+                        out.println("<input type='hidden' name='aircraftIds' value='" + joinList(path.getAircraftIds()) + "'>");
+                        out.println("<input type='hidden' name='customerID' value='" + customerID + "'>");
+                        out.println("<input type='submit' value='Purchase'>");
+                        out.println("</form>");
+                    } else if (!terminate){
+                        out.println("<form action='oneWaySearch.jsp' method='POST'>");
+                        out.println("<input type='hidden' name='flightId' value='" + joinList(path.getFlightIds()) + "'>");
+                        out.println("<input type='hidden' name='airlineIds' value='" + joinList(path.getAirlineIds()) + "'>");
+                        out.println("<input type='hidden' name='aircraftIds' value='" + joinList(path.getAircraftIds()) + "'>");
+                        out.println("<input type='hidden' name='customerID' value='" + customerID + "'>");
+                        out.println("<input type='hidden' name='flightDate' value='" + return_date + "'>");
+                        out.println("<input type='hidden' name='tripType' value='" + flexOption + "' >");
+                        out.println("<input type='hidden' name='departure' value='" + arrival + "' >");
+                        out.println("<input type='hidden' name='destination' value='" + departure + "' >");
+                        out.println("<input type='hidden' name='roundTripTerminate' value='" + "true" + "' >");
+                        out.println("<input type='submit' value='Purchase'>");
+                        out.println("</form>");
+                    } else {
+                        out.println("<form action='purchaseTicket.jsp' method='POST'>");
+                        out.println("<input type='hidden' name='flightId' value='" + roundTripFlightID.concat(",").concat(joinList(path.getFlightIds())) + "'>");
+                        out.println("<input type='hidden' name='airlineIds' value='" + roundTripAirlineID.concat(",").concat(joinList(path.getAirlineIds())) + "'>");
+                        out.println("<input type='hidden' name='aircraftIds' value='" + roundTripAircraftID.concat(",").concat(joinList(path.getAircraftIds())) + "'>");
+                        out.println("<input type='hidden' name='customerID' value='" + customerID + "'>");
+                        out.println("<input type='submit' value='Purchase'>");
+                        out.println("</form>");
+                    }
                     out.println("</td>");
                     out.println("</tr>");
                 }
