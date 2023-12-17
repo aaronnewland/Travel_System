@@ -96,7 +96,7 @@
             } else {
 
                 // INSERT A TICKETED CUSTOMER
-                updateSQL = "Insert INTO ticketed_flights VALUES(?,?,?,?,?,NOW());";
+                updateSQL = "Insert INTO ticketed_flights(ticket_number,f_id,cust_id,aircraft_id,airline_id,purchase_date) VALUES(?,?,?,?,?,NOW());";
                 pstmt = con.prepareStatement(updateSQL);
                 pstmt.setInt(1, current_ticket_number);
                 pstmt.setInt(2, f_ids[i]);

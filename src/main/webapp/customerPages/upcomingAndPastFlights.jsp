@@ -2,11 +2,12 @@
          pageEncoding="ISO-8859-1" import="com.example.travel_system.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
-
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flight Path Results</title>
+    <title>Customer Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,6 +74,36 @@
             font-weight: bold;
         }
 
+        .tab a {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .tab a:hover {
+            background-color: #ddd;
+        }
+
+        .tab a.active {
+            background-color: #50b3a2;
+            color: white;
+        }
+
+        .form-section {
+            background: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -82,22 +113,42 @@
             padding: 5px;
             text-align: left;
         }
+
+        table tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        .center {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div id="branding">
-                <h1><span class="highlight">ADMIN</span> Flight Path Results</h1>
+                <h1><span class="highlight">Customer</span> Dashboard</h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="adminLandingPage">Admin Home Page</a></li>
-                   
+                    <li><a href="customerLandingPage2.jsp">Customer Home</a></li>
+                    <!-- Additional navigation items -->
                 </ul>
             </nav>
         </div>
     </header>
+
+    <div class="container">
+        <div class="tab">
+           <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
+            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
+            <a href=search.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a> -->
+            <a href="postFAQjsp" class="tablinks">Ask a Question</a>
+            <a href="searchFAQ.jsp" class="tablinks">Search FAQ</a>
+            <a href="upcomingAndPastFlights.jsp" class="tablinks active">Past and Upcoming Itinerary</a>
+        </div>
+    </div>
 
     <div class="container">
 <%

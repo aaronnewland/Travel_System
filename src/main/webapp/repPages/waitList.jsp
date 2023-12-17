@@ -120,6 +120,7 @@
             <a href="repAirportFunctions.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a>
             <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
             <a href="waitList.jsp" class="tablinks active">Waitlist</a>
+            <a href="repMakeReservations.jsp" class="tablinks">Rep Make Reservations</a>
         </div>
     </div>
 

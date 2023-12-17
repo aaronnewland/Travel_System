@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Rep Page</title>
+    <title>Customer Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -113,6 +113,11 @@
         table tr:nth-child(even) {
             background: #f2f2f2;
         }
+
+        .center {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -124,7 +129,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Home</a></li>
-       
+                    <!-- Additional navigation items -->
                 </ul>
             </nav>
         </div>
@@ -132,16 +137,27 @@
 
     <div class="container">
         <div class="tab">
-            <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
+           <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
             <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
-            <a href="repAirportFunctions.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a>
-            <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
-            <a href="waitList.jsp" class="tablinks active">Waitlist</a>
-            <a href="repMakeReservations.jsp" class="tablinks">Rep Make Reservations</a>
+            <a href=search.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a> -->
+            <a href="postFAQjsp" class="tablinks">Ask a Question</a>
+            <a href="searchFAQ.jsp" class="tablinks">Search FAQ</a>
+            <a href="upcomingAndPastFlights.jsp" class="tablinks">Past and Upcoming Itinerary</a>
         </div>
     </div>
     <hr>
     <hr>
-     <center><b>Please pick a tab <%=session.getAttribute("user")%>.</b></center>
+    <div class="center">
+        <%
+            if ((session.getAttribute("user") == null)) {
+        %>
+        You are not logged in<br/>
+        <a href="../login.jsp">Please Login</a>
+        <% } else { %>
+            Welcome <%= session.getAttribute("user") %>!
+            <br>
+            <a href='../logout.jsp'>Log out</a>
+        <% } %>
+    </div>
 </body>
 </html>
