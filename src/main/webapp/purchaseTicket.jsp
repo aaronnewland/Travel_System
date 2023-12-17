@@ -92,6 +92,7 @@
                 pstmt.setString(3, airline_ids[i]);
                 pstmt.setInt(4,cust_id);
                 pstmt.executeUpdate(); // Execute update
+                out.println("Flight is currently full, being added to waitlist for flight number(s)" + f_ids[i]);
 
 
             } else {

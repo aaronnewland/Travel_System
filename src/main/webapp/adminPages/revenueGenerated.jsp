@@ -135,7 +135,6 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
-                    <!-- Other navigation items -->
                 </ul>
             </nav>
         </div>

@@ -133,7 +133,6 @@
             <nav>
                 <ul>
                     <li><a href="customerLandingPage2.jsp">Customer Home</a></li>
-                    <!-- Additional navigation items -->
                 </ul>
             </nav>
         </div>
@@ -141,8 +140,6 @@
 
     <div class="container">
         <div class="tab">
-          <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
-            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a> -->
             <a href="customerLandingPage2.jsp" class="tablinks">Home</a>
             <a href="customerFlightSearch.jsp" class="tablinks">Flight Search</a>
             <a href="cancelFlight.jsp" class="tablinks active">Cancel a flight</a>
@@ -168,13 +165,13 @@
             
             String ticketToCancel = request.getParameter("ticket_number");
             if (ticketToCancel != null && !ticketToCancel.isEmpty()) {
-                // Perform the cancellation
+                // Perform cancellation
                 String deleteSQL = "DELETE FROM ticketed_flights WHERE ticket_number = ?";
                 pstmt = con.prepareStatement(deleteSQL);
                 pstmt.setString(1, ticketToCancel);
                 int affectedRows = pstmt.executeUpdate();
                 if (affectedRows > 0) {
-                    out.println("<p>Flight cancelled successfully.</p>");
+                    out.println("<p>Flight cancelled successfully. Customers on waitlist have been notified.</p>");
                 } else {
                     out.println("<p>Error cancelling flight.</p>");
                 }

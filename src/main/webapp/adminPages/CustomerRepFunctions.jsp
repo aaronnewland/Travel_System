@@ -135,7 +135,6 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
-                    <!-- Other navigation items -->
                 </ul>
             </nav>
         </div>
@@ -154,7 +153,6 @@
 
 
     <div class="container">
-        <!-- Form for Adding a CSR -->
         <div class="form-section">
             <h2>Add Customer Service Representative</h2>
             <form action="" method="post">
@@ -167,7 +165,6 @@
             </form>
         </div>
 
-        <!-- Form for Editing a CSR -->
         <div class="form-section">
             <h2>Edit Customer Service Representative</h2>
             <form action="" method="post">
@@ -181,7 +178,6 @@
             </form>
         </div>
 
-        <!-- Form for Deleting a CSR -->
         <div class="form-section">
             <h2>Delete Customer Service Representative</h2>
             <form action="" method="post">
@@ -216,9 +212,7 @@
         ApplicationDB db = new ApplicationDB();
         con = db.getConnection();
 
-        // Check if the user is trying to edit a CSR
         if (usernameToEdit != null && !usernameToEdit.isEmpty()) {
-            // Fetch current details of the CSR
             String fetchCurrentDetailsSQL = "SELECT username, password, fName, mName, lName FROM users WHERE username = ?";
             pstmt = con.prepareStatement(fetchCurrentDetailsSQL);
             pstmt.setString(1, usernameToEdit);
@@ -238,9 +232,7 @@
                 currentLastName = rs.getString("lName");
             }
 
-            // Use existing details if new ones are not provided
 
-            // Update the CSR with new details
             String updateSQL = "UPDATE users SET username = ?, password = ?, fName = ?, mName = ?, lName = ? WHERE username = ?";
             pstmt = con.prepareStatement(updateSQL);
             pstmt.setString(1, editNewUsername.isEmpty() ? currentUsername : editNewUsername);
@@ -252,7 +244,7 @@
             pstmt.executeUpdate();
         }
 
-        // Perform delete if usernameToDelete is provided
+
         if (usernameToDelete != null && !usernameToDelete.isEmpty()) {
             String deleteSQL = "DELETE FROM users WHERE username = ?";
             pstmt = con.prepareStatement(deleteSQL);
@@ -260,7 +252,6 @@
             pstmt.executeUpdate();
         }
         
-        // Check if the username for new CSR already exists
         if (newUsername != null && !newUsername.isEmpty()) {
             pstmt = con.prepareStatement("SELECT username FROM users WHERE username = ?");
             pstmt.setString(1, newUsername);
@@ -268,7 +259,6 @@
             userExists = rs.next();
         }
 
-        // Insert a new CSR only if username does not exist
         if (!userExists && newUsername != null && !newUsername.isEmpty()) {
             String insertSQL = "INSERT INTO users(username, password, fName, mName, lName, access) VALUES (?, ?, ?, ?, ?, 'rep');";
             pstmt = con.prepareStatement(insertSQL);
@@ -282,26 +272,26 @@
             out.println("<p>Username unavailable</p>");
         }
 
-        // Fetching data to display
+
         st = con.createStatement();
-        rs = st.executeQuery("SELECT * FROM users;");
+        rs = st.executeQuery("SELECT * FROM users WHERE access = '" + "rep" + "';");
         out.println("<table>");
-        out.println("<tr><th>Username</th><th>First Name</th><th>Middle Name</th><th>Last Name</th>");
-/* 
+        out.println("<tr><th>Username</th><th>First Name</th><th>Middle Name</th><th>Last Name</th></tr>");
         while (rs.next()) {
             String username = rs.getString("username");
-            String fName = rs.getString("fName");
-            String mInit = rs.getString("mName");
-            String lName = rs.getString("lName");
+            String firstName = rs.getString("fName");
+            String midName = rs.getString("mName");
+            String lastName = rs.getString("lName");
 
             out.println("<tr>");
             out.println("<td>" + username + "</td>");
-            out.println("<td>" + fName + "</td>");
-            out.println("<td>" + mInit + "</td>");
-            out.println("<td>" + lName + "</td>");
+            out.println("<td>" + firstName + "</td>");
+            out.println("<td>" + midName + "</td>");
+            out.println("<td>" + lastName + "</td>");
             out.println("</tr>");
         }
-        out.println("</table>"); */
+        out.println("</table>");
+
     } catch (Exception e) {
         e.printStackTrace();
     } finally {
