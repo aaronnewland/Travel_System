@@ -2,7 +2,6 @@
          pageEncoding="ISO-8859-1" import="com.example.travel_system.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html>
