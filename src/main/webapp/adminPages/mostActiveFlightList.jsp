@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sales Report</title>
+    <title>Most Active Flights</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -102,11 +102,11 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1><span class="highlight">ADMIN</span> Sales Report</h1>
+                <h1><span class="highlight">ADMIN</span> Most Active Flight Report</h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="adminLandingPage">Admin Home Page</a></li>
+                    <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
                     <!-- Other navigation items -->
                 </ul>
             </nav>
@@ -116,6 +116,7 @@
     <div class="container">
         <div class="tab">
             <a href="adminCustomerFunctions.jsp" class="tablinks">Customer Functions</a>
+            <a href="CustomerRepFunctions.jsp" class="tablinks">Customer Rep Functions</a>
             <a href="salesReport.jsp" class="tablinks">Sales Report</a>
             <a href="reservationList.jsp" class="tablinks">Reservations</a>
             <a href="revenueGenerated.jsp" class="tablinks">Revenue</a>

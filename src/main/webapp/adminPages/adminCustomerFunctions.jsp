@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Revenue Report</title>
+    <title>Customer Functions</title>
     <!-- CSS Styles -->
     <style>
         body {
@@ -127,15 +127,15 @@
     </style>
 </head>
 <body>
-    <header>
+  <header>
         <div class="container">
             <div id="branding">
-                <h1><span class="highlight">Revenue Report</span></h1>
+                <h1><span class="highlight">ADMIN</span> Admin Customer Functions</h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="adminLandingPage">Home</a></li>
-                    <!-- Additional navigation items if needed -->
+                    <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
+                    <!-- Other navigation items -->
                 </ul>
             </nav>
         </div>
@@ -144,6 +144,7 @@
     <div class="container">
         <div class="tab">
             <a href="adminCustomerFunctions.jsp" class="tablinks active">Customer Functions</a>
+            <a href="CustomerRepFunctions.jsp" class="tablinks">Customer Rep Functions</a>
             <a href="salesReport.jsp" class="tablinks">Sales Report</a>
             <a href="reservationList.jsp" class="tablinks">Reservations</a>
             <a href="revenueGenerated.jsp" class="tablinks">Revenue</a>

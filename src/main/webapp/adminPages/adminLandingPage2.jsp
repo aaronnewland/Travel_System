@@ -124,7 +124,7 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage">Home</a></li>
-                    <!-- Other navigation items if needed -->
+       
                 </ul>
             </nav>
         </div>
@@ -133,11 +133,15 @@
     <div class="container">
         <div class="tab">
             <a href="adminCustomerFunctions.jsp" class="tablinks">Customer Functions</a>
+            <a href="CustomerRepFunctions.jsp" class="tablinks">Customer Rep Functions</a>
             <a href="salesReport.jsp" class="tablinks">Sales Report</a>
             <a href="reservationList.jsp" class="tablinks">Reservations</a>
             <a href="revenueGenerated.jsp" class="tablinks">Revenue</a>
             <a href="mostActiveFlightList.jsp" class="tablinks">Active Flights</a>
         </div>
     </div>
+    <hr>
+    <hr>
+     <center><b>Please pick a tab.</b></center>
 </body>
 </html>
