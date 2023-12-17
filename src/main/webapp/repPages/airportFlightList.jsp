@@ -8,6 +8,81 @@
 <head>
     <title>Flight Information</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #50b3a2;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+
+        header #branding {
+            float: left;
+        }
+
+        header #branding h1 {
+            margin: 0;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+
+        header a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .form-section {
+            background: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .form-section h2 {
+            color: #50b3a2;
+        }
+
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -19,8 +94,24 @@
     </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Flight Information</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="repLandingPage">Customer Rep Homepage</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="form-section">
+           
 <%
-    String apt_id = "ewr"; // received from the request parameter
+    String apt_id = request.getParameter("airportID"); // received from the request parameter
     Connection con = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
@@ -38,7 +129,7 @@
         		
         out.println("<h2>Flight Details for " + apt_id.toUpperCase() + "</h2>");
         out.println("<table>");
-        out.println("<tr><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Day of Week</th><th>Is International</th><th>Fare</th><th>Booking Fee</th></tr>");
+        out.println("<tr><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th><th>Booking Fee</th></tr>");
 
         while (rs.next()) {
             out.println("<tr>");
@@ -49,8 +140,6 @@
             out.println("<td>" + rs.getTimestamp("arrival_time") + "</td>");
             out.println("<td>" + rs.getString("departure_apt") + "</td>");
             out.println("<td>" + rs.getString("arrival_apt") + "</td>");
-            out.println("<td>" + rs.getString("day_of_week") + "</td>");
-            out.println("<td>" + rs.getBoolean("is_international") + "</td>");
             out.println("<td>" + rs.getFloat("fare") + "</td>");
             out.println("<td>" + rs.getFloat("booking_fee") + "</td>");
             out.println("</tr>");
@@ -69,5 +158,7 @@
         }
     }
 %>
+	</div>
+	</div>
 </body>
 </html>

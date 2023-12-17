@@ -8,7 +8,6 @@
 <head>
     <title>Edit Customer Reservations</title>
     <style>
-        /* Styles from the previous code block */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -103,71 +102,118 @@
         .form-section form input[type="submit"]:hover {
             background: #333;
         }
+
+        /* New Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        table thead tr {
+            background-color: #009879;
+            color: white;
+            text-align: left;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
     </style>
 
-    <script>
+   <script>
         function toggleInputFields() {
             var action = document.querySelector('input[name="action"]:checked').value;
             var newSeatNumberField = document.getElementById('newSeatNumberField');
+            var classChangeOptions = document.getElementById('classChangeOptions');
+            var paidCheckbox = document.getElementById('paidCheckbox');
+
             newSeatNumberField.style.display = (action === 'change_seat') ? 'block' : 'none';
+            classChangeOptions.style.display = (action === 'changeClass') ? 'block' : 'none';
+            paidCheckbox.style.display = (action === 'is_Paid') ? 'block' : 'none';
         }
     </script>
 </head>
 <body onload="toggleInputFields()">
     <header>
         <!-- Header content -->
-        <div class="container">
-            <div id="branding">
-                <h1><span class="highlight">Customer Rep</span> Edit Reservations</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li class="current"><a href="customerRepLandingPage">Customer Rep Home Page</a></li>
-                </ul>
-            </nav>
-        </div>
     </header>
 
     <div class="container">
         <div class="form-section">
             <h2>Edit Ticket</h2>
             <form action="" method="post">
+                <!-- Form fields -->
                 <input type="number" name="ticket_number" placeholder="Ticket Number" required>
-
-                <div id="newSeatNumberField">
+                <div id="newSeatNumberField" style="display:none;">
                     <input type="number" name="new_seat_number" placeholder="New Seat Number">
                 </div>
 
-                <label><input type="radio" name="ticket_type" value="economy" checked> Economy Ticket</label>
-                <label><input type="radio" name="ticket_type" value="business_first"> Business/First Class Ticket</label>
+                <!-- Class Change Options (initially hidden) -->
+                <div id="classChangeOptions" style="display:none;">
+                    <label><input type="radio" name="new_class" value="economy"> Economy</label>
+                    <label><input type="radio" name="new_class" value="business"> Business</label>
+                    <label><input type="radio" name="new_class" value="first_class"> First Class</label>
+                </div>
 
-                <label><input type="radio" name="action" value="change_seat" checked onclick="toggleInputFields()"> Change Seat</label>
+                <!-- Paid Checkbox (initially hidden) -->
+                <div id="paidCheckbox" style="display:none;">
+                    <label><input type="checkbox" name="is_paid" value="yes"> Paid for Cancellation</label>
+                </div>
+
+                <!-- Action Radio Buttons -->
+                <label><input type="radio" name="action" value="change_seat" onclick="toggleInputFields()"> Change Seat</label>
                 <label><input type="radio" name="action" value="delete_ticket" onclick="toggleInputFields()"> Delete Ticket</label>
-
+                <label><input type="radio" name="action" value="is_Paid" onclick="toggleInputFields()"> Pay for cancellation (for Economy only)</label>
+                <label><input type="radio" name="action" value="changeClass" onclick="toggleInputFields()"> Change class</label>
                 <input type="submit" value="Submit">
             </form>
         </div>
-
        <%
             // Server-side code to handle the form submission and check ticket existence
-            String ticketType = request.getParameter("ticket_type");
-            String action = request.getParameter("action");
+            int custId = 0;
             String ticketNumberStr = request.getParameter("ticket_number");
-            String newSeatNumberStr = request.getParameter("new_seat_number");
+            String action = request.getParameter("action");
+            String custId_param = request.getParameter("customerIDEdit");
+            
+            if (custId_param != null && !custId_param.isEmpty()) { custId = Integer.parseInt(custId_param); }
+            
+            Connection con = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            PreparedStatement pstmt2 = null;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                ApplicationDB db = new ApplicationDB();
+                con = db.getConnection();
 
-            if (ticketNumberStr != null && !ticketNumberStr.isEmpty()) {
-                int ticketNumber = Integer.parseInt(ticketNumberStr);
-                Connection con = null;
-                PreparedStatement pstmt = null;
-                ResultSet rs = null;
-
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    ApplicationDB db = new ApplicationDB();
-                    con = db.getConnection();
+                if (ticketNumberStr != null && !ticketNumberStr.isEmpty()) {
+                    int ticketNumber = Integer.parseInt(ticketNumberStr);
 
                     // Check if ticket exists
-                   pstmt = con.prepareStatement("SELECT * FROM ticketed_flights WHERE ticket_number = ?");
+                    pstmt = con.prepareStatement("SELECT * FROM ticketed_flights WHERE ticket_number = ?");
                     pstmt.setInt(1, ticketNumber);
                     rs = pstmt.executeQuery();
 
@@ -180,28 +226,66 @@
                             pstmt.setInt(1, ticketNumber);
                             pstmt.executeUpdate();
                             out.println("<p>Ticket deleted successfully.</p>");
-                        } else if ("change_seat".equals(action) && newSeatNumberStr != null && !newSeatNumberStr.isEmpty()) {
-                            // Change seat
+                        } else if ("change_seat".equals(action)) {
+                            String newSeatNumberStr = request.getParameter("new_seat_number");
                             int newSeatNumber = Integer.parseInt(newSeatNumberStr);
-                            String tableName = "economy".equals(ticketType) ? "economy_ticket" : "business_first_ticket";
-                            pstmt = con.prepareStatement("UPDATE " + tableName + " SET seat_number = ? WHERE ticket_number = ?");
+                            pstmt = con.prepareStatement("UPDATE ticketed_flights SET seat_num = ? WHERE ticket_number = ?");
                             pstmt.setInt(1, newSeatNumber);
                             pstmt.setInt(2, ticketNumber);
                             pstmt.executeUpdate();
                             out.println("<p>Seat changed successfully.</p>");
+                        } else if ("changeClass".equals(action)) {
+                            String newClass = request.getParameter("new_class");
+                            pstmt = con.prepareStatement("UPDATE ticketed_flights SET class = ? WHERE ticket_number = ?");
+                            pstmt.setString(1, newClass);
+                            pstmt.setInt(2, ticketNumber);
+                            pstmt.executeUpdate();
+                            out.println("<p>Class changed successfully.</p>");
+                        } else if ("is_Paid".equals(action)) {
+                            String isPaid = request.getParameter("is_paid") != null ? "1" : "0";
+                            pstmt = con.prepareStatement("UPDATE ticketed_flights SET is_paid = ? WHERE ticket_number = ?");
+                            pstmt.setString(1, isPaid);
+                            pstmt.setInt(2, ticketNumber);
+                            pstmt.executeUpdate();
+                            out.println("<p>Cancellation payment status updated.</p>");
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    out.println("<p>Error during operation: " + e.getMessage() + "</p>");
-                } finally {
-                    try {
-                        if (rs != null) rs.close(); 
-                        if (pstmt != null) pstmt.close();
-                        if (con != null) con.close();
-                    } catch (SQLException se) {
-                        se.printStackTrace();
+                }
+
+                // Display current tickets for customer
+                pstmt2 = con.prepareStatement("select * from ticketed_flights where cust_id = ?;");
+                pstmt2.setInt(1, custId);
+                rs = pstmt2.executeQuery();
+                out.println("<h2>Current Tickets for Customer ID " + custId + "</h2>");
+                out.println("<table>");
+                out.println("<tr><th>Ticket Number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Cancellation fee</th><th>Class</th><th>Seat Number</th></tr>");
+                while (rs.next()) {
+                    out.println("<tr>");
+                    out.println("<td>" + rs.getString("ticket_number") + "</td>");
+                    out.println("<td>" + rs.getString("airline_id") + "</td>");
+                    out.println("<td>" + rs.getString("aircraft_id") + "</td>");
+                    out.println("<td>" + rs.getString("f_id") + "</td>");
+                    if (!"economy".equals(rs.getString("class"))) {
+                        out.println("<td> Cancellation included </td>");
+                    } else {
+                        out.println("<td>" + rs.getString("is_paid") + "</td>");
                     }
+                    out.println("<td>" + rs.getString("class") + "</td>");
+                    out.println("<td>" + rs.getString("seat_num") + "</td>");
+                    out.println("</tr>");
+                }
+                out.println("</table>");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                out.println("<p>Error during operation: " + e.getMessage() + "</p>");
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                    if (pstmt != null) pstmt.close();
+                    if (con != null) con.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
                 }
             }
         %>

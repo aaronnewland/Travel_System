@@ -101,10 +101,6 @@
                 <div class="center">
                     <label for="customerIDEdit">Customer ID: </label>
                     <input type="text" id="customerIDEdit" name="customerIDEdit"/>
-                    <div class="padLeft">
-                        <label for="flightIDEdit">Customer ID: </label>
-                        <input type="text" id="flightIDEdit" name="flightIDEdit"/>
-                    </div>
                 </div>
                 <div class="center padTop">
                     <input type="submit" value="Edit Flight"/>
