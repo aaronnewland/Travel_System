@@ -115,13 +115,9 @@
         <h3>Retrieve waiting list for a flight</h3>
     </div>
     <div class="center">
-        <form action="waitList.jsp" method="POST">
-            <div>
-                <label for="flightIDWait">Enter Flight ID:</label>
-                <input type="text" id="flightIDWait" name="flightIDWait">
-                <input type="submit" value="Generate Wait List">
-            </div>
-        </form>
+        <div class="center">
+        <h3><a href="waitList.jsp">Generate Wait List Page</a> </h3>
+    </div>
     </div>
     <div class="center padTop">
         <h3>Lists of All Flights For Airport</h3>
