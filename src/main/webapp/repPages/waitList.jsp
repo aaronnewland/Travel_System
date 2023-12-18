@@ -107,7 +107,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Homepage</a></li>
-                    <!-- Other navigation items -->
+                    <li><a href='../logout.jsp'>Log out</a></li>
                 </ul>
             </nav>
         </div>
@@ -125,7 +125,7 @@
     </div>
 
     <div class="container">
-        <!-- Form for Viewing Waiting List -->
+       
         <div class="form-section">
             <h2>View Waiting List</h2>
             <form action="" method="post">
@@ -135,7 +135,7 @@
             </form>
         </div>
 
-        <!-- Waiting List Display -->
+        
         <div class="form-section">
             <%
             String airlineID = request.getParameter("airlineID");
@@ -177,9 +177,9 @@
                     }
                     out.println("</table>");
                 } catch (Exception e) {
-                    e.printStackTrace(); // Consider better error handling for production
+                    e.printStackTrace();
                 } finally {
-                    // Close resources
+                    
                     try {
                         if (rs != null) rs.close();
                         if (pstmt != null) pstmt.close();

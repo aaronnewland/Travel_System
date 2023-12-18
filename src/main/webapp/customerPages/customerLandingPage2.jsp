@@ -183,6 +183,8 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Customer Home</a></li>
+      				<li><a href='../logout.jsp'>Log out</a></li>
+   					 
 
                 </ul>
             </nav>
@@ -273,10 +275,7 @@
 
                         
                         if (ticketed_passengers < numSeats) {
-                            out.println("<td><form method='post' action='purchaseTicket.jsp'><input type='hidden' name='f_id' value='" + f_id + "'>" 
-                                        + "<input type='hidden' name='aircraft_id' value='" + aircraft_id + "'>"
-                                        + "<input type='hidden' name='airlineID' value='" + airline_id + "'>"
-                                        + "<input type='submit' value='Purchase'></form></td>");
+                            out.println("<td>Flight available for purchase</td>");
                         } else {
                             out.println("<td>Full</td>");
                         }

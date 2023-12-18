@@ -134,7 +134,7 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
-              
+              		<li><a href='../logout.jsp'>Log out</a></li>
                 </ul>
             </nav>
         </div>
@@ -152,7 +152,7 @@
     </div>
 
     <div class="container">
-        <!-- Form for Adding a Customer -->
+       
         <div class="form-section">
             <h2>Add Customer</h2>
             <form action="" method="post">
@@ -163,7 +163,6 @@
             </form>
         </div>
 
-        <!-- Form for Editing a Customer -->
         <div class="form-section">
             <h2>Edit Customer</h2>
             <form action="" method="post">
@@ -175,7 +174,7 @@
             </form>
         </div>
 
-        <!-- Form for Deleting a Customer -->
+        
         <div class="form-section">
             <h2>Delete Customer</h2>
             <form action="" method="post">
@@ -205,7 +204,7 @@
                 ApplicationDB db = new ApplicationDB();
                 con = db.getConnection();
 
-                // Perform update if custIDtoEdit has a value
+               
                 if (custIDtoEdit > 0) {
                     String updateSQL = "UPDATE CUSTOMER SET first_name = ?, last_name = ?, middle_name = ? WHERE id = ?";
                     pstmt = con.prepareStatement(updateSQL);
@@ -216,7 +215,7 @@
                     pstmt.executeUpdate();
                 }
 
-                // Perform delete if custIDtoDelete has a value
+                
                 if (custIDtoDelete > 0) {
                     String deleteSQL = "DELETE FROM CUSTOMER WHERE id = ?";
                     pstmt = con.prepareStatement(deleteSQL);
@@ -224,14 +223,14 @@
                     pstmt.executeUpdate();
                 }
 
-                // Insert a new customer
+                
                 if (firstName != null && !firstName.isEmpty() && custIDtoEdit == 0 && custIDtoDelete == 0) {
                     st = con.createStatement();
                     rs = st.executeQuery("SELECT MAX(id) FROM CUSTOMER");
                     if (rs.next()) {
                         cust_id = rs.getInt(1) + 1;
                     } else {
-                        cust_id = 1; // default to 1 if the table is empty
+                        cust_id = 1; 
                     }
 
                     String insertSQL = "INSERT INTO CUSTOMER(id, first_name, last_name, middle_name) VALUES (?, ?, ?, ?);";
@@ -243,7 +242,7 @@
                     pstmt.executeUpdate();
                 }
 
-                // Fetching data to display
+                
                 st = con.createStatement();
                 rs = st.executeQuery("SELECT * FROM CUSTOMER;");
                 out.println("<table>");
@@ -264,9 +263,9 @@
                 }
                 out.println("</table>");
             } catch (Exception e) {
-                e.printStackTrace(); // Consider better error handling for production
+                e.printStackTrace(); 
             } finally {
-                // Close resources
+              
                 try {
                     if (rs != null) rs.close();
                     if (st != null) st.close();
