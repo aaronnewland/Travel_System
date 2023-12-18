@@ -7,7 +7,6 @@
 <html>
 <head>
     <title>Revenue Report</title>
-    <!-- CSS Styles -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -135,6 +134,10 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
+<<<<<<< Updated upstream
+=======
+                
+>>>>>>> Stashed changes
                 </ul>
             </nav>
         </div>
@@ -155,80 +158,76 @@
         <div class="form-section">
             <h2>Filter Revenue</h2>
             <form action="" method="post">
-                <label><input type="radio" name="filterType" id="flightIDRadio" value="flight" checked onchange="toggleFlightIDTextbox()"> Flight ID</label>
-                <label><input type="radio" name="filterType" value="airline" onchange="toggleFlightIDTextbox()"> Airline ID</label>
-                <label><input type="radio" name="filterType" value="customer" onchange="toggleFlightIDTextbox()"> Customer ID</label>
-                <input type="text" name="filterValue" placeholder="Enter ID" required>
-                <div id="flightIDTextbox" style="display:none;">
-                    <input type="text" name="airlineID" placeholder="Airline ID">
-                </div>
+                <label><input type="radio" name="filterType" value="airline"> Airline ID</label>
+                <label><input type="radio" name="filterType" value="customer"> Customer ID</label>
+                <label><input type="radio" name="filterType" value="flight"> Flight ID</label>
+                <input type="text" name="filterValue" placeholder="Enter ID" required><br>
+                <input type="text" name="airlineID" placeholder="Airline ID (only for Flight ID)">
                 <input type="submit" value="Search">
             </form>
         </div>
-     
 
-        <%  
-    String filterType = request.getParameter("filterType");
-    String filterValue = request.getParameter("filterValue");
-    String airlineID = request.getParameter("airlineID");
+        <%
+            String filterType = request.getParameter("filterType");
+            String filterValue = request.getParameter("filterValue");
+            String airlineID = request.getParameter("airlineID");
 
-    Connection con = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+            Connection con = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
 
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        ApplicationDB db = new ApplicationDB();
-        con = db.getConnection();
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                ApplicationDB db = new ApplicationDB();
+                con = db.getConnection();
 
-        String sqlQuery = "";
-        if ("flight".equals(filterType)) {
-            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM flight f WHERE f.f_id = ? AND f.airline_id = ?;";
-            pstmt = con.prepareStatement(sqlQuery);
-            pstmt.setInt(1, Integer.parseInt(filterValue));
-            pstmt.setString(2, airlineID);
-        } else if ("airline".equals(filterType)) {
-            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM flight f WHERE f.airline_id = ?;";
-            pstmt = con.prepareStatement(sqlQuery);
-            pstmt.setString(1, filterValue);
-        } else if ("customer".equals(filterType)) {
-            sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM ticketed_flights tf JOIN flight f ON tf.f_id = f.f_id WHERE tf.cust_id = ?;";
-            pstmt = con.prepareStatement(sqlQuery);
-            pstmt.setInt(1, Integer.parseInt(filterValue));
-        }
+                String sqlQuery = "";
+                if ("flight".equals(filterType)) {
+                    sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM flight f WHERE f.f_id = ? AND f.airline_id = ?;";
+                    pstmt = con.prepareStatement(sqlQuery);
+                    pstmt.setInt(1, Integer.parseInt(filterValue));
+                    pstmt.setString(2, airlineID);
+                } else if ("airline".equals(filterType)) {
+                    sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM flight f WHERE f.airline_id = ?;";
+                    pstmt = con.prepareStatement(sqlQuery);
+                    pstmt.setString(1, filterValue);
+                } else if ("customer".equals(filterType)) {
+                    sqlQuery = "SELECT SUM(f.fare + f.booking_fee) AS revenue FROM ticketed_flights tf JOIN flight f ON tf.f_id = f.f_id WHERE tf.cust_id = ?;";
+                    pstmt = con.prepareStatement(sqlQuery);
+                    pstmt.setInt(1, Integer.parseInt(filterValue));
+                }
 
-        rs = pstmt.executeQuery();
+                rs = pstmt.executeQuery();
 
-        if (rs.next()) {
-            String revenue = rs.getString("revenue");
-            if (revenue != null) {
-                out.println("<table>");
-                out.println("<tr><th>ID Type</th><th>ID</th><th>Revenue Generated</th></tr>");
-                out.println("<tr>");
-                out.println("<td>" + filterType + "</td>");
-                out.println("<td>" + filterValue + "</td>");
-                out.println("<td>" + revenue + "</td>");
-                out.println("</tr>");
-                out.println("</table>");
-            } else {
-                out.println("<p>Match not found.</p>");
+                if (rs.next()) {
+                    String revenue = rs.getString("revenue");
+                    if (revenue != null) {
+                        out.println("<table>");
+                        out.println("<tr><th>ID Type</th><th>ID</th><th>Revenue Generated</th></tr>");
+                        out.println("<tr>");
+                        out.println("<td>" + filterType + "</td>");
+                        out.println("<td>" + filterValue + "</td>");
+                        out.println("<td>" + revenue + "</td>");
+                        out.println("</tr>");
+                        out.println("</table>");
+                    } else {
+                        out.println("<p>No data found for the specified ID.</p>");
+                    }
+                } else {
+                    out.println("<p>No data found for the specified ID.</p>");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                    if (pstmt != null) pstmt.close();
+                    if (con != null) con.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
             }
-        } else {
-            out.println("<p>Match not found.</p>");
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (rs != null) rs.close();
-            if (pstmt != null) pstmt.close();
-            if (con != null) con.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-%>
-
+        %>
     </div>
 </body>
 </html>
