@@ -40,7 +40,7 @@ CREATE TABLE `Aircrafts` (
 
 LOCK TABLES `Aircrafts` WRITE;
 /*!40000 ALTER TABLE `Aircrafts` DISABLE KEYS */;
-INSERT INTO `Aircrafts` VALUES (1,200,'AL'),(1,100,'SW'),(1,200,'UA'),(2,100,'AL'),(2,19,'UA'),(35,120,'AA'),(35,100,'SW'),(45,100,'JB'),(45,95,'SW'),(45,100,'UA'),(59,100,'JB'),(59,11,'SA'),(59,100,'SW'),(134,100,'AL'),(285,100,'AA'),(300,3000,'bc'),(300,3000,'de'),(300,100,'SA'),(300,100,'UA'),(321,100,'JB'),(357,100,'UA'),(452,100,'SW'),(478,100,'AA'),(543,0,'UA'),(567,100,'SA'),(690,100,'JB'),(719,100,'AL'),(786,100,'UA'),(812,100,'SW'),(872,100,'SA'),(873,100,'AL'),(954,100,'AA'),(954,100,'AL'),(954,250,'JB'),(999,200,'UA'),(9999,4000,'ab'),(9999,100,'SA');
+INSERT INTO `Aircrafts` VALUES (1,2,'AL'),(1,100,'SW'),(1,200,'UA'),(2,100,'AL'),(2,250,'SW'),(2,19,'UA'),(35,120,'AA'),(35,100,'SW'),(45,100,'JB'),(45,95,'SW'),(45,100,'UA'),(59,100,'JB'),(59,11,'SA'),(59,100,'SW'),(134,100,'AL'),(285,100,'AA'),(300,3000,'bc'),(300,3000,'de'),(300,100,'SA'),(300,100,'UA'),(321,100,'JB'),(357,100,'UA'),(452,100,'SW'),(478,100,'AA'),(543,0,'UA'),(567,100,'SA'),(690,100,'JB'),(719,100,'AL'),(786,100,'UA'),(812,100,'SW'),(872,100,'SA'),(873,100,'AL'),(954,100,'AA'),(954,100,'AL'),(954,250,'JB'),(999,200,'UA'),(9999,4000,'ab'),(9999,100,'SA');
 /*!40000 ALTER TABLE `Aircrafts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +136,7 @@ CREATE TABLE `business_first_ticket` (
   PRIMARY KEY (`ticket_number`,`cust_id`),
   KEY `business_first_ticket_ibfk_1` (`cust_id`),
   CONSTRAINT `business_first_ticket_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `business_fk` FOREIGN KEY (`ticket_number`, `cust_id`) REFERENCES `ticketed_flights` (`ticket_number`, `cust_id`)
+  CONSTRAINT `business_fk` FOREIGN KEY (`ticket_number`, `cust_id`) REFERENCES `ticketed_flights` (`ticket_number`, `cust_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,7 +196,7 @@ CREATE TABLE `economy_ticket` (
   `is_economy` tinyint(1) NOT NULL,
   PRIMARY KEY (`ticket_number`,`cust_id`),
   KEY `economy_ticket_ibfk_1` (`cust_id`),
-  CONSTRAINT `economy_fk` FOREIGN KEY (`ticket_number`, `cust_id`) REFERENCES `ticketed_flights` (`ticket_number`, `cust_id`),
+  CONSTRAINT `economy_fk` FOREIGN KEY (`ticket_number`, `cust_id`) REFERENCES `ticketed_flights` (`ticket_number`, `cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `economy_ticket_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -223,7 +223,7 @@ CREATE TABLE `FAQ` (
   `question` text,
   `answer` text,
   PRIMARY KEY (`qid`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `FAQ` (
 
 LOCK TABLES `FAQ` WRITE;
 /*!40000 ALTER TABLE `FAQ` DISABLE KEYS */;
-INSERT INTO `FAQ` VALUES (1,'apple25apple25','apple25apple25'),(2,'test',NULL),(3,'test',NULL),(4,'test',NULL),(5,'testpost',NULL),(6,'testpost','akjfhskahf'),(7,'testpost',NULL),(8,'testpost','akjfhskahf'),(9,'testpost',NULL),(10,'test',NULL),(11,NULL,NULL);
+INSERT INTO `FAQ` VALUES (1,'apple25apple25','apple25apple25'),(2,'test',NULL),(3,'test',NULL),(4,'test',NULL),(5,'testpost',NULL),(6,'testpost','akjfhskahf'),(7,'testpost',NULL),(8,'testpost','akjfhskahf'),(9,'testpost',NULL),(10,'test',NULL),(11,NULL,NULL),(12,NULL,NULL),(13,NULL,NULL),(14,'Asking a question?',NULL),(15,'Test',NULL),(16,'test',NULL),(17,'Is this working?',NULL);
 /*!40000 ALTER TABLE `FAQ` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -363,7 +363,7 @@ CREATE TABLE `ticketed_flights` (
 
 LOCK TABLES `ticketed_flights` WRITE;
 /*!40000 ALTER TABLE `ticketed_flights` DISABLE KEYS */;
-INSERT INTO `ticketed_flights` VALUES (22,3,1,35,'AA','2023-12-12 22:39:31',0,'economy',60),(23,2,2,2,'UA','2023-12-12 22:39:31',0,'economy',46),(24,1,3,1,'AL','2023-12-12 22:39:31',0,'economy',50),(25,4,4,45,'SW','2023-12-12 22:39:31',0,'economy',12),(26,5,5,59,'SA','2023-12-12 22:39:31',0,'economy',11),(27,6,6,954,'JB','2023-12-12 22:39:31',0,'first',16),(28,1,1,1,'AL','2023-12-12 22:39:31',0,'business',47),(1001,3,1,35,'AA','2023-12-17 00:00:00',0,'economy',85),(1002,2,2,2,'UA','2023-12-18 00:00:00',0,'economy',85),(1003,1,3,1,'AL','2023-12-19 00:00:00',0,'first',71),(1004,4,4,45,'SW','2023-12-20 00:00:00',0,'economy',96),(1005,5,5,59,'SA','2023-12-21 00:00:00',0,'business',70),(10021,8,2,35,'AA','2023-12-16 00:00:00',0,'economy',59),(10031,10,3,35,'AA','2023-12-17 00:00:00',0,'economy',85),(10041,44,4,35,'AA','2023-12-18 00:00:00',0,'economy',49),(10051,45,5,35,'AA','2023-12-19 00:00:00',0,'economy',90),(10061,52,6,35,'AA','2023-12-20 00:00:00',0,'first',1),(10071,1001,1,35,'AA','2023-12-21 00:00:00',0,'economy',37),(10081,1002,2,35,'AA','2023-12-22 00:00:00',0,'economy',79),(10091,1020,3,35,'AA','2023-12-23 00:00:00',0,'economy',84),(10101,1008,4,285,'AA','2023-12-24 00:00:00',0,'economy',81),(10111,3,1,35,'AA','2023-12-15 00:00:00',0,'economy',55),(10111,1014,5,285,'AA','2023-12-25 00:00:00',0,'economy',33),(10121,1020,6,285,'AA','2023-12-26 00:00:00',0,'economy',96),(10131,1,1,1,'AL','2023-12-27 00:00:00',0,'economy',83),(10141,7,2,1,'AL','2023-12-28 00:00:00',0,'economy',24),(10151,11,3,1,'AL','2023-12-29 00:00:00',0,'economy',71),(10161,47,4,1,'AL','2023-12-30 00:00:00',0,'economy',84),(10171,53,5,1,'AL','2023-12-31 00:00:00',0,'economy',4),(10181,87,6,1,'AL','2024-01-01 00:00:00',0,'economy',70),(10191,1009,1,1,'AL','2024-01-02 00:00:00',0,'economy',38),(10201,1015,2,1,'AL','2024-01-03 00:00:00',0,'economy',80);
+INSERT INTO `ticketed_flights` VALUES (22,3,1,35,'AA','2023-12-12 22:39:31',0,'economy',64),(23,2,2,2,'UA','2023-12-12 22:39:31',0,'economy',59),(24,1,3,1,'AL','2023-12-12 22:39:31',0,'economy',50),(25,4,4,45,'SW','2023-12-12 22:39:31',0,'economy',12),(26,5,5,59,'SA','2023-12-12 22:39:31',0,'economy',11),(27,6,6,954,'JB','2023-12-12 22:39:31',0,'first',16),(28,1,1,1,'AL','2023-12-12 22:39:31',0,'business',47),(1001,3,1,35,'AA','2023-12-17 00:00:00',0,'economy',85),(1002,2,2,2,'UA','2023-12-18 00:00:00',0,'economy',85),(1003,1,3,1,'AL','2023-12-19 00:00:00',0,'first',71),(1004,4,4,45,'SW','2023-12-20 00:00:00',0,'economy',96),(1005,5,5,59,'SA','2023-12-21 00:00:00',0,'business',70),(3595,3,3,35,'AA','2023-12-17 18:12:25',1,'economy',NULL),(10021,8,2,35,'AA','2023-12-16 00:00:00',0,'economy',59),(10031,10,3,35,'AA','2023-12-17 00:00:00',0,'economy',85),(10041,44,4,35,'AA','2023-12-18 00:00:00',0,'economy',49),(10051,45,5,35,'AA','2023-12-19 00:00:00',0,'economy',90),(10061,52,6,35,'AA','2023-12-20 00:00:00',0,'first',1),(10081,1002,2,35,'AA','2023-12-22 00:00:00',0,'economy',79),(10091,1020,3,35,'AA','2023-12-23 00:00:00',0,'economy',84),(10101,1008,4,285,'AA','2023-12-24 00:00:00',0,'economy',81),(10111,3,1,35,'AA','2023-12-15 00:00:00',0,'economy',55),(10111,1014,5,285,'AA','2023-12-25 00:00:00',0,'economy',33),(10121,1020,6,285,'AA','2023-12-26 00:00:00',0,'economy',96),(10131,1,1,1,'AL','2023-12-27 00:00:00',0,'economy',83),(10141,7,2,1,'AL','2023-12-28 00:00:00',0,'economy',24),(10151,11,3,1,'AL','2023-12-29 00:00:00',0,'economy',71),(10161,47,4,1,'AL','2023-12-30 00:00:00',0,'economy',84),(10171,53,5,1,'AL','2023-12-31 00:00:00',0,'economy',4),(10181,87,6,1,'AL','2024-01-01 00:00:00',0,'economy',70),(10191,1009,1,1,'AL','2024-01-02 00:00:00',0,'economy',38),(10201,1015,2,1,'AL','2024-01-03 00:00:00',0,'economy',80),(10202,6,1,954,'JB','2023-12-17 18:07:09',1,'first',44);
 /*!40000 ALTER TABLE `ticketed_flights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,7 +411,7 @@ CREATE TABLE `waitlist` (
   PRIMARY KEY (`wl_id`,`f_id`,`aircraft_id`,`airline_id`),
   KEY `waitlist_ibfk_1` (`f_id`,`aircraft_id`,`airline_id`),
   CONSTRAINT `waitlist_ibfk_1` FOREIGN KEY (`f_id`, `aircraft_id`, `airline_id`) REFERENCES `flight` (`f_id`, `aircraft_id`, `airline_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -420,7 +420,7 @@ CREATE TABLE `waitlist` (
 
 LOCK TABLES `waitlist` WRITE;
 /*!40000 ALTER TABLE `waitlist` DISABLE KEYS */;
-INSERT INTO `waitlist` VALUES (1,1,1,'AL','08:00:00',1),(2,2,2,'UA','09:00:00',2),(3,3,35,'AA','10:00:00',3),(4,1,1,'AL','13:48:41',99),(5,1,1,'AL','13:49:23',99),(6,1,1,'AL','17:32:45',99);
+INSERT INTO `waitlist` VALUES (1,1,1,'AL','08:00:00',1),(2,2,2,'UA','09:00:00',2),(3,3,35,'AA','10:00:00',3),(4,1,1,'AL','13:48:41',99),(5,1,1,'AL','13:49:23',99),(6,1,1,'AL','17:32:45',99),(7,2,2,'UA','15:23:45',1);
 /*!40000 ALTER TABLE `waitlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -629,4 +629,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-17  1:13:53
+-- Dump completed on 2023-12-17 19:52:06
