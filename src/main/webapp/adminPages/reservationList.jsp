@@ -152,18 +152,18 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="form-section">
-            <h2>Search Reservations</h2>
-            <form action="" method="post" onchange="toggleAirlineIdTextbox()">
-                <label><input type="radio" name="searchType" value="custId" checked> Customer ID</label>
-                <label><input type="radio" name="searchType" value="fId"> Flight ID</label>
-                <input type="text" name="searchValue" placeholder="Enter ID" required>
-                <div id="airlineIdTextbox" style="display:none;">
-                    <input type="text" name="airlineId" placeholder="Airline ID">
-                </div>
-                <input type="submit" value="Search">
-            </form>
+<div class="container">
+    <div class="form-section">
+        <h2>Search Reservations</h2>
+        <form action="" method="post">
+            <label><input type="radio" name="searchType" value="custId" checked> Customer ID</label>
+            <label><input type="radio" name="searchType" value="fId"> Flight ID</label>
+            <input type="text" name="searchValue" placeholder="flightID or custID" required>
+            <input type="text" name="airlineId" placeholder="Airline ID">
+            <input type="submit" value="Search" style="vertical-align: middle;">
+        </form>
+    </div>
+</div>
 <%
     String searchType = request.getParameter("searchType");
     String searchValue = request.getParameter("searchValue");
