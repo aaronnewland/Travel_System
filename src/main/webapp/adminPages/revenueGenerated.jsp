@@ -134,11 +134,7 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
-<<<<<<< Updated upstream
-=======
-                
->>>>>>> Stashed changes
-                </ul>
+				 </ul>
             </nav>
         </div>
     </header>
@@ -158,7 +154,7 @@
         <div class="form-section">
             <h2>Filter Revenue</h2>
             <form action="" method="post">
-                <label><input type="radio" name="filterType" value="airline"> Airline ID</label>
+                <label><input type="radio" name="filterType" value="airline"> Airline ID checked</label>
                 <label><input type="radio" name="filterType" value="customer"> Customer ID</label>
                 <label><input type="radio" name="filterType" value="flight"> Flight ID</label>
                 <input type="text" name="filterValue" placeholder="Enter ID" required><br>
