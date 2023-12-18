@@ -10,7 +10,7 @@
  <%!
      public static <T> String joinList(List<T> list) {
          if (list == null || list.isEmpty()) {
-            return ""; // Return an empty string for null or empty lists
+            return "";
          }
 
          StringBuilder sb = new StringBuilder();
