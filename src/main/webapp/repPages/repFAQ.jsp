@@ -152,7 +152,7 @@
                 if (qidStr != null && !qidStr.isEmpty() && answer != null) {
                     int qid = Integer.parseInt(qidStr);
 
-                    // Update the FAQ answer
+                    
                     String updateSQL = "UPDATE FAQ SET answer = ? WHERE qid = ?";
                     pstmt = con.prepareStatement(updateSQL);
                     pstmt.setString(1, answer);

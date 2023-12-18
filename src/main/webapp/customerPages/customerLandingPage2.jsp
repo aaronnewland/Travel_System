@@ -182,7 +182,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="repLandingPage2.jsp">Customer Home</a></li>
+                    <li><a href="customerLandingPage2.jsp">Customer Home</a></li>
       				<li><a href='../logout.jsp'>Log out</a></li>
    					 
 
@@ -243,7 +243,7 @@
                         String departCity = rs.getString("departure_apt");
                         String arrivalCity = rs.getString("arrival_apt");
 
-                        // Check if seats are available
+                       
                         String ticketCountQuery = "SELECT COUNT(ticket_number) FROM ticketed_flights WHERE f_id= ? AND aircraft_id = ? AND airline_id = ?;";
                         pstmt = con.prepareStatement(ticketCountQuery);
                         pstmt.setInt(1, f_id);
