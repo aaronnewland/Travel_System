@@ -124,7 +124,7 @@
         </div>
     </div>
     <div class="container">
-        <!-- Form for Updating FAQ -->
+       
         <div class="form-section">
             <h2>Update FAQ Answer</h2>
             <form action="" method="post">
@@ -134,7 +134,7 @@
             </form>
         </div>
 
-        <!-- FAQ Display -->
+    
         <div class="form-section">
             <%
             String qidStr = request.getParameter("qid");
@@ -157,10 +157,9 @@
                     pstmt = con.prepareStatement(updateSQL);
                     pstmt.setString(1, answer);
                     pstmt.setInt(2, qid);
-                    pstmt.executeUpdate(); // Execute update
-                }
+                    pstmt.executeUpdate();                }
 
-                // Fetch FAQs without answers
+                
                 String fetchSQL = "SELECT * FROM FAQ WHERE answer IS NULL OR answer = '';";
                 pstmt = con.prepareStatement(fetchSQL);
                 rs = pstmt.executeQuery();

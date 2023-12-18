@@ -126,7 +126,7 @@
     </div>
 
 <div class="container">
-        <!-- Delete Ticket Form -->
+        
         <div class="form-section">
             <h2>Delete Ticket</h2>
             <form action="" method="post">
@@ -136,7 +136,7 @@
             </form>
         </div>
 
-        <!-- Change Seat Number Form -->
+      
         <div class="form-section">
             <h2>Change Seat Number</h2>
             <form action="" method="post">
@@ -185,7 +185,7 @@
 
 		if (custId_param != null && !custId_param.isEmpty()) { custId = Integer.parseInt(custId_param); }
 
-        // Process form submission
+        
         String action = request.getParameter("action");
         String ticketNumberStr = request.getParameter("ticket_number");
         Connection con = null;
@@ -225,12 +225,12 @@
 
           
             
-            // Parse ticket number if provided
+            
             if (ticketNumberStr != null && !ticketNumberStr.isEmpty()) {
                 ticketNumber = Integer.parseInt(ticketNumberStr);
             }
 
-            // Check action type and execute corresponding SQL query
+           
             if ("delete_ticket".equals(action) && ticketNumber > 0) {
                 pstmt = con.prepareStatement("DELETE FROM ticketed_flights WHERE ticket_number = ?");
                 pstmt.setInt(1, ticketNumber);

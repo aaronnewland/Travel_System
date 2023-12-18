@@ -58,7 +58,7 @@
         if (rs.next()) {
             current_ticket_number = rs.getInt(1) + 1;
         } else {
-            current_ticket_number = 1; // default to 1 if the table is empty
+            current_ticket_number = 1; 
         }
 
         for (int i = 0; i < flightIDs.length; i++) {
@@ -69,7 +69,7 @@
             pstmt.setString(3,airline_ids[i]);
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                ticketed_passengers = rs.getInt(1); // Retrieves the first column of the current row in the ResultSet
+                ticketed_passengers = rs.getInt(1); 
             };
 
             sqlQuery = "SELECT num_seats FROM Aircrafts WHERE aircraft_id = ? AND airline_id = ?;";
@@ -91,7 +91,7 @@
                 pstmt.setInt(2, aircraft_ids[i]);
                 pstmt.setString(3, airline_ids[i]);
                 pstmt.setInt(4,cust_id);
-                pstmt.executeUpdate(); // Execute update
+                pstmt.executeUpdate(); 
                 out.println("Flight is currently full, being added to waitlist for flight number(s)" + f_ids[i]);
 
 
@@ -109,16 +109,16 @@
                     pstmt.setInt(6, 0);
                 } else  pstmt.setInt(6, 1);
                 pstmt.setString(7, seatType);
-                pstmt.executeUpdate(); // Execute update
+                pstmt.executeUpdate(); 
                 out.println("Successfully booked flight number " + f_ids[i] + " on ticket number " + current_ticket_number + ".");
             }
         }
 
 
     } catch (Exception e) {
-        e.printStackTrace(); // Consider better error handling for production
+        e.printStackTrace(); 
     } finally {
-        // Close resources
+        
         try {
             if (rs != null) rs.close();
             if (pstmt != null) pstmt.close();

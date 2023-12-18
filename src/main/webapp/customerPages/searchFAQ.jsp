@@ -153,8 +153,8 @@
     </div>
     <br>
 <div class="container">
-        <!-- Search Form -->
-        <form method="post" action=""> <!-- Changed to 'post' method -->
+        
+        <form method="post" action=""> 
             <input type="text" name="searchQ" placeholder="Search FAQs">
             <input type="submit" value="Search">
         </form>
@@ -167,7 +167,7 @@
                 ApplicationDB db = new ApplicationDB();
                 Connection con = db.getConnection();
 
-                // Using PreparedStatement to prevent SQL Injection
+                
                 String query = "SELECT * FROM FAQ WHERE question LIKE ?";
                 PreparedStatement pstmt = con.prepareStatement(query);
                 pstmt.setString(1, "%" + search_term + "%");

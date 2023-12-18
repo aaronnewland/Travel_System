@@ -7,7 +7,6 @@
 <html>
 <head>
     <title>Reservation Search</title>
-    <!-- CSS Styles -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,7 +62,7 @@
             color: #ffffff;
             font-weight: bold;
         }
-        /* Tab styles */
+   
         .tab a {
             background-color: inherit;
             float: left;
@@ -195,7 +194,7 @@
             pstmt.setInt(1, Integer.parseInt(searchValue));
         }
         rs = pstmt.executeQuery();
-     // Table Display
+     
         out.println("<h2>Flight Path Results for " + searchType + " " + searchValue + "</h2>");
         out.println("<table>");
         out.println("<tr><th>Ticket Number</th><th>Airline ID</th><th>Aircraft ID</th><th>Flight ID</th><th>Departure Time</th><th>Arrival Time</th><th>Departure Airport</th><th>Arrival Airport</th><th>Fare</th></tr>");

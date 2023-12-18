@@ -134,7 +134,7 @@
         </form>
         
 <%
-    String apt_id = request.getParameter("airportID"); // received from the request parameter
+    String apt_id = request.getParameter("airportID"); 
     Connection con = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
@@ -146,8 +146,8 @@
 
         String sqlQuery = "SELECT * FROM flight WHERE departure_apt = ? OR arrival_apt = ?;";
         pstmt = con.prepareStatement(sqlQuery);
-        pstmt.setString(1, apt_id); // Set the parameter
-        pstmt.setString(2, apt_id); // Set the parameter again for the second placeholder
+        pstmt.setString(1, apt_id); 
+        pstmt.setString(2, apt_id);
         rs = pstmt.executeQuery();
         		
         out.println("<h2>Flight Details for " + apt_id.toUpperCase() + "</h2>");

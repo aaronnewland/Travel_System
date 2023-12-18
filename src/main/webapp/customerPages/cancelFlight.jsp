@@ -178,7 +178,6 @@
                 }
             }
 
-            // Query for upcoming flights
             String sqlQuery = "SELECT * FROM ticketed_flights JOIN flight f using (f_id,aircraft_id,airline_id) WHERE cust_id = ? AND departure_time > NOW() ORDER BY departure_time ASC;";
             pstmt = con.prepareStatement(sqlQuery);
             pstmt.setInt(1, Custid);

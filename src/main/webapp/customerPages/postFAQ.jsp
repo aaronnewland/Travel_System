@@ -154,8 +154,7 @@
     <br>
     
     <div class="container">
-        <!-- Search Form -->
-        <form method="post" action=""> <!-- Changed to 'post' method -->
+        <form method="post" action="">
             <input type="text" name="questionToPost" placeholder="Ask a Question">
             <input type="submit" value="Search">
         </form>
@@ -180,9 +179,9 @@
                     isQuestionSubmitted = rowsAffected > 0;
 
                 } catch (Exception e) {
-                    e.printStackTrace(); // For simplicity, printing stack trace. Consider logging this properly.
+                    e.printStackTrace();
                 } finally {
-                    // Close resources
+                   
                     try {
                         if (pstmt != null) pstmt.close();
                         if (con != null) con.close();
