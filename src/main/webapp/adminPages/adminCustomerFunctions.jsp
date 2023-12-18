@@ -7,7 +7,6 @@
 <html>
 <head>
     <title>Customer Functions</title>
-    <!-- CSS Styles -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,7 +62,7 @@
             color: #ffffff;
             font-weight: bold;
         }
-        /* Tab styles */
+       
         .tab a {
             background-color: inherit;
             float: left;
@@ -135,7 +134,7 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
-                    <!-- Other navigation items -->
+              
                 </ul>
             </nav>
         </div>

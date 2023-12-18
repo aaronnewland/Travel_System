@@ -123,7 +123,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="adminLandingPage">Home</a></li>
+                    <li><a href="adminLandingPage2.jsp">Home</a></li>
        
                 </ul>
             </nav>
