@@ -30,7 +30,6 @@
 //        ResultSet result = stmt.executeQuery(str);
     %>
 
-<%--    <!--  Make an HTML table to show the results in: -->--%>
 <%--    <table>--%>
 <%--        <tr>--%>
 <%--            <td>Name</td>--%>
@@ -43,7 +42,7 @@
 <%--            </td>--%>
 <%--        </tr>--%>
 <%--        <%--%>
-<%--            //parse out the results--%>
+<%--          
 <%--            while (result.next()) { %>--%>
 <%--        <tr>--%>
 <%--            <td><%= result.getString("name") %></td>--%>

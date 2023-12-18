@@ -9,7 +9,7 @@
     .center {
         display: flex;
         justify-content: center;
-        /*align-items: center;*/
+        
     }
     .center2 {
         display: flex;

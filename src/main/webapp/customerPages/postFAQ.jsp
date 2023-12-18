@@ -133,7 +133,7 @@
             <nav>
                 <ul>
                     <li><a href="customerLandingPage2.jsp">Customer Home</a></li>
-                    <!-- Additional navigation items -->
+                    <li><a href='../logout.jsp'>Log out</a></li>
                 </ul>
             </nav>
         </div>

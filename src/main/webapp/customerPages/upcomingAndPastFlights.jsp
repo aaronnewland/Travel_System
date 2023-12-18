@@ -192,7 +192,7 @@
     }
     out.println("</table>");
 
-    // Flights departing after the current datetime
+    
     ResultSet rsAfter = st.executeQuery("SELECT * FROM flight f, ticketed_flights tf WHERE f.f_id = tf.f_id AND f.airline_id = tf.airline_id AND f.aircraft_id = tf.aircraft_id AND cust_id = " + Custid + " AND departure_time > NOW() ORDER BY departure_time ASC;");
 
     out.println("<h2>Flights Departing After Current Time</h2>");

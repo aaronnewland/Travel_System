@@ -124,6 +124,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Home</a></li>
+                    <li><a href='../logout.jsp'>Log out</a></li>
        
                 </ul>
             </nav>

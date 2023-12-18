@@ -113,15 +113,15 @@
     <div class="center">
         <label for="filterType"> Filter By </label>
         <select id="filterType" name="filterType">
-            <option value="greaterPrice">> Price</option>
-            <option value="lessPrice">< Price</option>
-            <option value="greaterNumStops">> Number of Stops</option>
-            <option value="lessNumStops">< Number of Stops</option>
+            <option value="greaterPrice">>= Price</option>
+            <option value="lessPrice"><= Price</option>
+            <option value="greaterNumStops">>= Number of Stops</option>
+            <option value="lessNumStops"><= Number of Stops</option>
             <option value="airline">Airline (e.g. AA, UA)</option>
-            <option value="greaterTakeOffTime">> Take-Off-Time (HH:MM)</option>
-            <option value="lessTakeOffTime">< Take-Off-Time (HH:MM)</option>
-            <option value="greaterArrivalTime">> Arrival Time (HH:MM)</option>
-            <option value="lessArrivalTime">< Arrival Time (HH:MM)</option>
+            <option value="greaterTakeOffTime">>= Take-Off-Time (HH:MM)</option>
+            <option value="lessTakeOffTime"><= Take-Off-Time (HH:MM)</option>
+            <option value="greaterArrivalTime">>= Arrival Time (HH:MM)</option>
+            <option value="lessArrivalTime"><= Arrival Time (HH:MM)</option>
         </select>
         <label for="filterBy">Enter Value</label>
         <input type="text" id="filterBy" name="filterBy"/>

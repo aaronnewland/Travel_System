@@ -124,6 +124,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Home</a></li>
+                    <li><a href='../logout.jsp'>Log out</a></li>
        
                 </ul>
             </nav>
@@ -136,12 +137,12 @@
             <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a>
             <a href="repAirportFunctions.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a>
             <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
-            <a href="waitList.jsp" class="tablinks active">Waitlist</a>
+            <a href="waitList.jsp" class="tablinks">Waitlist</a>
             <a href="repMakeReservations.jsp" class="tablinks">Rep Make Reservations</a>
         </div>
     </div>
     <hr>
     <hr>
-     
+     <center><b>Please pick a tab <%=session.getAttribute("user")%>.</b></center>
 </body>
 </html>

@@ -135,7 +135,7 @@
             <nav>
                 <ul>
                     <li><a href="adminLandingPage2.jsp">Admin Home Page</a></li>
-                    <!-- Other navigation items -->
+                    <li><a href='../logout.jsp'>Log out</a></li>
                 </ul>
             </nav>
         </div>

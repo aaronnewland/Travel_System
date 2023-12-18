@@ -107,6 +107,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Home Page</a></li>
+                    <li><a href='../logout.jsp'>Log out</a></li>
                 
                 </ul>
             </nav>
@@ -146,7 +147,7 @@
             </form>
         </div>
 
-        <!-- Change Class Form -->
+    
         <div class="form-section">
             <h2>Change Class</h2>
             <form action="" method="post">
@@ -159,7 +160,7 @@
             </form>
         </div>
 
-        <!-- Cancellation Fee Paid Form -->
+
         <div class="form-section">
             <h2>Cancellation Fee Paid</h2>
             <form action="" method="post">

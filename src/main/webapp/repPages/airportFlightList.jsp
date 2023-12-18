@@ -107,6 +107,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Homepage</a></li>
+                    <li><a href='../logout.jsp'>Log out</a></li>
                   
                 </ul>
             </nav>
@@ -168,9 +169,9 @@
         }
         out.println("</table>");
     } catch (Exception e) {
-        e.printStackTrace(); // Consider better error handling for production
+        e.printStackTrace(); 
     } finally {
-        // Close resources
+        
         try {
             if (rs != null) rs.close();
             if (pstmt != null) pstmt.close();

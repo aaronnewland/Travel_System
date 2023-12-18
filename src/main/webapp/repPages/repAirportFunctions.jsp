@@ -107,8 +107,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Home Page</a></li>
-                    <!-- Other navigation items -->
-                </ul>
+                    <li><a href='../logout.jsp'>Log out</a></li>
             </nav>
         </div>
     </header>
@@ -144,7 +143,7 @@
     String aircraft_id_param = request.getParameter("aircraft_id");
     String num_seats_param = request.getParameter("num_seats");
     String airline_id = request.getParameter("airline_id");
-    String action = request.getParameter("action"); // "add", "edit", "delete"
+    String action = request.getParameter("action");
 
     int aircraft_id = 0;
     int num_seats = 0;
@@ -201,7 +200,7 @@
            	 } catch (SQLException e) {out.println("<p> Failed to make make a change.");} 
         }
 
-/*         // Display aircraft data
+/*        
         st = con.createStatement();
         rs = st.executeQuery("SELECT * FROM Aircrafts;");
         out.println("<table>");

@@ -122,11 +122,12 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1><span class="highlight">Customer Rep</span> Edit Customer Reservations</h1>
+                <h1><span class="highlight">Customer Rep</span> Make Reservations</h1>
             </div>
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Rep Home</a></li>
+                    <li><a href='../logout.jsp'>Log out</a></li>
        
                 </ul>
             </nav>
@@ -140,7 +141,7 @@
             <a href="repAirportFunctions.jsp" class="tablinks">Airport, Aircraft, Flight Functions</a>
             <a href="repFAQ.jsp" class="tablinks">Answer FAQ</a>
             <a href="waitList.jsp" class="tablinks">Waitlist</a>
-            <a href="repMakeReservations.jsp" class="tablinks active">Rep Make Reservations</a>
+            <a href="repMakeReservations.jsp" class="tablinks active">Make Reservations</a>
         </div>
     </div>
     

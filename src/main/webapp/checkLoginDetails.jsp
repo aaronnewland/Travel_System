@@ -30,7 +30,7 @@
     }
     try {
         if (rs.next()) {
-            session.setAttribute("user", userid); // the username will be stored in the session
+            session.setAttribute("user", userid);
             String access = rs.getString("access");
             out.println("welcome " + userid);
             out.println("<a href='logout.jsp'>Log out</a>");
