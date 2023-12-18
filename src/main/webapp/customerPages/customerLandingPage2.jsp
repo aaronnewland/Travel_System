@@ -183,7 +183,7 @@
             <nav>
                 <ul>
                     <li><a href="repLandingPage2.jsp">Customer Home</a></li>
-                    <!-- Additional navigation items -->
+
                 </ul>
             </nav>
         </div>
@@ -191,8 +191,7 @@
 
    <div class="container">
         <div class="tab">
-          <!--  <a href="editCustomerReservations1.jsp" class="tablinks">Customer Functions</a>
-            <a href="airportFlightList.jsp" class="tablinks">Airport Flight List</a> -->
+
             <a href="customerLandingPage2.jsp" class="tablinks active">Home</a>
             <a href="customerFlightSearch.jsp" class="tablinks">Flight Search</a>
             <a href="cancelFlight.jsp" class="tablinks">Cancel a flight</a>
@@ -212,19 +211,9 @@
     <hr>
     <div class="center">
     <table class = "waiting-list-table">
-      <%--   <% 
-                if (session.getAttribute("user") == null) {
-            %>
-            You are not logged in<br/>
-            <a href="../login.jsp">Please Login</a>
-            <% --%>  <!-- } else { -->
-                <!-- out.println("Welcome " + session.getAttribute("user") + "!<br>");
-                out.println("<a href='../logout.jsp'>Log out</a><br><br>");
-
-                String customerIDGlobal = (String) session.getAttribute("customerIDGlobal");
-                int Custid = Integer.parseInt(customerIDGlobal);  -->
                <%
-                int Custid = 1;
+                String customerIDGlobal = (String) session.getAttribute("customerIDGlobal");
+                int Custid = Integer.parseInt(customerIDGlobal);
 
                 Connection con = null;
                 PreparedStatement pstmt = null;
